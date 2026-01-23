@@ -459,7 +459,9 @@
     #vs-hero-slider .slider{
       position:relative;
       width:100%;
-      height:100vh;
+      height:100vh;          /* fallback */
+      height:100svh;         /* evita “pulo” quando a barra do navegador aparece */
+      height:100dvh;         /* browsers modernos */
       min-height:560px;
       overflow:hidden;
       background:var(--bg);
@@ -519,12 +521,19 @@
       display:flex;
       align-items:center;
       justify-content:flex-start;
-      min-height:320px;
+
+      /* a imagem vai “caber” aqui sem deformar */
+      width: min(520px, 42vw);
+      height: clamp(260px, 62svh, 520px);
+
+      min-height:0;
     }
     #vs-hero-slider .art img{
-      width:min(520px, 42vw);
-      height:auto;
-      max-height:78vh;
+      width:100% !important;
+      height:100% !important;
+      object-fit:contain !important;
+      max-width:100%;
+      display:block;
     }
 
     #vs-hero-slider .content{
@@ -659,12 +668,15 @@
       }
       #vs-hero-slider .art{
         justify-content:center;
-        min-height:auto;
         margin-top:8px;
+
+        width: min(420px, 86vw);
+        height: clamp(220px, 44svh, 420px);
       }
       #vs-hero-slider .art img{
-        width:min(420px, 78vw);
-        max-height:42vh;
+        width:100% !important;
+        height:100% !important;
+        object-fit:contain !important;
       }
       #vs-hero-slider h1{font-size:38px}
       #vs-hero-slider p{font-size:18px}
@@ -755,6 +767,7 @@
   </script>
 </section>
 <!-- ====== /EMBED: SESSÃO 1 ====== -->
+
 </section>
 
 
@@ -1689,6 +1702,15 @@
 
     
   </section>
+
+
+
+
+
+
+
+
+
   <section id="secao-5"><!-- ✅ COLE O EMBED DA SESSÃO 5 AQUI --></section>
   <section id="secao-6"><!-- ✅ COLE O EMBED DA SESSÃO 6 AQUI --></section>
   <section id="secao-7"><!-- ✅ COLE O EMBED DA SESSÃO 7 AQUI --></section>
@@ -1696,7 +1718,329 @@
 
   <!-- Rodapé -->
   <footer id="rodape">
-    <!-- ✅ INSIRA AQUI SEU RODA PE -->
+
+
+
+<!-- =========================
+     RODAPÉ (FOOTER) • FUNDO AZUL • PROFISSIONAL
+     - Logo, contatos (WhatsApp/cel), Instagram, e-mail
+     - Endereços SP e Recife
+     - CNPJ (placeholder)
+     - Links úteis (anchors editáveis)
+     ========================= -->
+<footer id="vs-rodape" aria-label="Rodapé Visio Skyn">
+  <div class="vs-foot-wrap">
+    <div class="vs-foot-top">
+      <!-- Marca -->
+      <div class="vs-foot-brand">
+        <a class="vs-foot-logo" href="#" aria-label="Visio Skyn Rental - Início">
+          <img
+            src="https://gleisondesign.github.io/VISIOSKYN/SRC/LOGO_BRANCO_VISIOSKYN.png"
+            alt="Visio Skyn Rental"
+            width="170"
+            height="34"
+            loading="lazy"
+            decoding="async"
+          />
+        </a>
+
+        <p class="vs-foot-desc">
+          Locação de equipamentos premium para estética e dermatologia em <strong>São Paulo</strong> e <strong>Recife</strong>.
+          Logística ágil, suporte e contratos flexíveis.
+        </p>
+
+        <div class="vs-foot-social">
+          <a class="vs-foot-pill" href="https://www.instagram.com/visioskyn.rental" target="_blank" rel="noopener" aria-label="Instagram Visio Skyn">
+            <span class="vs-ic" aria-hidden="true">
+              <!-- Instagram -->
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M12 16a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z" stroke="currentColor" stroke-width="2"/>
+                <path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+              </svg>
+            </span>
+            Instagram
+          </a>
+
+          <a class="vs-foot-pill" href="mailto:comercial@visioskyn.com" aria-label="Enviar e-mail para comercial@visioskyn.com">
+            <span class="vs-ic" aria-hidden="true">
+              <!-- Email -->
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 6h16v12H4V6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
+                <path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </span>
+            comercial@visioskyn.com
+          </a>
+        </div>
+      </div>
+
+      <!-- Contatos -->
+      <div class="vs-foot-col">
+        <h3 class="vs-foot-h3">Contato</h3>
+
+        <a class="vs-foot-link" href="https://wa.me/5511964478583" target="_blank" rel="noopener" aria-label="WhatsApp São Paulo">
+          <span class="vs-dot" aria-hidden="true"></span>
+          WhatsApp SP: <strong>+55 (11) 96447-8583</strong>
+        </a>
+
+        <a class="vs-foot-link" href="https://wa.me/5581999655568" target="_blank" rel="noopener" aria-label="WhatsApp Recife">
+          <span class="vs-dot" aria-hidden="true"></span>
+          WhatsApp Recife: <strong>+55 (81) 99965-5568</strong>
+        </a>
+
+        <a class="vs-foot-link" href="tel:+5511964478583" aria-label="Ligar para São Paulo">
+          <span class="vs-dot" aria-hidden="true"></span>
+          Celular SP: <strong>+55 (11) 96447-8583</strong>
+        </a>
+
+        <a class="vs-foot-link" href="tel:+5581999655568" aria-label="Ligar para Recife">
+          <span class="vs-dot" aria-hidden="true"></span>
+          Celular Recife: <strong>+55 (81) 99965-5568</strong>
+        </a>
+      </div>
+
+      <!-- Endereços -->
+      <div class="vs-foot-col">
+        <h3 class="vs-foot-h3">Bases</h3>
+
+        <div class="vs-foot-addr">
+          <p class="vs-foot-addrTitle">São Paulo (SP)</p>
+          <p class="vs-foot-addrText">R. Sena Madureira, 151 — Vila Mariana<br/>CEP 04021-050</p>
+        </div>
+
+        <div class="vs-foot-addr">
+          <p class="vs-foot-addrTitle">Recife (PE)</p>
+          <p class="vs-foot-addrText">Base Recife — atendimento sob agendamento</p>
+        </div>
+
+        <p class="vs-foot-cnpj">
+          CNPJ (placeholder): <strong>12.345.678/0001-90</strong>
+        </p>
+      </div>
+
+      <!-- Links úteis -->
+      <div class="vs-foot-col">
+        <h3 class="vs-foot-h3">Links</h3>
+
+        <!-- Ajuste os href para IDs reais do seu site -->
+        <a class="vs-foot-link" href="#secao-1"><span class="vs-dot" aria-hidden="true"></span>Equipamentos</a>
+        <a class="vs-foot-link" href="#vs-timeline-locacao"><span class="vs-dot" aria-hidden="true"></span>Processo de locação</a>
+        <a class="vs-foot-link" href="#vs-simulador-retorno"><span class="vs-dot" aria-hidden="true"></span>Simulador</a>
+        <a class="vs-foot-link" href="#vs-marketing-min"><span class="vs-dot" aria-hidden="true"></span>Bônus de marketing</a>
+      </div>
+    </div>
+
+    <div class="vs-foot-bottom">
+      <p class="vs-foot-copy">
+        © <span id="vsFootYear">2026</span> Visio Skyn Rental. Todos os direitos reservados.
+      </p>
+
+      <div class="vs-foot-legal">
+        <!-- placeholders: se quiser depois posso criar páginas internas -->
+        <a href="#" class="vs-foot-legalLink">Política de privacidade</a>
+        <span class="vs-foot-sep" aria-hidden="true">•</span>
+        <a href="#" class="vs-foot-legalLink">Termos de uso</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style>
+  #vs-rodape{
+    --c-dark:#0d1229;
+    --c-light:#e2e2e2;
+    --c-gold:#e6c681;
+    --c-gold2:#a5804c;
+
+    background:var(--c-dark);
+    color:rgba(226,226,226,.92);
+    position:relative;
+    overflow:hidden;
+    padding:64px 0 26px;
+  }
+
+  /* brilho sutil */
+  #vs-rodape::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(900px 420px at 18% 0%, rgba(230,198,129,.14), transparent 60%),
+      radial-gradient(900px 420px at 92% 10%, rgba(165,128,76,.10), transparent 62%);
+    pointer-events:none;
+  }
+
+  .vs-foot-wrap{
+    position:relative;
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 18px;
+  }
+
+  .vs-foot-top{
+    display:grid;
+    grid-template-columns: 1.4fr 1fr 1fr 1fr;
+    gap:24px;
+    align-items:start;
+    padding-bottom:26px;
+    border-bottom:1px solid rgba(255,255,255,.10);
+  }
+
+  .vs-foot-logo img{ display:block; height:auto; }
+  .vs-foot-desc{
+    margin:14px 0 0;
+    line-height:1.75;
+    color:rgba(226,226,226,.82);
+    max-width:52ch;
+    font-size:15px;
+  }
+
+  .vs-foot-social{
+    margin-top:16px;
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+
+  .vs-foot-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 12px;
+    border-radius:999px;
+    text-decoration:none;
+    color:rgba(226,226,226,.92);
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.04);
+    transition:transform .15s ease, background-color .15s ease, border-color .15s ease;
+  }
+  .vs-foot-pill:hover{
+    transform:translateY(-1px);
+    background:rgba(255,255,255,.06);
+    border-color:rgba(230,198,129,.28);
+  }
+
+  .vs-ic{
+    width:34px;height:34px;
+    border-radius:12px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    color:rgba(230,198,129,.95);
+    background:rgba(230,198,129,.10);
+    border:1px solid rgba(230,198,129,.16);
+    flex:0 0 auto;
+  }
+  .vs-ic svg{ display:block; }
+
+  .vs-foot-h3{
+    margin:4px 0 12px;
+    font-size:14px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    font-weight:950;
+    color:rgba(226,226,226,.92);
+  }
+
+  .vs-foot-link{
+    display:flex;
+    gap:10px;
+    align-items:flex-start;
+    text-decoration:none;
+    color:rgba(226,226,226,.84);
+    padding:9px 0;
+    line-height:1.6;
+    font-size:14px;
+    transition:color .15s ease;
+  }
+  .vs-foot-link:hover{ color:rgba(230,198,129,.95); }
+
+  .vs-dot{
+    margin-top:7px;
+    width:7px;height:7px;
+    border-radius:999px;
+    background:rgba(230,198,129,.85);
+    box-shadow:0 0 0 5px rgba(230,198,129,.14);
+    flex:0 0 auto;
+  }
+
+  .vs-foot-addr{ margin:0 0 12px; }
+  .vs-foot-addrTitle{
+    margin:0;
+    font-weight:950;
+    color:rgba(226,226,226,.92);
+    font-size:14px;
+  }
+  .vs-foot-addrText{
+    margin:6px 0 0;
+    color:rgba(226,226,226,.78);
+    line-height:1.65;
+    font-size:14px;
+  }
+
+  .vs-foot-cnpj{
+    margin:14px 0 0;
+    color:rgba(226,226,226,.70);
+    font-size:13px;
+    line-height:1.6;
+  }
+
+  .vs-foot-bottom{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    padding-top:18px;
+    font-size:13px;
+    color:rgba(226,226,226,.70);
+    flex-wrap:wrap;
+  }
+
+  .vs-foot-legal{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+
+  .vs-foot-legalLink{
+    color:rgba(226,226,226,.74);
+    text-decoration:none;
+    border-bottom:1px solid rgba(255,255,255,.10);
+    padding-bottom:2px;
+  }
+  .vs-foot-legalLink:hover{
+    color:rgba(230,198,129,.95);
+    border-bottom-color:rgba(230,198,129,.35);
+  }
+
+  .vs-foot-sep{ opacity:.55; }
+
+  @media (max-width:980px){
+    .vs-foot-top{
+      grid-template-columns: 1fr 1fr;
+      gap:22px;
+    }
+  }
+  @media (max-width:560px){
+    #vs-rodape{ padding:54px 0 22px; }
+    .vs-foot-top{ grid-template-columns: 1fr; }
+    .vs-foot-desc{ max-width:100%; }
+    .vs-foot-bottom{ justify-content:flex-start; }
+  }
+</style>
+
+<script>
+  (() => {
+    const y = document.getElementById("vsFootYear");
+    if (y) y.textContent = String(new Date().getFullYear());
+  })();
+</script>
+
+
+
+
   </footer>
 
 </body>
