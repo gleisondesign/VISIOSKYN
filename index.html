@@ -1161,8 +1161,534 @@
 
 
   
-  <section id="secao-3"><!-- ✅ COLE O EMBED DA SESSÃO 3 AQUI --></section>
-  <section id="secao-4"><!-- ✅ COLE O EMBED DA SESSÃO 4 AQUI --></section>
+  <section id="secao-3">
+
+
+<!-- =========================
+     MARKETING (MINIMAL • FUNDO AZUL • TEXTO + ALVO GIGANTE À DIREITA)
+     Cole dentro de: <section id="secao-x"> ... </section>
+     ========================= -->
+<section id="vs-marketing-min" aria-label="Bônus de marketing para quem loca">
+  <div class="vs-mm-wrap">
+    <div class="vs-mm-content" data-reveal>
+      <p class="vs-mm-kicker">BÔNUS PARA QUEM LOCA</p>
+
+      <h2 class="vs-mm-title">
+        Quer rentabilizar ainda mais a locação? A gente te ajuda a encher a agenda.
+      </h2>
+
+      <p class="vs-mm-text">
+        Além do equipamento premium, você pode fechar um pacote completo de marketing com uma agência parceira
+        para transformar demanda em pacientes do posicionamento à execução.
+      </p>
+    </div>
+
+    <!-- ALVO GIGANTE (vetor) -->
+    <div class="vs-mm-target" aria-hidden="true">
+      <svg viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="vsMmGlow" cx="50%" cy="50%" r="55%">
+            <stop offset="0%" stop-color="#e6c681" stop-opacity=".18"/>
+            <stop offset="60%" stop-color="#e6c681" stop-opacity=".08"/>
+            <stop offset="100%" stop-color="#e6c681" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- brilho -->
+        <circle cx="260" cy="260" r="230" fill="url(#vsMmGlow)"/>
+
+        <!-- anéis do alvo -->
+        <circle cx="260" cy="260" r="210" fill="none" stroke="rgba(226,226,226,.12)" stroke-width="2"/>
+        <circle cx="260" cy="260" r="160" fill="none" stroke="rgba(226,226,226,.12)" stroke-width="2"/>
+        <circle cx="260" cy="260" r="110" fill="none" stroke="rgba(226,226,226,.14)" stroke-width="2"/>
+        <circle cx="260" cy="260" r="60"  fill="none" stroke="rgba(230,198,129,.32)" stroke-width="2"/>
+
+        <!-- cruz central -->
+        <path d="M260 70v380" stroke="rgba(226,226,226,.10)" stroke-width="2" stroke-linecap="round"/>
+        <path d="M70 260h380" stroke="rgba(226,226,226,.10)" stroke-width="2" stroke-linecap="round"/>
+
+        <!-- centro -->
+        <circle cx="260" cy="260" r="18" fill="rgba(230,198,129,.55)"/>
+        <circle cx="260" cy="260" r="7"  fill="rgba(230,198,129,.95)"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<style>
+  #vs-marketing-min{
+    --c-dark:#0d1229;
+    --c-light:#e2e2e2;
+    --c-gold:#e6c681;
+    --c-gold2:#a5804c;
+
+    position:relative;
+    background:var(--c-dark);
+    color:var(--c-light);
+    overflow:hidden;
+    padding:92px 0;
+  }
+
+  /* brilho sutil no fundo */
+  #vs-marketing-min::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(900px 420px at 20% 15%, rgba(230,198,129,.16), transparent 60%),
+      radial-gradient(900px 420px at 95% 5%, rgba(165,128,76,.10), transparent 62%);
+    pointer-events:none;
+  }
+
+  .vs-mm-wrap{
+    position:relative;
+    max-width:1100px;
+    margin:0 auto;
+    padding:0 18px;
+    display:grid;
+    grid-template-columns: 1.15fr .85fr;
+    gap:22px;
+    align-items:center;
+  }
+
+  .vs-mm-kicker{
+    margin:0 0 10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-weight:900;
+    font-size:12px;
+    color:rgba(230,198,129,.95);
+  }
+
+  .vs-mm-title{
+    margin:0;
+    font-size:40px;
+    line-height:1.12;
+    letter-spacing:-.02em;
+  }
+
+  .vs-mm-text{
+    margin:14px 0 0;
+    font-size:17px;
+    line-height:1.7;
+    color:rgba(226,226,226,.88);
+    max-width:54ch;
+  }
+
+  /* alvo gigante à direita */
+  .vs-mm-target{
+    justify-self:end;
+    width:min(520px, 48vw);
+    aspect-ratio:1/1;
+    opacity:.95;
+    filter: drop-shadow(0 24px 42px rgba(0,0,0,.28));
+  }
+  .vs-mm-target svg{
+    width:100%;
+    height:100%;
+    display:block;
+  }
+
+  /* reveal */
+  #vs-marketing-min [data-reveal]{
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity .85s ease, transform .85s ease;
+    will-change:opacity,transform;
+  }
+  #vs-marketing-min [data-reveal].is-in{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  @media (max-width:900px){
+    #vs-marketing-min{ padding:72px 0; }
+    .vs-mm-wrap{ grid-template-columns:1fr; }
+    .vs-mm-target{
+      justify-self:center;
+      width:min(460px, 86vw);
+      margin-top:18px;
+      opacity:.85;
+    }
+    .vs-mm-title{ font-size:32px; }
+    .vs-mm-text{ font-size:16px; }
+  }
+</style>
+
+<script>
+  (() => {
+    const root = document.getElementById("vs-marketing-min");
+    if (!root) return;
+
+    const el = root.querySelector("[data-reveal]");
+    if (!el) return;
+
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) {
+        if (e.isIntersecting) e.target.classList.add("is-in");
+      }
+    }, { threshold: 0.18, rootMargin: "0px 0px -12% 0px" });
+
+    io.observe(el);
+  })();
+</script>
+
+    
+  </section>
+
+
+
+
+
+  <section id="secao-4">
+
+<!-- =========================
+     SIMULADOR DE RETORNO (EMBED • FUNDO CLARO • SLIDER)
+     Ajuste: CTA "Alugar agora!" fora da box, abaixo e alinhado à esquerda
+     ========================= -->
+<section id="vs-simulador-retorno" aria-label="Simulador de disparos e retorno estimado">
+  <div class="vs-sim-wrap">
+    <header class="vs-sim-head">
+      <p class="vs-sim-kicker">SIMULADOR DE DISPAROS</p>
+      <h2 class="vs-sim-title">Quanto sua clínica pode faturar com disparos?</h2>
+      <p class="vs-sim-sub">Escolha o investimento e veja a estimativa instantânea.</p>
+    </header>
+
+    <div class="vs-sim-card" data-reveal>
+      <div class="vs-sim-row">
+        <div class="vs-sim-col">
+          <div class="vs-sim-labels">
+            <span class="vs-sim-label">Investimento em disparos</span>
+            <span class="vs-sim-value" id="vsInvestTxt">R$ 200</span>
+          </div>
+
+          <input
+            class="vs-sim-range"
+            id="vsInvest"
+            type="range"
+            min="50"
+            max="2000"
+            step="50"
+            value="200"
+            aria-label="Ajustar investimento em disparos"
+          />
+
+          <div class="vs-sim-minmax" aria-hidden="true">
+            <span>R$ 50</span>
+            <span>R$ 2.000</span>
+          </div>
+        </div>
+
+        <div class="vs-sim-col vs-sim-result">
+          <div class="vs-sim-big" id="vsReturnTxt">R$ 2.000</div>
+          <div class="vs-sim-small">Retorno estimado</div>
+        </div>
+      </div>
+
+      <div class="vs-sim-foot">
+        <span class="vs-sim-note">
+          * Estimativa média e não representa valor real: varia por cidade, ticket, oferta, agenda, atendimento e execução.
+        </span>
+      </div>
+    </div>
+
+    <!-- ✅ CTA fora da box, abaixo e alinhado à esquerda -->
+    <a class="vs-sim-cta" href="#" role="button" aria-label="Alugar agora">
+      Alugar agora!
+    </a>
+  </div>
+</section>
+
+<style>
+  #vs-simulador-retorno{
+    --c-dark:#0d1229;
+    --c-light:#e2e2e2;
+    --c-gold:#e6c681;
+    --c-gold2:#a5804c;
+
+    position:relative;
+    background:var(--c-light);
+    color:var(--c-dark);
+    padding:112px 0;
+    overflow:hidden;
+  }
+
+  #vs-simulador-retorno::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background-image:url("https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-size:cover;
+    background-position:center;
+    opacity:.12;
+    pointer-events:none;
+  }
+
+  #vs-simulador-retorno::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+      radial-gradient(900px 320px at 12% 10%, rgba(230,198,129,.18), transparent 60%),
+      radial-gradient(900px 320px at 90% 0%, rgba(165,128,76,.12), transparent 62%);
+    pointer-events:none;
+  }
+
+  .vs-sim-wrap{
+    position:relative;
+    max-width:1240px;
+    margin:0 auto;
+    padding:0 18px;
+  }
+
+  .vs-sim-head{ max-width:1180px; }
+
+  .vs-sim-kicker{
+    margin:0 0 10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-weight:900;
+    font-size:12px;
+    color:rgba(13,18,41,.72);
+    white-space:nowrap;
+  }
+
+  .vs-sim-title{
+    margin:0;
+    font-size:44px;
+    line-height:1.08;
+    letter-spacing:-.02em;
+    white-space:nowrap;
+  }
+
+  .vs-sim-sub{
+    margin:14px 0 0;
+    font-size:18px;
+    line-height:1.6;
+    color:rgba(13,18,41,.78);
+    white-space:nowrap;
+  }
+
+  .vs-sim-card{
+    margin-top:30px;
+    border:1px solid rgba(13,18,41,.12);
+    border-radius:24px;
+    background:rgba(255,255,255,.72);
+    backdrop-filter:blur(4px);
+    -webkit-backdrop-filter:blur(4px);
+    padding:30px;
+    position:relative;
+    overflow:hidden;
+    min-height:220px;
+  }
+
+  .vs-sim-card::before{
+    content:"";
+    position:absolute;
+    inset:-1px;
+    background:
+      radial-gradient(560px 220px at 10% 0%, rgba(230,198,129,.14), transparent 62%),
+      radial-gradient(560px 220px at 90% 0%, rgba(165,128,76,.10), transparent 62%);
+    pointer-events:none;
+  }
+
+  .vs-sim-row{
+    position:relative;
+    display:grid;
+    grid-template-columns: 1.3fr .7fr;
+    gap:22px;
+    align-items:center;
+  }
+
+  .vs-sim-labels{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:14px;
+    margin-bottom:12px;
+  }
+  .vs-sim-label{
+    font-weight:900;
+    letter-spacing:-.01em;
+    color:rgba(13,18,41,.92);
+    font-size:16px;
+    white-space:nowrap;
+  }
+  .vs-sim-value{
+    font-weight:950;
+    font-size:18px;
+    color:rgba(13,18,41,.95);
+    white-space:nowrap;
+  }
+
+  .vs-sim-range{
+    width:100%;
+    margin:12px 0 8px;
+    -webkit-appearance:none;
+    appearance:none;
+    height:10px;
+    border-radius:999px;
+    background:linear-gradient(90deg, rgba(230,198,129,.95) var(--fill, 0%), rgba(13,18,41,.12) var(--fill, 0%));
+    outline:none;
+    cursor:pointer;
+  }
+  .vs-sim-range::-webkit-slider-thumb{
+    -webkit-appearance:none;
+    appearance:none;
+    width:22px;height:22px;
+    border-radius:999px;
+    background:var(--c-gold);
+    border:2px solid rgba(13,18,41,.16);
+    box-shadow:0 10px 20px rgba(13,18,41,.14);
+  }
+  .vs-sim-range::-moz-range-thumb{
+    width:22px;height:22px;
+    border-radius:999px;
+    background:var(--c-gold);
+    border:2px solid rgba(13,18,41,.16);
+    box-shadow:0 10px 20px rgba(13,18,41,.14);
+  }
+  .vs-sim-range::-moz-range-track{
+    height:10px;
+    border-radius:999px;
+    background:rgba(13,18,41,.12);
+  }
+
+  .vs-sim-minmax{
+    display:flex;
+    justify-content:space-between;
+    color:rgba(13,18,41,.62);
+    font-size:13px;
+    white-space:nowrap;
+  }
+
+  .vs-sim-result{
+    border:1px solid rgba(13,18,41,.10);
+    border-radius:20px;
+    background:rgba(13,18,41,.04);
+    padding:18px 18px;
+    text-align:center;
+  }
+  .vs-sim-big{
+    font-size:44px;
+    line-height:1.05;
+    letter-spacing:-.02em;
+    font-weight:950;
+    color:rgba(13,18,41,.98);
+    white-space:nowrap;
+  }
+  .vs-sim-small{
+    margin-top:8px;
+    font-size:14px;
+    color:rgba(13,18,41,.70);
+    font-weight:800;
+    white-space:nowrap;
+  }
+
+  .vs-sim-foot{
+    position:relative;
+    margin-top:18px;
+    padding-top:14px;
+    border-top:1px solid rgba(13,18,41,.10);
+  }
+  .vs-sim-note{
+    display:block;
+    font-size:12.5px;
+    line-height:1.55;
+    color:rgba(13,18,41,.62);
+  }
+
+  /* ✅ CTA fora da box */
+  .vs-sim-cta{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    margin-top:16px;
+    padding:12px 22px;
+    border-radius:999px;
+    text-decoration:none;
+    font-weight:950;
+    background:var(--c-gold);
+    color:var(--c-dark);
+    border:1px solid rgba(13,18,41,.12);
+    transition:background-color .15s ease, transform .15s ease;
+  }
+  .vs-sim-cta:hover{ background:var(--c-gold2); transform:translateY(-1px); }
+  .vs-sim-cta:active{ transform:translateY(0); }
+
+  /* reveal */
+  #vs-simulador-retorno [data-reveal]{
+    opacity:0;
+    transform:translateY(18px);
+    transition:opacity .85s ease, transform .85s ease;
+    will-change:opacity,transform;
+  }
+  #vs-simulador-retorno [data-reveal].is-in{
+    opacity:1;
+    transform:translateY(0);
+  }
+
+  @media (max-width:900px){
+    #vs-simulador-retorno{ padding:78px 0; }
+    .vs-sim-wrap{ max-width:1100px; }
+    .vs-sim-head{ max-width:860px; }
+
+    .vs-sim-title{ font-size:34px; white-space:normal; }
+    .vs-sim-sub{ font-size:16px; white-space:normal; }
+    .vs-sim-kicker{ white-space:normal; }
+
+    .vs-sim-row{ grid-template-columns:1fr; }
+    .vs-sim-card{ padding:22px; min-height:auto; }
+    .vs-sim-big{ font-size:36px; }
+  }
+</style>
+
+<script>
+  (() => {
+    const root = document.getElementById("vs-simulador-retorno");
+    if (!root) return;
+
+    const range = root.querySelector("#vsInvest");
+    const investTxt = root.querySelector("#vsInvestTxt");
+    const returnTxt = root.querySelector("#vsReturnTxt");
+
+    const min = Number(range.min);
+    const max = Number(range.max);
+
+    const fmtBRL = (n) => {
+      try {
+        return n.toLocaleString("pt-BR", { style:"currency", currency:"BRL", maximumFractionDigits:0 });
+      } catch {
+        return "R$ " + String(n);
+      }
+    };
+
+    const update = () => {
+      const invest = Number(range.value) || 0;
+      const ret = invest * 10;
+      investTxt.textContent = fmtBRL(invest);
+      returnTxt.textContent = fmtBRL(ret);
+
+      const pct = ((invest - min) / (max - min)) * 100;
+      range.style.setProperty("--fill", `${Math.max(0, Math.min(100, pct))}%`);
+    };
+
+    range.addEventListener("input", update);
+    update();
+
+    const card = root.querySelector("[data-reveal]");
+    if (!card) return;
+
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) e.target.classList.add("is-in");
+    }, { threshold: 0.18, rootMargin: "0px 0px -12% 0px" });
+
+    io.observe(card);
+  })();
+</script>
+
+    
+  </section>
   <section id="secao-5"><!-- ✅ COLE O EMBED DA SESSÃO 5 AQUI --></section>
   <section id="secao-6"><!-- ✅ COLE O EMBED DA SESSÃO 6 AQUI --></section>
   <section id="secao-7"><!-- ✅ COLE O EMBED DA SESSÃO 7 AQUI --></section>
