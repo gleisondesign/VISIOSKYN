@@ -331,7 +331,7 @@
 
 
 <section id="secao-1">
-  
+
 <!-- ====== EMBED: SESSÃO 1 (SLIDER FULLSCREEN - 3 SLIDES | AUTOPLAY 7s | IMG ESQ + TEXTO DIR) ====== -->
 <section id="vs-hero-slider" aria-label="Slider de equipamentos em tela cheia">
   <div class="slider" role="region" aria-roledescription="carousel" aria-label="Carrossel de equipamentos">
@@ -355,7 +355,7 @@
             <div class="tag">São Paulo e Recife</div>
             <h1>Ultraformer MPT</h1>
             <p>
-              Ultrassom micro e macrofocado para lifting e contorno. Flacidez facial e corporal, colágeno intenso, alta demanda, retorno rápido.
+              Ultrassom micro e macrofocado para lifting e contorno. Flacidez facial e corporal, Estimolo de colágeno, alta demanda.
             </p>
 
             <div class="actions">
@@ -415,7 +415,7 @@
             <div class="tag">Somente São Paulo</div>
             <h1>Morpheus8</h1>
             <p>
-              Radiofrequência microagulhada para ação profunda. Firmeza e contorno, alto valor percebido, tecnologia premium, resultados consistentes.
+              Radiofrequência microagulhada para ação profunda. Firmeza e contorno, valor agregado, resultados consistentes.
             </p>
 
             <div class="actions">
@@ -693,9 +693,12 @@
     }
 
     @media (max-width:420px){
-      #vs-hero-slider .slider{min-height:520px}
-      #vs-hero-slider .dot{width:12px;height:12px}
-      #vs-hero-slider .dots{gap:10px}
+      /* ✅ AUMENTA ALTURA SOMENTE NO MOBILE + dá mais “respiro” pro texto não encostar nos dots */
+      #vs-hero-slider .slider{
+        min-height:700px;                 /* antes 520px */
+        height:calc(100svh + 120px);      /* adiciona altura extra no mobile */
+        height:calc(100dvh + 120px);      /* browsers modernos */
+      }
     }
   </style>
 
@@ -769,6 +772,7 @@
   </script>
 </section>
 <!-- ====== /EMBED: SESSÃO 1 ====== -->
+
 
 </section>
 
