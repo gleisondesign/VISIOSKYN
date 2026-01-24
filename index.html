@@ -330,9 +330,8 @@
 
 
 
-
-
 <section id="secao-1">
+  
 <!-- ====== EMBED: SESSÃO 1 (SLIDER FULLSCREEN - 3 SLIDES | AUTOPLAY 7s | IMG ESQ + TEXTO DIR) ====== -->
 <section id="vs-hero-slider" aria-label="Slider de equipamentos em tela cheia">
   <div class="slider" role="region" aria-roledescription="carousel" aria-label="Carrossel de equipamentos">
@@ -356,11 +355,11 @@
             <div class="tag">São Paulo e Recife</div>
             <h1>Ultraformer MPT</h1>
             <p>
-              Tecnologia premium para elevar sua entrega clínica com versatilidade e performance em protocolos avançados.
+              Ultrassom micro e macrofocado para lifting e contorno. Flacidez facial e corporal, colágeno intenso, alta demanda, retorno rápido.
             </p>
 
             <div class="actions">
-              <a class="cta" href="#">Solicitar agora</a>
+              <a class="cta" href="#">Alugar Ultraformer MPT</a>
               <a class="link" href="#">Saiba mais</a>
             </div>
           </div>
@@ -386,11 +385,11 @@
             <div class="tag">São Paulo e Recife</div>
             <h1>Lavieen</h1>
             <p>
-              Um equipamento premium para ampliar seu portfólio e atender uma demanda crescente com alto padrão.
+              Laser Thulium para rejuvenescimento e textura. Glow imediato, sessões rápidas, alta procura, excelente saída comercial.
             </p>
 
             <div class="actions">
-              <a class="cta" href="#">Solicitar agora</a>
+              <a class="cta" href="#">Alugar Lavieen</a>
               <a class="link" href="#">Saiba mais</a>
             </div>
           </div>
@@ -416,11 +415,11 @@
             <div class="tag">Somente São Paulo</div>
             <h1>Morpheus8</h1>
             <p>
-              Diferenciação premium para clínicas que buscam resultados e posicionamento de alto nível.
+              Radiofrequência microagulhada para ação profunda. Firmeza e contorno, alto valor percebido, tecnologia premium, resultados consistentes.
             </p>
 
             <div class="actions">
-              <a class="cta" href="#">Solicitar agora</a>
+              <a class="cta" href="#">Alugar Morpheus8</a>
               <a class="link" href="#">Saiba mais</a>
             </div>
           </div>
@@ -517,14 +516,14 @@
       gap:28px;
     }
 
+    /* ✅ imagem do equipamento um pouco maior */
     #vs-hero-slider .art{
       display:flex;
       align-items:center;
       justify-content:flex-start;
 
-      /* a imagem vai “caber” aqui sem deformar */
-      width: min(520px, 42vw);
-      height: clamp(260px, 62svh, 520px);
+      width: min(598px, 48vw);
+      height: clamp(300px, 71svh, 598px);
 
       min-height:0;
     }
@@ -666,18 +665,21 @@
         gap:18px;
         padding:0 16px;
       }
+
+      /* ✅ imagem maior no responsivo também */
       #vs-hero-slider .art{
         justify-content:center;
         margin-top:8px;
 
-        width: min(420px, 86vw);
-        height: clamp(220px, 44svh, 420px);
+        width: min(470px, 92vw);
+        height: clamp(250px, 50svh, 470px);
       }
       #vs-hero-slider .art img{
         width:100% !important;
         height:100% !important;
         object-fit:contain !important;
       }
+
       #vs-hero-slider h1{font-size:38px}
       #vs-hero-slider p{font-size:18px}
 
@@ -772,25 +774,17 @@
 
 
 
+<section id="secao-2">
 
 
-  <section id="secao-2">
-
-
-<!-- =========================
-     PROCESSO DE LOCAÇÃO (TIMELINE • BULLETS • FUNDO CLARO COM TEXTURA)
-     Ajustes:
-     - Ícones 30% maiores
-     - Cards: ao rolar para baixo aparecem; ao rolar para cima somem novamente (reversível)
-     ========================= -->
-<section class="vs-tlband" id="vs-timeline-locacao" aria-label="Processo de locação em linha do tempo">
+<!-- ====== EMBED: PROCESSO DE LOCAÇÃO (TIMELINE • BULLETS • FUNDO CLARO COM TEXTURA) ====== -->
+<div class="vs-tlband" id="vs-timeline-locacao" role="region" aria-label="Processo de locação em linha do tempo">
   <div class="vs-tlwrap">
     <header class="vs-tlhead">
       <p class="vs-tlkicker">Processo de locação</p>
-      <h2 class="vs-tltitle">Locação premium, sem complicação — em 4 etapas</h2>
+      <h2 class="vs-tltitle">Locação premium com praticidade</h2>
       <p class="vs-tlsub">
-        Você escolhe o equipamento, a cidade (SP ou Recife) e o período. Nós confirmamos disponibilidade, cuidamos da logística
-        e acompanhamos você durante a locação.
+        Escolha o equipamento, localização e período e a gente resolve tudo: entrega, retirada e suporte.
       </p>
     </header>
 
@@ -798,22 +792,16 @@
       <div class="vs-line" aria-hidden="true"></div>
 
       <article class="vs-item" data-reveal>
-        <div class="vs-bullet" aria-hidden="true">
-          <span class="vs-dot"></span>
-        </div>
+        <div class="vs-bullet" aria-hidden="true"><span class="vs-dot"></span></div>
         <div class="vs-content">
           <h3>
             <span class="vs-icon" aria-hidden="true">
-              <!-- ícone: mensagem/contato -->
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 18l-3 3V6a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                <path d="M8 8h10M8 12h7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
+              <img src="SRC/ico1.png" alt="" width="32" height="32">
             </span>
             Solicitação
           </h3>
           <ul>
-            <li>Informe <strong>cidade</strong>, equipamento e datas</li>
+            <li>Informe cidade, equipamento e datas</li>
             <li>Se quiser, diga o objetivo (agenda, perfil de pacientes, demanda)</li>
             <li>Receba orientação rápida para escolher a melhor janela</li>
           </ul>
@@ -821,45 +809,32 @@
       </article>
 
       <article class="vs-item" data-reveal>
-        <div class="vs-bullet" aria-hidden="true">
-          <span class="vs-dot"></span>
-        </div>
+        <div class="vs-bullet" aria-hidden="true"><span class="vs-dot"></span></div>
         <div class="vs-content">
           <h3>
             <span class="vs-icon" aria-hidden="true">
-              <!-- ícone: checklist -->
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M8 6h12M8 12h12M8 18h12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M3.5 6l1.2 1.2L7 4.9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                <path d="M3.5 12l1.2 1.2L7 10.9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
+              <!-- ícone trocado: era Confirmação, agora usa o de Entrega -->
+              <img src="SRC/ico3.png" alt="" width="32" height="32">
             </span>
             Confirmação
           </h3>
           <ul>
-            <li>Validamos <strong>disponibilidade</strong> e o período</li>
+            <li>Validamos disponibilidade e o período</li>
             <li>Alinhamos entrega/retirada e condições com clareza</li>
-            <li>Sem ruído: tudo definido antes de fechar</li>
+            <li>Sem burocracia: tudo definido antes de fechar</li>
           </ul>
         </div>
       </article>
 
       <article class="vs-item" data-reveal>
-        <div class="vs-bullet" aria-hidden="true">
-          <span class="vs-dot"></span>
-        </div>
+        <div class="vs-bullet" aria-hidden="true"><span class="vs-dot"></span></div>
         <div class="vs-content">
           <h3>
             <span class="vs-icon" aria-hidden="true">
-              <!-- ícone: caminhão/entrega (vetor limpo) -->
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M3 7h11v10H3V7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                <path d="M14 10h4.2L21 13v4h-7v-7Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                <path d="M7 17a2 2 0 1 0 0 .01V17Zm12 0a2 2 0 1 0 0 .01V17Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M5 12h6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
+              <!-- ícone trocado: era Entrega, agora usa o de Confirmação -->
+              <img src="SRC/ico2.png" alt="" width="32" height="32">
             </span>
-            Entrega + início
+            Entrega
           </h3>
           <ul>
             <li>Entrega com cuidado e orientação do essencial</li>
@@ -868,309 +843,245 @@
           </ul>
         </div>
       </article>
-
-      <article class="vs-item" data-reveal>
-        <div class="vs-bullet" aria-hidden="true">
-          <span class="vs-dot"></span>
-        </div>
-        <div class="vs-content">
-          <h3>
-            <span class="vs-icon" aria-hidden="true">
-              <!-- ícone: suporte/headset -->
-              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 12a8 8 0 0 1 16 0v5a3 3 0 0 1-3 3h-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <path d="M4 12v4a2 2 0 0 0 2 2h1v-8H6a2 2 0 0 0-2 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                <path d="M20 12v4a2 2 0 0 1-2 2h-1v-8h1a2 2 0 0 1 2 2Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-              </svg>
-            </span>
-            Suporte + retirada
-          </h3>
-          <ul>
-            <li>Suporte durante a locação conforme combinado</li>
-            <li>Retirada e checklist no fim do período</li>
-            <li>Se quiser, já deixamos a <strong>renovação</strong> encaminhada</li>
-          </ul>
-
-          <a class="vs-btn" href="#" role="button" aria-label="Solicitar disponibilidade agora">
-            Solicitar disponibilidade
-          </a>
-        </div>
-      </article>
     </div>
   </div>
-</section>
 
-<style>
-  /* Paleta do projeto */
-  #vs-timeline-locacao{
-    --c-dark:#0d1229;
-    --c-light:#e2e2e2;
-    --c-gold:#e6c681;
-    --c-gold2:#a5804c;
+  <style>
+    #vs-timeline-locacao{
+      --c-dark:#0d1229;
+      --c-light:#e2e2e2;
+      --c-gold:#e6c681;
+      --c-gold2:#a5804c;
 
-    --line: rgba(13,18,41,.24);
+      --line: rgba(230,198,129,.78); /* linha dourada */
+      --padY:98px;
 
-    position:relative;
-    background:var(--c-light);
-    color:var(--c-dark);
-    padding:98px 0;
-    overflow:hidden;
-  }
+      position:relative;
+      background:var(--c-light);
+      color:var(--c-dark);
+      padding:var(--padY) 0;
+      overflow:hidden;
+    }
 
-  /* Textura de fundo com opacidade (leve) */
-  #vs-timeline-locacao::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background-image:url("https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-    background-size:cover;
-    background-position:center;
-    opacity:.12;
-    pointer-events:none;
-  }
+    #vs-timeline-locacao::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:url("https://images.unsplash.com/photo-1558591710-4b4a1ae0f04d?q=80&w=1587&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+      background-size:cover;
+      background-position:center;
+      opacity:.12;
+      pointer-events:none;
+    }
 
-  /* camada sutil pra leitura */
-  #vs-timeline-locacao::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:
-      radial-gradient(900px 320px at 12% 10%, rgba(230,198,129,.18), transparent 60%),
-      radial-gradient(900px 320px at 90% 0%, rgba(165,128,76,.12), transparent 62%);
-    pointer-events:none;
-  }
+    #vs-timeline-locacao::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(900px 320px at 12% 10%, rgba(230,198,129,.18), transparent 60%),
+        radial-gradient(900px 320px at 90% 0%, rgba(165,128,76,.12), transparent 62%);
+      pointer-events:none;
+    }
 
-  .vs-tlwrap{
-    position:relative;
-    max-width:1100px;
-    margin:0 auto;
-    padding:0 18px;
-  }
+    .vs-tlwrap{
+      position:relative;
+      max-width:1100px;
+      margin:0 auto;
+      padding:0 18px;
+      --col:42px;
+    }
 
-  .vs-tlhead{max-width:860px}
-  .vs-tlkicker{
-    margin:0 0 10px;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    font-weight:900;
-    font-size:13px;
-    color:rgba(13,18,41,.78);
-  }
-  .vs-tltitle{
-    margin:0;
-    font-size:44px;
-    line-height:1.10;
-    letter-spacing:-.02em;
-  }
-  .vs-tlsub{
-    margin:16px 0 0;
-    font-size:18px;
-    line-height:1.7;
-    color:rgba(13,18,41,.80);
-  }
+    .vs-tlhead{max-width:860px; position:relative; z-index:1;}
+    .vs-tlkicker{
+      margin:0 0 10px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-weight:900;
+      font-size:13px;
+      color:rgba(13,18,41,.78);
+    }
+    .vs-tltitle{
+      margin:0;
+      font-size:44px;
+      line-height:1.10;
+      letter-spacing:-.02em;
+    }
+    .vs-tlsub{
+      margin:16px 0 0;
+      font-size:18px;
+      line-height:1.7;
+      color:rgba(13,18,41,.80);
+    }
 
-  .vs-timeline{
-    position:relative;
-    margin-top:52px;
-    padding-bottom:6px;
-  }
+    .vs-timeline{
+      position:relative;
+      margin-top:52px;
+      padding-bottom:6px;
+      z-index:1;
+    }
 
-  .vs-line{
-    position:absolute;
-    left:20px;
-    top:0;
-    bottom:0;
-    width:2px;
-    background:var(--line);
-    border-radius:999px;
-  }
+    .vs-line{
+      position:absolute;
+      left:calc(var(--col) / 2);
+      top:0;
+      bottom:calc(-1 * var(--padY));
+      width:3px;
+      background:var(--line);
+      border-radius:999px;
+      transform:translateX(-50%);
+      z-index:0;
+      pointer-events:none;
+    }
 
-  .vs-item{
-    position:relative;
-    display:grid;
-    grid-template-columns: 42px 1fr;
-    gap:16px;
-    padding:18px 0;
-  }
+    .vs-item{
+      position:relative;
+      display:grid;
+      grid-template-columns: var(--col) 1fr;
+      gap:16px;
+      padding:18px 0;
+      z-index:1;
+    }
 
-  .vs-bullet{
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-    padding-top:10px;
-  }
+    .vs-bullet{
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      padding-top:10px;
+    }
 
-  .vs-dot{
-    display:block;
-    width:16px;height:16px;
-    border-radius:999px;
-    background:var(--c-gold);
-    box-shadow:0 0 0 7px rgba(230,198,129,.22);
-  }
+    /* bullets branco/cinza (20x20) */
+    .vs-dot{
+      display:block;
+      width:20px;height:20px;
+      border-radius:999px;
+      background:rgba(255,255,255,.92);
+      border:2px solid rgba(13,18,41,.22);
+      box-shadow:0 0 0 9px rgba(13,18,41,.06);
+    }
 
-  .vs-content{
-    border:1px solid rgba(13,18,41,.12);
-    border-radius:20px;
-    background:rgba(255,255,255,.72);
-    padding:20px 20px 18px;
-    backdrop-filter:blur(4px);
-    -webkit-backdrop-filter:blur(4px);
-    position:relative;
-    overflow:hidden;
-  }
+    .vs-content{
+      border:1px solid rgba(13,18,41,.12);
+      border-radius:20px;
+      background:rgba(255,255,255,.72);
+      padding:20px 20px 18px;
+      backdrop-filter:blur(4px);
+      -webkit-backdrop-filter:blur(4px);
+      position:relative;
+      overflow:hidden;
+    }
 
-  .vs-content::before{
-    content:"";
-    position:absolute;
-    inset:-1px;
-    background:
-      radial-gradient(560px 220px at 10% 0%, rgba(230,198,129,.14), transparent 62%),
-      radial-gradient(560px 220px at 90% 0%, rgba(165,128,76,.10), transparent 62%);
-    pointer-events:none;
-  }
+    .vs-content::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background:
+        radial-gradient(560px 220px at 10% 0%, rgba(230,198,129,.14), transparent 62%),
+        radial-gradient(560px 220px at 90% 0%, rgba(165,128,76,.10), transparent 62%);
+      pointer-events:none;
+    }
 
-  .vs-content h3{
-    margin:0 0 12px;
-    font-size:21px;
-    letter-spacing:-.01em;
-    color:rgba(13,18,41,.96);
-    display:flex;
-    align-items:center;
-    gap:12px;
-  }
+    .vs-content h3{
+      margin:0 0 12px;
+      font-size:21px;
+      letter-spacing:-.01em;
+      color:rgba(13,18,41,.96);
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
 
-  /* Ícones vetoriais azuis — 30% maiores */
-  .vs-icon{
-    width:57px;               /* 44px * 1.3 */
-    height:57px;              /* 44px * 1.3 */
-    border-radius:16px;       /* levemente maior */
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    background:rgba(13,18,41,.06);
-    border:1px solid rgba(13,18,41,.10);
-    color:rgba(13,18,41,.92);
-    box-shadow:0 12px 26px rgba(13,18,41,.06);
-    flex:0 0 auto;
-  }
-  .vs-icon svg{
-    display:block;
-    width:29px;               /* 22px * 1.3 */
-    height:29px;              /* 22px * 1.3 */
-  }
+    .vs-icon{
+      width:57px;height:57px;
+      border-radius:16px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(13,18,41,.06);
+      border:1px solid rgba(13,18,41,.10);
+      color:rgba(13,18,41,.92);
+      box-shadow:0 12px 26px rgba(13,18,41,.06);
+      flex:0 0 auto;
+    }
+    .vs-icon svg{ display:block; width:32px; height:32px; }
+    .vs-icon img{ display:block; width:32px; height:32px; }
 
-  .vs-content ul{
-    margin:0;
-    padding-left:18px;
-    color:rgba(13,18,41,.82);
-    line-height:1.75;
-    font-size:16px;
-  }
-  .vs-content li{ margin:7px 0; }
+    .vs-content ul{
+      margin:0;
+      padding-left:18px;
+      color:rgba(13,18,41,.82);
+      line-height:1.75;
+      font-size:16px;
+    }
+    .vs-content li{ margin:7px 0; }
 
-  .vs-btn{
-    margin-top:16px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    padding:13px 20px;
-    border-radius:999px;
-    background:var(--c-gold);
-    color:var(--c-dark);
-    font-weight:950;
-    text-decoration:none;
-    border:1px solid rgba(13,18,41,.12);
-    transition:background-color .15s ease, transform .15s ease;
-  }
-  .vs-btn:hover{ background:var(--c-gold2); transform:translateY(-1px); }
-  .vs-btn:active{ transform:translateY(0); }
+    [data-reveal]{
+      opacity:0;
+      transform:translateY(26px);
+      filter:blur(1px);
+      transition: opacity .85s ease, transform .85s ease, filter .85s ease;
+      transition-delay: var(--delay, 0ms);
+      will-change:opacity,transform;
+    }
+    [data-reveal].is-in{
+      opacity:1;
+      transform:translateY(0);
+      filter:blur(0);
+    }
 
-  /* Reveal reversível */
-  [data-reveal]{
-    opacity:0;
-    transform:translateY(26px);
-    filter:blur(1px);
-    transition:
-      opacity .85s ease,
-      transform .85s ease,
-      filter .85s ease;
-    transition-delay: var(--delay, 0ms);
-    will-change:opacity,transform;
-  }
-  [data-reveal].is-in{
-    opacity:1;
-    transform:translateY(0);
-    filter:blur(0);
-  }
+    @media (max-width:820px){
+      #vs-timeline-locacao{ --padY:78px; }
+      .vs-tltitle{ font-size:34px; }
+      .vs-tlsub{ font-size:16px; }
+      .vs-tlwrap{ --col:36px; }
 
-  @media (max-width:820px){
-    #vs-timeline-locacao{ padding:78px 0; }
-    .vs-tltitle{ font-size:34px; }
-    .vs-tlsub{ font-size:16px; }
-    .vs-item{ grid-template-columns: 36px 1fr; gap:14px; }
-    .vs-line{ left:18px; }
-    .vs-bullet{ padding-top:12px; }
+      .vs-item{ gap:14px; }
+      .vs-bullet{ padding-top:12px; }
 
-    /* ícones 30% maiores no mobile também, mas um tiquinho menores pra caber */
-    .vs-icon{ width:54px; height:54px; border-radius:16px; }
-    .vs-icon svg{ width:28px; height:28px; }
-  }
-</style>
-
-<script>
-  (() => {
-    const root = document.getElementById("vs-timeline-locacao");
-    if (!root) return;
-
-    const items = Array.from(root.querySelectorAll("[data-reveal]"));
-    if (!items.length) return;
-
-    // delay progressivo sutil
-    items.forEach((el, i) => el.style.setProperty("--delay", `${i * 110}ms`));
-
-    // Detecta direção do scroll
-    let lastY = window.scrollY || 0;
-    let dir = "down";
-
-    const onScrollDir = () => {
-      const y = window.scrollY || 0;
-      dir = (y > lastY) ? "down" : (y < lastY ? "up" : dir);
-      lastY = y;
-    };
-    window.addEventListener("scroll", onScrollDir, { passive: true });
-
-    // Observer reversível:
-    // - entrando na tela ao descer => adiciona is-in
-    // - saindo por cima ao subir => remove is-in (volta a sumir)
-    const io = new IntersectionObserver((entries) => {
-      for (const e of entries) {
-        if (e.isIntersecting) {
-          if (dir === "down") e.target.classList.add("is-in");
-        } else {
-          // se o elemento ficou acima da viewport e o usuário está subindo, “desaparece”
-          if (dir === "up" && e.boundingClientRect.top > 0) {
-            e.target.classList.remove("is-in");
-          }
-          // também remove quando ficou bem abaixo e o usuário está descendo (mantém coerência)
-          if (dir === "down" && e.boundingClientRect.top > (window.innerHeight * 1.05)) {
-            e.target.classList.remove("is-in");
-          }
-        }
+      .vs-dot{
+        width:20px;height:20px;
+        box-shadow:0 0 0 8px rgba(13,18,41,.06);
       }
-    }, {
-      threshold: 0.35,
-      rootMargin: "0px 0px -18% 0px"
-    });
 
-    items.forEach(el => io.observe(el));
-  })();
-</script>
+      .vs-icon{ width:54px; height:54px; border-radius:16px; }
+      .vs-icon svg{ width:32px; height:32px; }
+      .vs-icon img{ width:32px; height:32px; }
+    }
+  </style>
+
+  <script>
+    (() => {
+      const root = document.getElementById("vs-timeline-locacao");
+      if (!root) return;
+
+      const items = root.querySelectorAll("[data-reveal]");
+      if (!items.length) return;
+
+      items.forEach((el, i) => el.style.setProperty("--delay", `${i * 110}ms`));
+
+      let lastY = window.scrollY || 0;
+      let dir = "down";
+      window.addEventListener("scroll", () => {
+        const y = window.scrollY || 0;
+        if (y !== lastY) dir = y > lastY ? "down" : "up";
+        lastY = y;
+      }, { passive: true });
+
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) e.target.classList.add("is-in");
+          else if (dir === "up") e.target.classList.remove("is-in");
+        }
+      }, { threshold: 0.35, rootMargin: "0px 0px -18% 0px" });
+
+      items.forEach(el => io.observe(el));
+    })();
+  </script>
+</div>
+<!-- ====== /EMBED: PROCESSO DE LOCAÇÃO ====== -->
 
 
-    
-  </section>
-
-
+</section>
 
 
   
@@ -1348,8 +1259,6 @@
 
     
   </section>
-
-
 
 
 
@@ -1710,12 +1619,17 @@
 
 
 
-
+  
   <section id="secao-5"><!-- ✅ COLE O EMBED DA SESSÃO 5 AQUI --></section>
   <section id="secao-6"><!-- ✅ COLE O EMBED DA SESSÃO 6 AQUI --></section>
   <section id="secao-7"><!-- ✅ COLE O EMBED DA SESSÃO 7 AQUI --></section>
   <section id="secao-8"><!-- ✅ COLE O EMBED DA SESSÃO 8 AQUI --></section>
 
+
+
+
+
+  
   <!-- Rodapé -->
   <footer id="rodape">
 
@@ -2042,6 +1956,10 @@
 
 
   </footer>
+
+
+
+
 
 </body>
 </html>
