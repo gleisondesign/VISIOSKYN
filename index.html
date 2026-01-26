@@ -39,6 +39,15 @@
   <style>
     html,body{margin:0;padding:0}
     body{font-family:Helvetica,Arial,sans-serif}
+
+    /* ✅ rolagem suave */
+    html{scroll-behavior:smooth}
+
+    /* ✅ quando o menu some, remove o “espaço reservado” (pra seção encostar no topo) */
+    body.vs-menu-hidden{padding-top:0 !important}
+
+    /* (se alguém cair por hash sem JS) */
+    section[id^="secao-"]{scroll-margin-top:0}
   </style>
 
   <!-- Schema.org (email em minúsculo) -->
@@ -145,7 +154,7 @@
   <div id="vs-menu">
     <nav class="bar" aria-label="Menu principal">
       <div class="inner">
-        <a class="brand" href="#" aria-label="Início">
+        <a class="brand" href="#secao-1" aria-label="Início">
           <img
             src="https://gleisondesign.github.io/VISIOSKYN/SRC/LOGO_BRANCO_VISIOSKYN.png"
             alt="Visio Skyn Rental"
@@ -161,12 +170,13 @@
         </button>
 
         <div class="links">
-          <a href="#">LINK1</a>
-          <a href="#">LINK2</a>
-          <a href="#">LINK3</a>
-          <a href="#">LINK4</a>
-          <a href="#">LINK5</a>
-          <a class="cta" href="#">BOTÃO</a>
+          <a href="#secao-1">Equipamentos</a>
+          <a href="#secao-2">Locação</a>
+          <a href="#secao-3">Marketing</a>
+          <a href="#secao-4">Simulador</a>
+          <a href="#secao-5">FAQ</a>
+          <a href="#secao-6">Conteúdos</a>
+          <a class="cta" href="#secao-7">Contato</a>
         </div>
       </div>
     </nav>
@@ -178,7 +188,7 @@
       #vs-menu a,#vs-menu button{font:18px Helvetica,Arial,sans-serif;color:rgba(255,255,255,.92);text-decoration:none}
       #vs-menu .bar{background:#0d1229}
 
-      /* ✅ barra fixa por cima de todo conteúdo (web + mobile) */
+      /* ✅ barra fixa */
       #vs-menu .bar{
         position:fixed;
         top:0;left:0;right:0;
@@ -190,12 +200,29 @@
       /* ✅ some quando rolar para baixo após 50% da altura da tela */
       #vs-menu.is-hidden .bar{transform:translateY(-110%)}
 
-      /* ✅ evita o conteúdo ficar embaixo da barra fixa */
+      /* ✅ evita conteúdo embaixo da barra fixa (quando menu está visível) */
       body{padding-top:var(--vs-bar-h)}
 
-      #vs-menu .inner{max-width:1200px;margin:0 auto;padding:22px 24px;display:flex;align-items:center;justify-content:space-between;gap:18px}
-      #vs-menu .brand{display:inline-flex;align-items:center;padding:6px 8px}
+      #vs-menu .inner{
+        max-width:1200px;
+        margin:0 auto;
+        padding:22px 24px;
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        gap:18px;
+      }
+
+      /* ✅ logo na mesma reta dos títulos */
+      #vs-menu .brand{
+        display:inline-flex;
+        align-items:center;
+        padding:0;
+        margin:0;
+        line-height:0;
+      }
       #vs-menu .brand img{display:block;height:auto}
+
       #vs-menu .links{display:flex;align-items:center;gap:18px}
       #vs-menu .links a{position:relative;display:inline-block;padding:10px 20px}
 
@@ -234,18 +261,17 @@
         #vs-menu .inner{flex-wrap:wrap;padding:18px 16px}
         #vs-menu .brand img{width:150px}
 
-        /* ✅ menu mobile com fundo 100% altura (overlay) e tudo centralizado */
         #vs-menu .links{
           display:none;
           position:fixed;
           left:0;right:0;
           top:var(--vs-bar-h);
-          bottom:0;               /* ✅ preenche 100% da altura disponível */
+          bottom:0;
           width:100%;
           padding:14px 16px 18px;
           gap:10px;
           flex-direction:column;
-          align-items:center;     /* ✅ centraliza links e botão */
+          align-items:center;
           border-top:1px solid rgba(255,255,255,.10);
           background:#0d1229;
           order:3;
@@ -258,7 +284,6 @@
         #vs-menu .links a:not(.cta){padding:12px 0}
         #vs-menu .links a:not(.cta)::after{left:0;right:0;width:100%}
 
-        /* ✅ botão centralizado no mobile */
         #vs-menu .cta{margin-top:8px;margin-left:0;margin-right:0}
       }
     </style>
@@ -272,7 +297,6 @@
         const b = r.querySelector(".burger");
         const l = r.querySelector(".links");
 
-        // Atualiza a altura da barra fixa (para padding do body e overlay do menu)
         const setBarHeight = () => {
           const h = bar.getBoundingClientRect().height || 0;
           document.documentElement.style.setProperty("--vs-bar-h", `${h}px`);
@@ -284,17 +308,51 @@
         b.addEventListener("click", () => {
           const open = b.getAttribute("aria-expanded") === "true";
           b.setAttribute("aria-expanded", String(!open));
-
-          // Se abrir, garante a barra visível
-          if (!open) r.classList.remove("is-hidden");
+          if (!open) {
+            r.classList.remove("is-hidden");
+            document.body.classList.remove("vs-menu-hidden");
+          }
         });
 
-        // Fecha ao clicar em um link
+        // Fecha ao clicar em um link (mobile)
         l.addEventListener("click", e => {
           if (e.target.closest("a")) b.setAttribute("aria-expanded", "false");
         });
 
-        // Regra: some após rolar 50% da tela (mobile + web) e volta ao rolar pra cima
+        // ✅ scroll suave: encosta no topo (offset = padding-top atual do body)
+        const smoothTo = (hash) => {
+          const el = document.querySelector(hash);
+          if (!el) return;
+
+          const top = el.getBoundingClientRect().top + window.scrollY;
+          const pad = parseFloat(getComputedStyle(document.body).paddingTop) || 0;
+          const target = Math.max(0, top - pad);
+
+          window.scrollTo({ top: target, behavior: "smooth" });
+        };
+
+        l.querySelectorAll('a[href^="#"]').forEach(a => {
+          a.addEventListener("click", (e) => {
+            const href = a.getAttribute("href");
+            if (!href || href === "#") return;
+            e.preventDefault();
+            history.pushState(null, "", href);
+            smoothTo(href);
+          });
+        });
+
+        const brand = r.querySelector('.brand[href^="#"]');
+        if (brand) {
+          brand.addEventListener("click", (e) => {
+            const href = brand.getAttribute("href");
+            if (!href || href === "#") return;
+            e.preventDefault();
+            history.pushState(null, "", href);
+            smoothTo(href);
+          });
+        }
+
+        // Regra: some após rolar 50% da tela e volta ao rolar pra cima
         let lastY = window.scrollY || 0;
 
         const onScroll = () => {
@@ -304,6 +362,7 @@
           const menuOpen = b.getAttribute("aria-expanded") === "true";
           if (menuOpen) {
             r.classList.remove("is-hidden");
+            document.body.classList.remove("vs-menu-hidden");
             lastY = y;
             return;
           }
@@ -312,8 +371,10 @@
 
           if (y > threshold && goingDown) {
             r.classList.add("is-hidden");
+            document.body.classList.add("vs-menu-hidden"); // ✅ some espaço reservado junto
           } else if (!goingDown) {
             r.classList.remove("is-hidden");
+            document.body.classList.remove("vs-menu-hidden");
           }
 
           lastY = y;
@@ -325,14 +386,9 @@
   </div>
 
   <!-- ÁREAS PARA INSERIR EMBEDS -->
-
-
-
-
-
 <section id="secao-1">
 
-<!-- ====== EMBED: SESSÃO 1 (SLIDER FULLSCREEN - 3 SLIDES | AUTOPLAY 7s | IMG ESQ + TEXTO DIR) ====== -->
+<!-- ====== EMBED: SESSÃO 1 (SLIDER FULLSCREEN - 3 SLIDES | AUTOPLAY 14s | IMG ESQ + TEXTO DIR) ====== -->
 <section id="vs-hero-slider" aria-label="Slider de equipamentos em tela cheia">
   <div class="slider" role="region" aria-roledescription="carousel" aria-label="Carrossel de equipamentos">
     <div class="track" aria-live="polite">
@@ -359,8 +415,8 @@
             </p>
 
             <div class="actions">
-              <a class="cta" href="#">Alugar Ultraformer MPT</a>
-              <a class="link" href="#">Saiba mais</a>
+              <a class="cta" href="#">Alugar Ultraformer</a>
+              <a class="link vs-more" href="#" data-equip="Ultraformer MPT">Saiba mais</a>
             </div>
           </div>
         </div>
@@ -390,7 +446,7 @@
 
             <div class="actions">
               <a class="cta" href="#">Alugar Lavieen</a>
-              <a class="link" href="#">Saiba mais</a>
+              <a class="link vs-more" href="#" data-equip="Lavieen">Saiba mais</a>
             </div>
           </div>
         </div>
@@ -420,7 +476,7 @@
 
             <div class="actions">
               <a class="cta" href="#">Alugar Morpheus8</a>
-              <a class="link" href="#">Saiba mais</a>
+              <a class="link vs-more" href="#" data-equip="Morpheus8">Saiba mais</a>
             </div>
           </div>
         </div>
@@ -437,6 +493,31 @@
       <button type="button" class="dot" aria-label="Ir para slide 3"></button>
     </div>
   </div>
+
+  <!-- ===== Modal (popup central) ===== -->
+  <div class="vs-modal-backdrop" id="vs-modal-backdrop" hidden></div>
+
+  <div
+    class="vs-modal"
+    id="vs-modal"
+    hidden
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="vs-modal-title"
+  >
+    <button class="vs-modal__x" type="button" aria-label="Fechar">×</button>
+
+    <div class="vs-modal__kicker">Equipamento</div>
+    <h3 class="vs-modal__title" id="vs-modal-title"></h3>
+
+    <div class="vs-modal__content" id="vs-modal-content"></div>
+
+    <div class="vs-modal__actions">
+      <a class="cta" id="vs-modal-cta" href="#">Alugar</a>
+      <button class="vs-modal__close" type="button">Fechar</button>
+    </div>
+  </div>
+  <!-- ===== /Modal ===== -->
 
   <style>
     /* Paleta do projeto */
@@ -639,7 +720,8 @@
     /* Bullets maiores */
     #vs-hero-slider .dots{
       position:absolute;
-      left:0;right:0;bottom:18px;
+      left:0;right:0;
+      bottom:34px; /* ✅ um pouco mais pra cima no modo web */
       display:flex;
       justify-content:center;
       gap:12px;
@@ -690,6 +772,9 @@
       }
       #vs-hero-slider .nav.prev{left:12px}
       #vs-hero-slider .nav.next{right:12px}
+
+      /* mantém dots como estavam no mobile/tablet */
+      #vs-hero-slider .dots{bottom:18px}
     }
 
     @media (max-width:420px){
@@ -699,6 +784,105 @@
         height:calc(100svh + 120px);      /* adiciona altura extra no mobile */
         height:calc(100dvh + 120px);      /* browsers modernos */
       }
+    }
+
+    /* ===== Modal branco (popup central) ===== */
+    #vs-hero-slider .vs-modal-backdrop{
+      position:fixed;
+      inset:0;
+      z-index:9998;
+      background:rgba(0,0,0,.55);
+      backdrop-filter: blur(2px);
+    }
+
+    #vs-hero-slider .vs-modal{
+      position:fixed;
+      left:50%;
+      top:50%;
+      transform:translate(-50%,-50%);
+      z-index:9999;
+      width:min(560px, calc(100vw - 32px));
+      background:#ffffff;
+      color:var(--bg);
+      border-radius:25px;
+      box-shadow:0 30px 80px rgba(0,0,0,.35);
+      padding:22px 22px 18px;
+    }
+
+    #vs-hero-slider .vs-modal__x{
+      position:absolute;
+      top:12px;
+      right:12px;
+      width:40px;height:40px;
+      border-radius:999px;
+      border:1px solid rgba(13,18,41,.12);
+      background:rgba(13,18,41,.04);
+      color:var(--bg);
+      cursor:pointer;
+      font-size:26px;
+      line-height:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    #vs-hero-slider .vs-modal__kicker{
+      font-size:12px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color:rgba(13,18,41,.62);
+      margin:2px 0 10px;
+    }
+
+    #vs-hero-slider .vs-modal__title{
+      margin:0 0 12px;
+      font-size:22px;
+      line-height:1.2;
+      letter-spacing:.2px;
+      font-weight:900;
+      padding-right:46px; /* espaço pro X */
+    }
+
+    #vs-hero-slider .vs-modal__content{
+      font-size:15px;
+      line-height:1.5;
+      color:rgba(13,18,41,.92);
+    }
+    #vs-hero-slider .vs-modal__content ul{
+      margin:0;
+      padding-left:18px;
+    }
+    #vs-hero-slider .vs-modal__content li{margin:6px 0}
+
+    #vs-hero-slider .vs-modal__actions{
+      margin-top:16px;
+      display:flex;
+      gap:12px;
+      align-items:center;
+      justify-content:flex-end;
+      flex-wrap:wrap;
+    }
+
+    #vs-hero-slider .vs-modal__close{
+      height:44px;
+      padding:0 18px;
+      border-radius:999px;
+      border:1px solid rgba(13,18,41,.16);
+      background:transparent;
+      color:var(--bg);
+      font-weight:800;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    #vs-hero-slider .vs-modal__close:hover{
+      background:rgba(13,18,41,.04);
+    }
+
+    @media (max-width:420px){
+      #vs-hero-slider .vs-modal{
+        padding:18px 18px 16px;
+      }
+      #vs-hero-slider .vs-modal__title{font-size:20px}
     }
   </style>
 
@@ -715,12 +899,49 @@
 
       let index = 0;
       let timer = null;
-      const INTERVAL = 7000;
+      const INTERVAL = 14000; /* ✅ 14 segundos */
 
-      const setIndex = (i) => {
-        index = (i + slides.length) % slides.length;
-        track.style.transform = `translate3d(${-index * 100}%,0,0)`;
-        dots.forEach((d, di) => d.setAttribute("aria-current", di === index ? "true" : "false"));
+      /* ===== Modal ===== */
+      const backdrop = root.querySelector("#vs-modal-backdrop");
+      const modal = root.querySelector("#vs-modal");
+      const modalTitle = root.querySelector("#vs-modal-title");
+      const modalContent = root.querySelector("#vs-modal-content");
+      const modalCta = root.querySelector("#vs-modal-cta");
+      const modalX = root.querySelector(".vs-modal__x");
+      const modalClose = root.querySelector(".vs-modal__close");
+      let lastFocus = null;
+
+      const copy = {
+        "Ultraformer MPT": {
+          title: "Ultraformer MPT",
+          html: `
+            <ul>
+              <li>Ultrassom micro e macrofocado (MMFU/HIFU) para lifting e firmeza.</li>
+              <li>Age em camadas profundas: melhora flacidez e define contornos.</li>
+              <li>Estimula colágeno; procedimento não cirúrgico e com retorno rápido.</li>
+            </ul>
+          `
+        },
+        "Lavieen": {
+          title: "Lavieen (Thulium 1927 nm)",
+          html: `
+            <ul>
+              <li>Laser não ablativo para rejuvenescimento e “resurfacing” leve.</li>
+              <li>Indicado para melasma/manchas, poros, textura e linhas finas.</li>
+              <li>Resultado de viço (“glow”) com downtime geralmente baixo.</li>
+            </ul>
+          `
+        },
+        "Morpheus8": {
+          title: "Morpheus8",
+          html: `
+            <ul>
+              <li>Radiofrequência microagulhada fracionada (ação profunda).</li>
+              <li>Firmeza/skin laxity, textura e suporte em cicatrizes de acne.</li>
+              <li>Remodelação progressiva com downtime menor que abordagens invasivas.</li>
+            </ul>
+          `
+        }
       };
 
       const stop = () => {
@@ -730,6 +951,65 @@
       const start = () => {
         stop();
         timer = setInterval(() => setIndex(index + 1), INTERVAL);
+      };
+
+      const closeModal = () => {
+        if (modal.hidden) return;
+        modal.hidden = true;
+        backdrop.hidden = true;
+        start(); // volta autoplay
+        if (lastFocus) lastFocus.focus();
+        lastFocus = null;
+      };
+
+      const openModal = (trigger) => {
+        const key = trigger.getAttribute("data-equip") || "";
+        const data = copy[key];
+        if (!data) return;
+
+        // pega CTA do próprio slide (mantém seu texto/href)
+        const slide = trigger.closest(".slide");
+        const cta = slide ? slide.querySelector(".cta") : null;
+        if (cta) {
+          modalCta.href = cta.getAttribute("href") || "#";
+          modalCta.textContent = cta.textContent || "Alugar";
+        }
+
+        modalTitle.textContent = data.title;
+        modalContent.innerHTML = data.html;
+
+        lastFocus = trigger;
+
+        stop(); // pausa autoplay enquanto o modal estiver aberto
+        backdrop.hidden = false;
+        modal.hidden = false;
+
+        modalX.focus();
+      };
+
+      // trap de TAB bem leve (pra não “vazar” foco)
+      const trapTab = (e) => {
+        if (modal.hidden || e.key !== "Tab") return;
+        const focusables = modal.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])');
+        if (!focusables.length) return;
+
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault();
+          first.focus();
+        }
+      };
+
+      /* ===== Slider ===== */
+      const setIndex = (i) => {
+        index = (i + slides.length) % slides.length;
+        track.style.transform = `translate3d(${-index * 100}%,0,0)`;
+        dots.forEach((d, di) => d.setAttribute("aria-current", di === index ? "true" : "false"));
       };
 
       const userNav = (fn) => {
@@ -759,11 +1039,31 @@
       }, { passive: true });
 
       root.addEventListener("mouseenter", stop);
-      root.addEventListener("mouseleave", start);
+      root.addEventListener("mouseleave", () => {
+        if (modal.hidden) start();
+      });
 
       document.addEventListener("visibilitychange", () => {
         if (document.hidden) stop();
-        else start();
+        else if (modal.hidden) start();
+      });
+
+      /* ===== Eventos do “Saiba mais” (sem mexer no design do link) ===== */
+      root.addEventListener("click", (e) => {
+        const more = e.target.closest(".vs-more");
+        if (more) {
+          e.preventDefault();
+          openModal(more);
+        }
+      });
+
+      backdrop.addEventListener("click", closeModal);
+      modalX.addEventListener("click", closeModal);
+      modalClose.addEventListener("click", closeModal);
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") closeModal();
+        trapTab(e);
       });
 
       setIndex(0);
@@ -774,8 +1074,8 @@
 <!-- ====== /EMBED: SESSÃO 1 ====== -->
 
 
-</section>
 
+</section>
 
 
 <section id="secao-2">
@@ -1088,30 +1388,42 @@
 </section>
 
 
-  
-  <section id="secao-3">
+ <section id="secao-3">
 
 
-<!-- =========================
-     MARKETING (MINIMAL • FUNDO AZUL • TEXTO + ALVO GIGANTE À DIREITA)
-     Cole dentro de: <section id="secao-x"> ... </section>
-     ========================= -->
-<section id="vs-marketing-min" aria-label="Bônus de marketing para quem loca">
+<section id="vs-marketing-min" aria-label="Bônus de marketing para quem aluga">
   <div class="vs-mm-wrap">
     <div class="vs-mm-content" data-reveal>
-      <p class="vs-mm-kicker">BÔNUS PARA QUEM LOCA</p>
+      <p class="vs-mm-kicker">BÔNUS PARA QUEM ALUGA</p>
 
       <h2 class="vs-mm-title">
-        Quer rentabilizar ainda mais a locação? A gente te ajuda a encher a agenda.
+        Alugou seu equipamento? A gente ajuda a <span class="vs-mm-em">encher sua agenda</span>.
       </h2>
 
       <p class="vs-mm-text">
-        Além do equipamento premium, você pode fechar um pacote completo de marketing com uma agência parceira
-        para transformar demanda em pacientes do posicionamento à execução.
+        Além do equipamento premium, você pode fechar um pacote completo de marketing com nossa agência parceira focada apenas nessa área.
+        Do posicionamento à execução para transformar demanda em pacientes.
       </p>
+
+      <div class="vs-mm-pillrow">
+        <span class="vs-mm-pill">Brand / Identidade</span>
+        <span class="vs-mm-pill">Site premium</span>
+        <span class="vs-mm-pill">Página de captura</span>
+        <span class="vs-mm-pill">Social media</span>
+        <span class="vs-mm-pill">Anúncios</span>
+        <span class="vs-mm-pill">WhatsApp & roteiro</span>
+        <span class="vs-mm-pill">Leads qualificados</span>
+      </div>
+
+      <div class="vs-mm-actions">
+        <a
+          class="vs-mm-cta"
+          href="https://wa.me/5511986912169?text=Quero%20um%20plano%20de%20marketing%20em%20parceria%20com%20a%20Visio%20Skyn%21"
+        >Eu quero</a>
+        <a class="vs-mm-link" href="#" data-mm-open>Saiba mais</a>
+      </div>
     </div>
 
-    <!-- ALVO GIGANTE (vetor) -->
     <div class="vs-mm-target" aria-hidden="true">
       <svg viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
         <defs>
@@ -1122,23 +1434,59 @@
           </radialGradient>
         </defs>
 
-        <!-- brilho -->
         <circle cx="260" cy="260" r="230" fill="url(#vsMmGlow)"/>
-
-        <!-- anéis do alvo -->
         <circle cx="260" cy="260" r="210" fill="none" stroke="rgba(226,226,226,.12)" stroke-width="2"/>
         <circle cx="260" cy="260" r="160" fill="none" stroke="rgba(226,226,226,.12)" stroke-width="2"/>
         <circle cx="260" cy="260" r="110" fill="none" stroke="rgba(226,226,226,.14)" stroke-width="2"/>
         <circle cx="260" cy="260" r="60"  fill="none" stroke="rgba(230,198,129,.32)" stroke-width="2"/>
 
-        <!-- cruz central -->
         <path d="M260 70v380" stroke="rgba(226,226,226,.10)" stroke-width="2" stroke-linecap="round"/>
         <path d="M70 260h380" stroke="rgba(226,226,226,.10)" stroke-width="2" stroke-linecap="round"/>
 
-        <!-- centro -->
         <circle cx="260" cy="260" r="18" fill="rgba(230,198,129,.55)"/>
         <circle cx="260" cy="260" r="7"  fill="rgba(230,198,129,.95)"/>
       </svg>
+    </div>
+  </div>
+
+  <div class="vs-mm-modal" id="vs-mm-modal" hidden>
+    <div class="vs-mm-backdrop" aria-hidden="true"></div>
+
+    <div
+      class="vs-mm-dialog"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="vs-mm-modal-title"
+      aria-describedby="vs-mm-modal-desc"
+      tabindex="-1"
+    >
+      <button class="vs-mm-x" type="button" data-mm-close aria-label="Fechar">×</button>
+
+      <p class="vs-mm-modal-kicker">COMO FUNCIONA</p>
+      <h3 class="vs-mm-modal-title" id="vs-mm-modal-title">
+        Do posicionamento à execução para quem aluga
+      </h3>
+
+      <p class="vs-mm-modal-desc" id="vs-mm-modal-desc">
+        Você já está com o equipamento premium. A gente monta o marketing completo para atrair pacientes,
+        gerar leads e transformar interesse em agendamentos.
+      </p>
+
+      <ol class="vs-mm-steps">
+        <li><strong>Diagnóstico</strong> do público, ticket e objetivo.</li>
+        <li><strong>Identidade e oferta</strong> com estética premium e mensagem clara.</li>
+        <li><strong>Site e página de captura</strong> com prova, confiança e WhatsApp.</li>
+        <li><strong>Tráfego e social</strong> para leads qualificados com constância.</li>
+        <li><strong>Roteiro</strong> de atendimento para converter em horários.</li>
+      </ol>
+
+      <div class="vs-mm-modal-actions">
+        <a
+          class="vs-mm-cta"
+          href="https://wa.me/5511986912169?text=Quero%20um%20plano%20de%20marketing%20em%20parceria%20com%20a%20Visio%20Skyn%21"
+        >Eu quero</a>
+        <button class="vs-mm-ghost" type="button" data-mm-close>Fechar</button>
+      </div>
     </div>
   </div>
 </section>
@@ -1157,7 +1505,6 @@
     padding:92px 0;
   }
 
-  /* brilho sutil no fundo */
   #vs-marketing-min::before{
     content:"";
     position:absolute;
@@ -1195,15 +1542,74 @@
     letter-spacing:-.02em;
   }
 
+  .vs-mm-em{
+    color:var(--c-gold);
+    text-shadow:0 18px 40px rgba(230,198,129,.12);
+  }
+
   .vs-mm-text{
     margin:14px 0 0;
     font-size:17px;
     line-height:1.7;
     color:rgba(226,226,226,.88);
-    max-width:54ch;
+    max-width:64ch;
   }
 
-  /* alvo gigante à direita */
+  .vs-mm-pillrow{
+    margin-top:16px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    max-width:72ch;
+  }
+
+  .vs-mm-pill{
+    display:inline-flex;
+    align-items:center;
+    padding:9px 12px;
+    border-radius:999px;
+    border:1px solid rgba(230,198,129,.26);
+    background:rgba(230,198,129,.10);
+    color:rgba(226,226,226,.94);
+    font-weight:800;
+    font-size:13px;
+    letter-spacing:.2px;
+    user-select:none;
+  }
+
+  .vs-mm-actions{
+    margin-top:18px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+
+  .vs-mm-cta{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    padding:12px 18px;
+    border-radius:999px;
+    background:var(--c-gold);
+    color:var(--c-dark);
+    font-weight:900;
+    text-decoration:none;
+    border:1px solid rgba(255,255,255,.18);
+    transition:background-color .15s ease, transform .15s ease;
+    white-space:nowrap;
+  }
+  .vs-mm-cta:hover{ background:var(--c-gold2); }
+  .vs-mm-cta:active{ transform:translateY(1px); }
+
+  .vs-mm-link{
+    color:rgba(226,226,226,.92);
+    text-decoration:none;
+    border-bottom:1px solid rgba(230,198,129,.85);
+    padding-bottom:2px;
+    opacity:.95;
+  }
+
   .vs-mm-target{
     justify-self:end;
     width:min(520px, 48vw);
@@ -1217,7 +1623,6 @@
     display:block;
   }
 
-  /* reveal */
   #vs-marketing-min [data-reveal]{
     opacity:0;
     transform:translateY(18px);
@@ -1229,17 +1634,153 @@
     transform:translateY(0);
   }
 
+  .vs-mm-modal[hidden]{ display:none !important; }
+
+  .vs-mm-modal{
+    position:fixed;
+    inset:0;
+    z-index:2147483647;
+    display:grid;
+    place-items:center;
+    padding:18px;
+  }
+
+  .vs-mm-backdrop{
+    position:absolute;
+    inset:0;
+    background:rgba(0,0,0,.55); /* mesmo clima do modal anterior */
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+  }
+
+  /* ===== AQUI: modal aplicado no MESMO padrão do pop anterior (branco, radius 25) ===== */
+  .vs-mm-dialog{
+    position:relative;
+    width:min(560px, 100%);
+    max-height:min(82vh, 760px);
+    overflow:auto;
+    border-radius:25px;
+    background:#ffffff;
+    color:var(--c-dark);
+    border:1px solid rgba(13,18,41,.12);
+    box-shadow:0 30px 80px rgba(0,0,0,.35);
+    padding:22px 22px 18px;
+  }
+
+  .vs-mm-x{
+    position:absolute;
+    top:12px;
+    right:12px;
+    width:40px;height:40px;
+    border-radius:999px;
+    border:1px solid rgba(13,18,41,.12);
+    background:rgba(13,18,41,.04);
+    color:var(--c-dark);
+    cursor:pointer;
+    font-size:26px;
+    line-height:1;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .vs-mm-x:hover{ background:rgba(13,18,41,.06); }
+
+  /* dentro do modal: ajuste de leitura (sem dourado como texto principal) */
+  .vs-mm-modal-kicker{
+    margin:2px 0 10px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    font-weight:900;
+    font-size:12px;
+    color:rgba(13,18,41,.62);
+  }
+
+  .vs-mm-modal-title{
+    margin:0;
+    font-size:22px;
+    line-height:1.2;
+    letter-spacing:-.02em;
+    font-weight:900;
+    color:var(--c-dark);
+    padding-right:46px; /* espaço pro X */
+  }
+
+  .vs-mm-modal-desc{
+    margin:10px 0 0;
+    font-size:15px;
+    line-height:1.65;
+    color:rgba(13,18,41,.82);
+    max-width:78ch;
+  }
+
+  .vs-mm-steps{
+    margin:12px 0 0;
+    padding-left:18px;
+    color:rgba(13,18,41,.82);
+    line-height:1.7;
+    font-size:15px;
+  }
+  .vs-mm-steps li{ margin:7px 0; }
+  .vs-mm-steps strong{ color:var(--c-dark); } /* leitura boa no branco */
+
+  .vs-mm-modal-actions{
+    margin-top:16px;
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    align-items:center;
+    justify-content:flex-end;
+  }
+
+  /* mantém o CTA igual ao padrão (dourado com texto escuro funciona no branco) */
+  .vs-mm-ghost{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    height:44px;
+    padding:0 18px;
+    border-radius:999px;
+    background:transparent;
+    border:1px solid rgba(13,18,41,.16);
+    color:var(--c-dark);
+    cursor:pointer;
+    font-weight:900;
+    white-space:nowrap;
+  }
+  .vs-mm-ghost:hover{ background:rgba(13,18,41,.04); }
+
   @media (max-width:900px){
     #vs-marketing-min{ padding:72px 0; }
-    .vs-mm-wrap{ grid-template-columns:1fr; }
-    .vs-mm-target{
-      justify-self:center;
-      width:min(460px, 86vw);
-      margin-top:18px;
-      opacity:.85;
+
+    .vs-mm-wrap{
+      grid-template-columns:1fr;
+      position:relative;
     }
+
+    .vs-mm-target{
+      position:absolute;
+      top:6px;
+      right:-24px;
+      width:min(520px, 96vw);
+      opacity:.22;
+      filter:none;
+      z-index:0;
+      pointer-events:none;
+    }
+
+    .vs-mm-content{
+      position:relative;
+      z-index:1;
+    }
+
     .vs-mm-title{ font-size:32px; }
     .vs-mm-text{ font-size:16px; }
+
+    .vs-mm-dialog{
+      padding:20px 16px 16px;
+      border-radius:25px; /* mantém 25 também no mobile */
+    }
+    .vs-mm-modal-title{ font-size:20px; }
   }
 </style>
 
@@ -1249,63 +1790,149 @@
     if (!root) return;
 
     const el = root.querySelector("[data-reveal]");
-    if (!el) return;
+    if (el) {
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) {
+          if (e.isIntersecting) e.target.classList.add("is-in");
+        }
+      }, { threshold: 0.18, rootMargin: "0px 0px -12% 0px" });
+      io.observe(el);
+    }
 
-    const io = new IntersectionObserver((entries) => {
-      for (const e of entries) {
-        if (e.isIntersecting) e.target.classList.add("is-in");
+    const openBtn = root.querySelector("[data-mm-open]");
+    const modal = root.querySelector("#vs-mm-modal");
+    if (!openBtn || !modal) return;
+
+    const dialog = modal.querySelector(".vs-mm-dialog");
+    const backdrop = modal.querySelector(".vs-mm-backdrop");
+    const closeEls = modal.querySelectorAll("[data-mm-close]");
+
+    let lastActive = null;
+    let prevOverflow = "";
+
+    const getFocusable = () =>
+      dialog.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])');
+
+    const trapTab = (e) => {
+      if (modal.hidden || e.key !== "Tab") return;
+      const focusables = getFocusable();
+      if (!focusables.length) return;
+
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
       }
-    }, { threshold: 0.18, rootMargin: "0px 0px -12% 0px" });
+    };
 
-    io.observe(el);
+    const lockScroll = () => {
+      prevOverflow = document.documentElement.style.overflow;
+      document.documentElement.style.overflow = "hidden";
+    };
+
+    const unlockScroll = () => {
+      document.documentElement.style.overflow = prevOverflow || "";
+    };
+
+    const openModal = () => {
+      lastActive = document.activeElement;
+      modal.hidden = false;
+      lockScroll();
+
+      const x = modal.querySelector(".vs-mm-x");
+      (x || dialog).focus?.();
+    };
+
+    const closeModal = () => {
+      modal.hidden = true;
+      unlockScroll();
+      if (lastActive && lastActive.focus) lastActive.focus();
+    };
+
+    modal.hidden = true;
+
+    openBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      openModal();
+    });
+
+    closeEls.forEach(btn => btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      closeModal();
+    }));
+
+    if (backdrop) backdrop.addEventListener("click", closeModal);
+
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !modal.hidden) closeModal();
+      trapTab(e);
+    });
   })();
 </script>
 
-    
-  </section>
 
+
+
+    
+</section>
 
 
   <section id="secao-4">
 
 <!-- =========================
      SIMULADOR DE RETORNO (EMBED • FUNDO CLARO • SLIDER)
-     Ajuste: CTA "Alugar agora!" fora da box, abaixo e alinhado à esquerda
+     Ajustes:
+     - Título acima do range: "Selecione o valor"
+     - Menos espaço abaixo do asterisco (web)
+     - Box de resultado muda suavemente para dourado claro conforme aumenta o valor
      ========================= -->
 <section id="vs-simulador-retorno" aria-label="Simulador de disparos e retorno estimado">
   <div class="vs-sim-wrap">
     <header class="vs-sim-head">
       <p class="vs-sim-kicker">SIMULADOR DE DISPAROS</p>
-      <h2 class="vs-sim-title">Quanto sua clínica pode faturar com disparos?</h2>
+      <h2 class="vs-sim-title">Quanto sua clínica pode faturar por disparos?</h2>
       <p class="vs-sim-sub">Escolha o investimento e veja a estimativa instantânea.</p>
     </header>
 
     <div class="vs-sim-card" data-reveal>
       <div class="vs-sim-row">
         <div class="vs-sim-col">
-          <div class="vs-sim-labels">
-            <span class="vs-sim-label">Investimento em disparos</span>
-            <span class="vs-sim-value" id="vsInvestTxt">R$ 200</span>
-          </div>
+          <div class="vs-sim-rangehead">Selecione o valor</div>
 
-          <input
-            class="vs-sim-range"
-            id="vsInvest"
-            type="range"
-            min="50"
-            max="2000"
-            step="50"
-            value="200"
-            aria-label="Ajustar investimento em disparos"
-          />
+          <!-- Range + balão -->
+          <div class="vs-sim-rangewrap">
+            <div class="vs-sim-tip" id="vsTip" aria-hidden="true">
+              <span class="vs-sim-tip__rs">R$</span>
+              <span class="vs-sim-tip__val">200</span>
+            </div>
 
-          <div class="vs-sim-minmax" aria-hidden="true">
-            <span>R$ 50</span>
-            <span>R$ 2.000</span>
+            <input
+              class="vs-sim-range"
+              id="vsInvest"
+              type="range"
+              min="50"
+              max="2000"
+              step="50"
+              value="200"
+              aria-label="Ajustar investimento em disparos"
+            />
           </div>
+          <!-- /Range + balão -->
         </div>
 
-        <div class="vs-sim-col vs-sim-result">
+        <div class="vs-sim-col vs-sim-result" id="vsResultBox">
+          <!-- investimento pequeno -->
+          <div class="vs-sim-invest">
+            <span class="vs-sim-invest__label">Investimento</span>
+            <span class="vs-sim-invest__val" id="vsInvestInline">R$ 200</span>
+          </div>
+
+          <!-- retorno grande -->
           <div class="vs-sim-big" id="vsReturnTxt">R$ 2.000</div>
           <div class="vs-sim-small">Retorno estimado</div>
         </div>
@@ -1319,7 +1946,7 @@
     </div>
 
     <!-- ✅ CTA fora da box, abaixo e alinhado à esquerda -->
-    <a class="vs-sim-cta" href="#" role="button" aria-label="Alugar agora">
+    <a class="vs-sim-cta" href="#" aria-label="Alugar agora">
       Alugar agora!
     </a>
   </div>
@@ -1362,12 +1989,12 @@
 
   .vs-sim-wrap{
     position:relative;
-    max-width:1240px;
+    max-width:1100px;
     margin:0 auto;
     padding:0 18px;
   }
 
-  .vs-sim-head{ max-width:1180px; }
+  .vs-sim-head{ max-width:100%; }
 
   .vs-sim-kicker{
     margin:0 0 10px;
@@ -1376,15 +2003,13 @@
     font-weight:900;
     font-size:12px;
     color:rgba(13,18,41,.72);
-    white-space:nowrap;
   }
 
   .vs-sim-title{
     margin:0;
-    font-size:44px;
+    font-size:42px;
     line-height:1.08;
     letter-spacing:-.02em;
-    white-space:nowrap;
   }
 
   .vs-sim-sub{
@@ -1392,7 +2017,6 @@
     font-size:18px;
     line-height:1.6;
     color:rgba(13,18,41,.78);
-    white-space:nowrap;
   }
 
   .vs-sim-card{
@@ -1421,35 +2045,79 @@
   .vs-sim-row{
     position:relative;
     display:grid;
-    grid-template-columns: 1.3fr .7fr;
+    grid-template-columns: 1.25fr .75fr;
     gap:22px;
     align-items:center;
   }
 
-  .vs-sim-labels{
-    display:flex;
-    align-items:baseline;
-    justify-content:space-between;
-    gap:14px;
-    margin-bottom:12px;
-  }
-  .vs-sim-label{
+  /* título acima do range */
+  .vs-sim-rangehead{
     font-weight:900;
     letter-spacing:-.01em;
     color:rgba(13,18,41,.92);
     font-size:16px;
-    white-space:nowrap;
+    margin:0 0 12px;
+    position:relative;
+    z-index:1;
   }
-  .vs-sim-value{
-    font-weight:950;
+
+  /* ===== Range + balão ===== */
+  .vs-sim-rangewrap{
+    position:relative;
+    padding-top:77px; /* balão + seta + respiro */
+  }
+
+  .vs-sim-tip{
+    position:absolute;
+    top:0;
+    left:0;
+    width:82px;
+    height:64px;
+    border-radius:18px;
+    background:#fff;
+    border:1px solid rgba(13,18,41,.12);
+    box-shadow:0 14px 30px rgba(13,18,41,.12);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    transform:translateX(-50%);
+    user-select:none;
+    pointer-events:none;
+    z-index:2;
+  }
+  .vs-sim-tip::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:-8px;
+    transform:translateX(-50%);
+    width:0;height:0;
+    border-left:8px solid transparent;
+    border-right:8px solid transparent;
+    border-top:8px solid #fff;
+    filter: drop-shadow(0 2px 0 rgba(13,18,41,.10));
+  }
+
+  .vs-sim-tip__rs{
+    font-size:12.5px;
+    font-weight:900;
+    line-height:1;
+    color:rgba(13,18,41,.62);
+    margin-bottom:5px;
+  }
+  .vs-sim-tip__val{
     font-size:18px;
+    font-weight:900;
+    line-height:1;
     color:rgba(13,18,41,.95);
+    letter-spacing:-.01em;
     white-space:nowrap;
   }
 
   .vs-sim-range{
     width:100%;
-    margin:12px 0 8px;
+    margin:0 0 8px;
     -webkit-appearance:none;
     appearance:none;
     height:10px;
@@ -1457,6 +2125,8 @@
     background:linear-gradient(90deg, rgba(230,198,129,.95) var(--fill, 0%), rgba(13,18,41,.12) var(--fill, 0%));
     outline:none;
     cursor:pointer;
+    position:relative;
+    z-index:1;
   }
   .vs-sim-range::-webkit-slider-thumb{
     -webkit-appearance:none;
@@ -1480,26 +2150,43 @@
     background:rgba(13,18,41,.12);
   }
 
-  .vs-sim-minmax{
-    display:flex;
-    justify-content:space-between;
-    color:rgba(13,18,41,.62);
-    font-size:13px;
-    white-space:nowrap;
-  }
-
+  /* ===== Resultado ===== */
   .vs-sim-result{
     border:1px solid rgba(13,18,41,.10);
     border-radius:20px;
+    /* cor vai ser controlada via CSS var pela % do range */
     background:rgba(13,18,41,.04);
     padding:18px 18px;
     text-align:center;
+
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+
+    transition: background-color .18s ease, border-color .18s ease;
   }
+
+  .vs-sim-invest{
+    display:flex;
+    align-items:baseline;
+    justify-content:center;
+    gap:8px;
+    margin:0 0 10px;
+    font-size:13.5px;
+    line-height:1.2;
+    color:rgba(13,18,41,.70);
+    font-weight:800;
+    white-space:nowrap;
+  }
+  .vs-sim-invest__label{ color:rgba(13,18,41,.70); font-weight:800; }
+  .vs-sim-invest__val{ color:rgba(13,18,41,.95); font-weight:900; white-space:nowrap; }
+
   .vs-sim-big{
-    font-size:44px;
+    font-size:46px;
     line-height:1.05;
     letter-spacing:-.02em;
-    font-weight:950;
+    font-weight:900;
     color:rgba(13,18,41,.98);
     white-space:nowrap;
   }
@@ -1508,13 +2195,13 @@
     font-size:14px;
     color:rgba(13,18,41,.70);
     font-weight:800;
-    white-space:nowrap;
   }
 
+  /* ✅ menos espaço no web abaixo do * */
   .vs-sim-foot{
     position:relative;
-    margin-top:18px;
-    padding-top:14px;
+    margin-top:10px;   /* mais enxuto */
+    padding-top:8px;   /* mais enxuto */
     border-top:1px solid rgba(13,18,41,.10);
   }
   .vs-sim-note{
@@ -1524,7 +2211,7 @@
     color:rgba(13,18,41,.62);
   }
 
-  /* ✅ CTA fora da box */
+  /* CTA fora da box */
   .vs-sim-cta{
     display:inline-flex;
     align-items:center;
@@ -1533,11 +2220,12 @@
     padding:12px 22px;
     border-radius:999px;
     text-decoration:none;
-    font-weight:950;
+    font-weight:900;
     background:var(--c-gold);
     color:var(--c-dark);
     border:1px solid rgba(13,18,41,.12);
     transition:background-color .15s ease, transform .15s ease;
+    white-space:nowrap;
   }
   .vs-sim-cta:hover{ background:var(--c-gold2); transform:translateY(-1px); }
   .vs-sim-cta:active{ transform:translateY(0); }
@@ -1554,18 +2242,31 @@
     transform:translateY(0);
   }
 
+  @media (max-width:1100px){
+    .vs-sim-title{ font-size:38px; }
+  }
+
   @media (max-width:900px){
     #vs-simulador-retorno{ padding:78px 0; }
-    .vs-sim-wrap{ max-width:1100px; }
-    .vs-sim-head{ max-width:860px; }
 
-    .vs-sim-title{ font-size:34px; white-space:normal; }
-    .vs-sim-sub{ font-size:16px; white-space:normal; }
-    .vs-sim-kicker{ white-space:normal; }
+    .vs-sim-title{ font-size:34px; }
+    .vs-sim-sub{ font-size:16px; }
 
     .vs-sim-row{ grid-template-columns:1fr; }
     .vs-sim-card{ padding:22px; min-height:auto; }
     .vs-sim-big{ font-size:36px; }
+
+    .vs-sim-rangewrap{ padding-top:72px; }
+    .vs-sim-tip{
+      width:84px;
+      height:58px;
+      border-radius:18px;
+    }
+    .vs-sim-tip__rs{ font-size:12px; margin-bottom:4px; }
+    .vs-sim-tip__val{ font-size:17px; }
+
+    /* no mobile, mantém um respiro do asterisco */
+    .vs-sim-foot{ margin-top:12px; padding-top:10px; }
   }
 </style>
 
@@ -1575,11 +2276,17 @@
     if (!root) return;
 
     const range = root.querySelector("#vsInvest");
-    const investTxt = root.querySelector("#vsInvestTxt");
     const returnTxt = root.querySelector("#vsReturnTxt");
+    const investInline = root.querySelector("#vsInvestInline");
+    const tip = root.querySelector("#vsTip");
+    const tipVal = tip ? tip.querySelector(".vs-sim-tip__val") : null;
+    const resultBox = root.querySelector("#vsResultBox");
 
     const min = Number(range.min);
     const max = Number(range.max);
+
+    // deve bater com o tamanho do thumb no CSS (22)
+    const THUMB = 22;
 
     const fmtBRL = (n) => {
       try {
@@ -1589,17 +2296,68 @@
       }
     };
 
+    const fmtValOnly = (n) => {
+      try {
+        return n.toLocaleString("pt-BR", { maximumFractionDigits:0 });
+      } catch {
+        return String(n);
+      }
+    };
+
+    const placeTip = () => {
+      if (!tip) return;
+
+      const rect = range.getBoundingClientRect();
+      const wrapRect = range.parentElement.getBoundingClientRect();
+
+      const invest = Number(range.value) || 0;
+      const pct = ((invest - min) / (max - min)) * 100;
+      const pctClamped = Math.max(0, Math.min(100, pct));
+
+      const usable = Math.max(0, rect.width - THUMB);
+      const centerX = (pctClamped / 100) * usable + (THUMB / 2);
+      const left = (rect.left - wrapRect.left) + centerX;
+
+      tip.style.left = `${left}px`;
+      if (tipVal) tipVal.textContent = fmtValOnly(invest);
+    };
+
+    const updateResultTint = (pct) => {
+      if (!resultBox) return;
+
+      // pct 0..1
+      const t = Math.max(0, Math.min(1, pct));
+
+      // cor base (quase neutra) -> dourado claro (suave)
+      // de: rgba(13,18,41,.04)  (cinza bem leve)
+      // para: rgba(230,198,129,.38) (dourado claro no branco)
+      const a = 0.04 + (0.38 - 0.04) * t;
+      resultBox.style.backgroundColor = `rgba(230,198,129, ${a.toFixed(3)})`;
+
+      // borda também acompanha levemente
+      const ba = 0.10 + (0.28 - 0.10) * t;
+      resultBox.style.borderColor = `rgba(13,18,41, ${ba.toFixed(3)})`;
+    };
+
     const update = () => {
       const invest = Number(range.value) || 0;
       const ret = invest * 10;
-      investTxt.textContent = fmtBRL(invest);
-      returnTxt.textContent = fmtBRL(ret);
 
-      const pct = ((invest - min) / (max - min)) * 100;
-      range.style.setProperty("--fill", `${Math.max(0, Math.min(100, pct))}%`);
+      returnTxt.textContent = fmtBRL(ret);
+      if (investInline) investInline.textContent = fmtBRL(invest);
+
+      const pct = (invest - min) / (max - min);
+      const pctClamped = Math.max(0, Math.min(1, pct));
+
+      range.style.setProperty("--fill", `${(pctClamped * 100).toFixed(2)}%`);
+
+      placeTip();
+      updateResultTint(pctClamped);
     };
 
     range.addEventListener("input", update);
+    window.addEventListener("resize", placeTip, { passive:true });
+
     update();
 
     const card = root.querySelector("[data-reveal]");
@@ -1613,372 +2371,20 @@
   })();
 </script>
 
+
     
-  </section>
+</section>
+  <section id="secao-5"><!-- ✅ FAQ (embed sessão 5) --></section>
+  <section id="secao-6"><!-- ✅ Conteúdos (embed sessão 6) --></section>
+  <section id="secao-7"><!-- ✅ Contato (embed sessão 7) --></section>
 
+  <!-- ✅ extra pro futuro (sem link no menu por enquanto) -->
+  <section id="secao-8"><!-- ✅ Sessão 8 (extra) --></section>
 
-
-
-
-
-
-
-  
-  <section id="secao-5"><!-- ✅ COLE O EMBED DA SESSÃO 5 AQUI --></section>
-  <section id="secao-6"><!-- ✅ COLE O EMBED DA SESSÃO 6 AQUI --></section>
-  <section id="secao-7"><!-- ✅ COLE O EMBED DA SESSÃO 7 AQUI --></section>
-  <section id="secao-8"><!-- ✅ COLE O EMBED DA SESSÃO 8 AQUI --></section>
-
-
-
-
-
-  
   <!-- Rodapé -->
   <footer id="rodape">
-
-
-
-<!-- =========================
-     RODAPÉ (FOOTER) • FUNDO AZUL • PROFISSIONAL
-     - Logo, contatos (WhatsApp/cel), Instagram, e-mail
-     - Endereços SP e Recife
-     - CNPJ (placeholder)
-     - Links úteis (anchors editáveis)
-     ========================= -->
-<footer id="vs-rodape" aria-label="Rodapé Visio Skyn">
-  <div class="vs-foot-wrap">
-    <div class="vs-foot-top">
-      <!-- Marca -->
-      <div class="vs-foot-brand">
-        <a class="vs-foot-logo" href="#" aria-label="Visio Skyn Rental - Início">
-          <img
-            src="https://gleisondesign.github.io/VISIOSKYN/SRC/LOGO_BRANCO_VISIOSKYN.png"
-            alt="Visio Skyn Rental"
-            width="170"
-            height="34"
-            loading="lazy"
-            decoding="async"
-          />
-        </a>
-
-        <p class="vs-foot-desc">
-          Locação de equipamentos premium para estética e dermatologia em <strong>São Paulo</strong> e <strong>Recife</strong>.
-          Logística ágil, suporte e contratos flexíveis.
-        </p>
-
-        <div class="vs-foot-social">
-          <a class="vs-foot-pill" href="https://www.instagram.com/visioskyn.rental" target="_blank" rel="noopener" aria-label="Instagram Visio Skyn">
-            <span class="vs-ic" aria-hidden="true">
-              <!-- Instagram -->
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M12 16a4 4 0 1 0-4-4 4 4 0 0 0 4 4Z" stroke="currentColor" stroke-width="2"/>
-                <path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
-              </svg>
-            </span>
-            Instagram
-          </a>
-
-          <a class="vs-foot-pill" href="mailto:comercial@visioskyn.com" aria-label="Enviar e-mail para comercial@visioskyn.com">
-            <span class="vs-ic" aria-hidden="true">
-              <!-- Email -->
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M4 6h16v12H4V6Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>
-                <path d="M4 7l8 6 8-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </span>
-            comercial@visioskyn.com
-          </a>
-        </div>
-      </div>
-
-      <!-- Contatos -->
-      <div class="vs-foot-col">
-        <h3 class="vs-foot-h3">Contato</h3>
-
-        <a class="vs-foot-link" href="https://wa.me/5511964478583" target="_blank" rel="noopener" aria-label="WhatsApp São Paulo">
-          <span class="vs-dot" aria-hidden="true"></span>
-          WhatsApp SP: <strong>+55 (11) 96447-8583</strong>
-        </a>
-
-        <a class="vs-foot-link" href="https://wa.me/5581999655568" target="_blank" rel="noopener" aria-label="WhatsApp Recife">
-          <span class="vs-dot" aria-hidden="true"></span>
-          WhatsApp Recife: <strong>+55 (81) 99965-5568</strong>
-        </a>
-
-        <a class="vs-foot-link" href="tel:+5511964478583" aria-label="Ligar para São Paulo">
-          <span class="vs-dot" aria-hidden="true"></span>
-          Celular SP: <strong>+55 (11) 96447-8583</strong>
-        </a>
-
-        <a class="vs-foot-link" href="tel:+5581999655568" aria-label="Ligar para Recife">
-          <span class="vs-dot" aria-hidden="true"></span>
-          Celular Recife: <strong>+55 (81) 99965-5568</strong>
-        </a>
-      </div>
-
-      <!-- Endereços -->
-      <div class="vs-foot-col">
-        <h3 class="vs-foot-h3">Bases</h3>
-
-        <div class="vs-foot-addr">
-          <p class="vs-foot-addrTitle">São Paulo (SP)</p>
-          <p class="vs-foot-addrText">R. Sena Madureira, 151 — Vila Mariana<br/>CEP 04021-050</p>
-        </div>
-
-        <div class="vs-foot-addr">
-          <p class="vs-foot-addrTitle">Recife (PE)</p>
-          <p class="vs-foot-addrText">Base Recife — atendimento sob agendamento</p>
-        </div>
-
-        <p class="vs-foot-cnpj">
-          CNPJ (placeholder): <strong>12.345.678/0001-90</strong>
-        </p>
-      </div>
-
-      <!-- Links úteis -->
-      <div class="vs-foot-col">
-        <h3 class="vs-foot-h3">Links</h3>
-
-        <!-- Ajuste os href para IDs reais do seu site -->
-        <a class="vs-foot-link" href="#secao-1"><span class="vs-dot" aria-hidden="true"></span>Equipamentos</a>
-        <a class="vs-foot-link" href="#vs-timeline-locacao"><span class="vs-dot" aria-hidden="true"></span>Processo de locação</a>
-        <a class="vs-foot-link" href="#vs-simulador-retorno"><span class="vs-dot" aria-hidden="true"></span>Simulador</a>
-        <a class="vs-foot-link" href="#vs-marketing-min"><span class="vs-dot" aria-hidden="true"></span>Bônus de marketing</a>
-      </div>
-    </div>
-
-    <div class="vs-foot-bottom">
-      <p class="vs-foot-copy">
-        © <span id="vsFootYear">2026</span> Visio Skyn Rental. Todos os direitos reservados.
-      </p>
-
-      <div class="vs-foot-legal">
-        <!-- placeholders: se quiser depois posso criar páginas internas -->
-        <a href="#" class="vs-foot-legalLink">Política de privacidade</a>
-        <span class="vs-foot-sep" aria-hidden="true">•</span>
-        <a href="#" class="vs-foot-legalLink">Termos de uso</a>
-      </div>
-    </div>
-  </div>
-</footer>
-
-<style>
-  #vs-rodape{
-    --c-dark:#0d1229;
-    --c-light:#e2e2e2;
-    --c-gold:#e6c681;
-    --c-gold2:#a5804c;
-
-    background:var(--c-dark);
-    color:rgba(226,226,226,.92);
-    position:relative;
-    overflow:hidden;
-    padding:64px 0 26px;
-  }
-
-  /* brilho sutil */
-  #vs-rodape::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:
-      radial-gradient(900px 420px at 18% 0%, rgba(230,198,129,.14), transparent 60%),
-      radial-gradient(900px 420px at 92% 10%, rgba(165,128,76,.10), transparent 62%);
-    pointer-events:none;
-  }
-
-  .vs-foot-wrap{
-    position:relative;
-    max-width:1200px;
-    margin:0 auto;
-    padding:0 18px;
-  }
-
-  .vs-foot-top{
-    display:grid;
-    grid-template-columns: 1.4fr 1fr 1fr 1fr;
-    gap:24px;
-    align-items:start;
-    padding-bottom:26px;
-    border-bottom:1px solid rgba(255,255,255,.10);
-  }
-
-  .vs-foot-logo img{ display:block; height:auto; }
-  .vs-foot-desc{
-    margin:14px 0 0;
-    line-height:1.75;
-    color:rgba(226,226,226,.82);
-    max-width:52ch;
-    font-size:15px;
-  }
-
-  .vs-foot-social{
-    margin-top:16px;
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-  }
-
-  .vs-foot-pill{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    padding:10px 12px;
-    border-radius:999px;
-    text-decoration:none;
-    color:rgba(226,226,226,.92);
-    border:1px solid rgba(255,255,255,.14);
-    background:rgba(255,255,255,.04);
-    transition:transform .15s ease, background-color .15s ease, border-color .15s ease;
-  }
-  .vs-foot-pill:hover{
-    transform:translateY(-1px);
-    background:rgba(255,255,255,.06);
-    border-color:rgba(230,198,129,.28);
-  }
-
-  .vs-ic{
-    width:34px;height:34px;
-    border-radius:12px;
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    color:rgba(230,198,129,.95);
-    background:rgba(230,198,129,.10);
-    border:1px solid rgba(230,198,129,.16);
-    flex:0 0 auto;
-  }
-  .vs-ic svg{ display:block; }
-
-  .vs-foot-h3{
-    margin:4px 0 12px;
-    font-size:14px;
-    letter-spacing:.12em;
-    text-transform:uppercase;
-    font-weight:950;
-    color:rgba(226,226,226,.92);
-  }
-
-  .vs-foot-link{
-    display:flex;
-    gap:10px;
-    align-items:flex-start;
-    text-decoration:none;
-    color:rgba(226,226,226,.84);
-    padding:9px 0;
-    line-height:1.6;
-    font-size:14px;
-    transition:color .15s ease;
-  }
-  .vs-foot-link:hover{ color:rgba(230,198,129,.95); }
-
-  .vs-dot{
-    margin-top:7px;
-    width:7px;height:7px;
-    border-radius:999px;
-    background:rgba(230,198,129,.85);
-    box-shadow:0 0 0 5px rgba(230,198,129,.14);
-    flex:0 0 auto;
-  }
-
-  .vs-foot-addr{ margin:0 0 12px; }
-  .vs-foot-addrTitle{
-    margin:0;
-    font-weight:950;
-    color:rgba(226,226,226,.92);
-    font-size:14px;
-  }
-  .vs-foot-addrText{
-    margin:6px 0 0;
-    color:rgba(226,226,226,.78);
-    line-height:1.65;
-    font-size:14px;
-  }
-
-  .vs-foot-cnpj{
-    margin:14px 0 0;
-    color:rgba(226,226,226,.70);
-    font-size:13px;
-    line-height:1.6;
-  }
-
-  .vs-foot-bottom{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:14px;
-    padding-top:18px;
-    font-size:13px;
-    color:rgba(226,226,226,.70);
-    flex-wrap:wrap;
-  }
-
-  .vs-foot-legal{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    flex-wrap:wrap;
-  }
-
-  .vs-foot-legalLink{
-    color:rgba(226,226,226,.74);
-    text-decoration:none;
-    border-bottom:1px solid rgba(255,255,255,.10);
-    padding-bottom:2px;
-  }
-  .vs-foot-legalLink:hover{
-    color:rgba(230,198,129,.95);
-    border-bottom-color:rgba(230,198,129,.35);
-  }
-
-  .vs-foot-sep{ opacity:.55; }
-
-  @media (max-width:980px){
-    .vs-foot-top{
-      grid-template-columns: 1fr 1fr;
-      gap:22px;
-    }
-  }
-  @media (max-width:560px){
-    #vs-rodape{ padding:54px 0 22px; }
-    .vs-foot-top{ grid-template-columns: 1fr; }
-    .vs-foot-desc{ max-width:100%; }
-    .vs-foot-bottom{ justify-content:flex-start; }
-  }
-</style>
-
-<script>
-  (() => {
-    const y = document.getElementById("vsFootYear");
-    if (y) y.textContent = String(new Date().getFullYear());
-  })();
-</script>
-
-
-
-
+    <!-- ✅ INSIRA AQUI SEU RODA PE -->
   </footer>
-
-
-
-
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
