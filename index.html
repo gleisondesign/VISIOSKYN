@@ -154,7 +154,7 @@
   <div id="vs-menu">
     <nav class="bar" aria-label="Menu principal">
       <div class="inner">
-        <a class="brand" href="#secao-1" aria-label="Início">
+        <a class="brand" href="#equipamentos" aria-label="Início">
           <img
             src="https://gleisondesign.github.io/VISIOSKYN/SRC/LOGO_BRANCO_VISIOSKYN.png"
             alt="Visio Skyn Rental"
@@ -170,13 +170,13 @@
         </button>
 
         <div class="links">
-          <a href="#secao-1">Equipamentos</a>
-          <a href="#secao-2">Locação</a>
-          <a href="#secao-3">Marketing</a>
-          <a href="#secao-4">Simulador</a>
-          <a href="#secao-5">FAQ</a>
-          <a href="#secao-6">Conteúdos</a>
-          <a class="cta" href="#secao-7">Contato</a>
+          <a href="#equipamentos">Equipamentos</a>
+          <a href="#locacao">Locação</a>
+          <a href="#marketing">Marketing</a>
+          <a href="#simulador">Simulador</a>
+          <a href="#faq">FAQ</a>
+          <a href="#conteudos">Conteúdos</a>
+          <a class="cta" href="#contato">Contato</a>
         </div>
       </div>
     </nav>
@@ -314,9 +314,15 @@
           }
         });
 
-        // Fecha ao clicar em um link (mobile)
+        // ✅ Fecha ao clicar em um link (mobile) + garante remover estados de "hidden"
         l.addEventListener("click", e => {
-          if (e.target.closest("a")) b.setAttribute("aria-expanded", "false");
+          if (!e.target.closest("a")) return;
+
+          b.setAttribute("aria-expanded", "false");
+
+          // garante que a barra volte e o padding-top não fique zerado
+          r.classList.remove("is-hidden");
+          document.body.classList.remove("vs-menu-hidden");
         });
 
         // ✅ scroll suave: encosta no topo (offset = padding-top atual do body)
@@ -385,11 +391,18 @@
     </script>
   </div>
 
-  <!-- ÁREAS PARA INSERIR EMBEDS -->
-<section id="secao-1">
+
+
+<!-- ====== AREA DE EMBEDS ====== -->
+
+ 
+  <section id="equipamentos">
+
 
 <!-- ====== EMBED: SESSÃO 1 (SLIDER FULLSCREEN - 3 SLIDES | AUTOPLAY 14s | IMG ESQ + TEXTO DIR) ====== -->
-<section id="vs-hero-slider" aria-label="Slider de equipamentos em tela cheia">
+<!-- ✅ Correção: removido o wrapper <section> externo para não criar "sessão dentro de sessão".
+     Agora este embed pode ser colado DENTRO de: <section id="equipamentos"> ... </section> -->
+<div id="vs-hero-slider" aria-label="Slider de equipamentos em tela cheia">
   <div class="slider" role="region" aria-roledescription="carousel" aria-label="Carrossel de equipamentos">
     <div class="track" aria-live="polite">
       <!-- SLIDE 1 -->
@@ -1070,15 +1083,14 @@
       start();
     })();
   </script>
-</section>
+</div>
 <!-- ====== /EMBED: SESSÃO 1 ====== -->
 
 
+  </section>
 
-</section>
 
-
-<section id="secao-2">
+  <section id="locacao">
 
 
 <!-- ====== EMBED: PROCESSO DE LOCAÇÃO (TIMELINE • BULLETS • FUNDO CLARO COM TEXTURA) ====== -->
@@ -1385,114 +1397,115 @@
 <!-- ====== /EMBED: PROCESSO DE LOCAÇÃO ====== -->
 
 
-</section>
+  </section>
 
 
- <section id="secao-3">
+  <section id="marketing">
 
 
-<section id="vs-marketing-min" aria-label="Bônus de marketing para quem aluga">
-  <div class="vs-mm-wrap">
-    <div class="vs-mm-content" data-reveal>
-      <p class="vs-mm-kicker">BÔNUS PARA QUEM ALUGA</p>
+<!-- ====== EMBED: SESSÃO 3 (BÔNUS DE MARKETING | MODAL) ====== -->
 
-      <h2 class="vs-mm-title">
-        Alugou seu equipamento? A gente ajuda a <span class="vs-mm-em">encher sua agenda</span>.
-      </h2>
+<div class="vs-mm-wrap">
+  <div class="vs-mm-content" data-reveal>
+    <p class="vs-mm-kicker">BÔNUS PARA QUEM ALUGA</p>
 
-      <p class="vs-mm-text">
-        Além do equipamento premium, você pode fechar um pacote completo de marketing com nossa agência parceira focada apenas nessa área.
-        Do posicionamento à execução para transformar demanda em pacientes.
-      </p>
+    <h2 class="vs-mm-title">
+      Alugou seu equipamento? A gente ajuda a <span class="vs-mm-em">encher sua agenda</span>.
+    </h2>
 
-      <div class="vs-mm-pillrow">
-        <span class="vs-mm-pill">Brand / Identidade</span>
-        <span class="vs-mm-pill">Site premium</span>
-        <span class="vs-mm-pill">Página de captura</span>
-        <span class="vs-mm-pill">Social media</span>
-        <span class="vs-mm-pill">Anúncios</span>
-        <span class="vs-mm-pill">WhatsApp & roteiro</span>
-        <span class="vs-mm-pill">Leads qualificados</span>
-      </div>
+    <p class="vs-mm-text">
+      Além do equipamento premium, você pode fechar um pacote completo de marketing com nossa agência parceira focada apenas nessa área.
+      Do posicionamento à execução para transformar demanda em pacientes.
+    </p>
 
-      <div class="vs-mm-actions">
-        <a
-          class="vs-mm-cta"
-          href="https://wa.me/5511986912169?text=Quero%20um%20plano%20de%20marketing%20em%20parceria%20com%20a%20Visio%20Skyn%21"
-        >Eu quero</a>
-        <a class="vs-mm-link" href="#" data-mm-open>Saiba mais</a>
-      </div>
+    <div class="vs-mm-pillrow">
+      <span class="vs-mm-pill">Brand / Identidade</span>
+      <span class="vs-mm-pill">Site premium</span>
+      <span class="vs-mm-pill">Página de captura</span>
+      <span class="vs-mm-pill">Social media</span>
+      <span class="vs-mm-pill">Anúncios</span>
+      <span class="vs-mm-pill">WhatsApp & roteiro</span>
+      <span class="vs-mm-pill">Leads qualificados</span>
     </div>
 
-    <div class="vs-mm-target" aria-hidden="true">
-      <svg viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
-        <defs>
-          <radialGradient id="vsMmGlow" cx="50%" cy="50%" r="55%">
-            <stop offset="0%" stop-color="#e6c681" stop-opacity=".18"/>
-            <stop offset="60%" stop-color="#e6c681" stop-opacity=".08"/>
-            <stop offset="100%" stop-color="#e6c681" stop-opacity="0"/>
-          </radialGradient>
-        </defs>
-
-        <circle cx="260" cy="260" r="230" fill="url(#vsMmGlow)"/>
-        <circle cx="260" cy="260" r="210" fill="none" stroke="rgba(226,226,226,.12)" stroke-width="2"/>
-        <circle cx="260" cy="260" r="160" fill="none" stroke="rgba(226,226,226,.12)" stroke-width="2"/>
-        <circle cx="260" cy="260" r="110" fill="none" stroke="rgba(226,226,226,.14)" stroke-width="2"/>
-        <circle cx="260" cy="260" r="60"  fill="none" stroke="rgba(230,198,129,.32)" stroke-width="2"/>
-
-        <path d="M260 70v380" stroke="rgba(226,226,226,.10)" stroke-width="2" stroke-linecap="round"/>
-        <path d="M70 260h380" stroke="rgba(226,226,226,.10)" stroke-width="2" stroke-linecap="round"/>
-
-        <circle cx="260" cy="260" r="18" fill="rgba(230,198,129,.55)"/>
-        <circle cx="260" cy="260" r="7"  fill="rgba(230,198,129,.95)"/>
-      </svg>
+    <div class="vs-mm-actions">
+      <a
+        class="vs-mm-cta"
+        href="https://wa.me/5511986912169?text=Quero%20um%20plano%20de%20marketing%20em%20parceria%20com%20a%20Visio%20Skyn%21"
+      >Eu quero</a>
+      <a class="vs-mm-link" href="#" data-mm-open>Saiba mais</a>
     </div>
   </div>
 
-  <div class="vs-mm-modal" id="vs-mm-modal" hidden>
-    <div class="vs-mm-backdrop" aria-hidden="true"></div>
+  <div class="vs-mm-target" aria-hidden="true">
+    <svg viewBox="0 0 520 520" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <radialGradient id="vsMmGlow" cx="50%" cy="50%" r="55%">
+          <stop offset="0%" stop-color="#e6c681" stop-opacity=".18"/>
+          <stop offset="60%" stop-color="#e6c681" stop-opacity=".08"/>
+          <stop offset="100%" stop-color="#e6c681" stop-opacity="0"/>
+        </radialGradient>
+      </defs>
 
-    <div
-      class="vs-mm-dialog"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="vs-mm-modal-title"
-      aria-describedby="vs-mm-modal-desc"
-      tabindex="-1"
-    >
-      <button class="vs-mm-x" type="button" data-mm-close aria-label="Fechar">×</button>
+      <circle cx="260" cy="260" r="230" fill="url(#vsMmGlow)"/>
+      <circle cx="260" cy="260" r="210" fill="none" stroke="rgba(226,226,226,.12)" stroke-width="2"/>
+      <circle cx="260" cy="260" r="160" fill="none" stroke="rgba(226,226,226,.12)" stroke-width="2"/>
+      <circle cx="260" cy="260" r="110" fill="none" stroke="rgba(226,226,226,.14)" stroke-width="2"/>
+      <circle cx="260" cy="260" r="60"  fill="none" stroke="rgba(230,198,129,.32)" stroke-width="2"/>
 
-      <p class="vs-mm-modal-kicker">COMO FUNCIONA</p>
-      <h3 class="vs-mm-modal-title" id="vs-mm-modal-title">
-        Do posicionamento à execução para quem aluga
-      </h3>
+      <path d="M260 70v380" stroke="rgba(226,226,226,.10)" stroke-width="2" stroke-linecap="round"/>
+      <path d="M70 260h380" stroke="rgba(226,226,226,.10)" stroke-width="2" stroke-linecap="round"/>
 
-      <p class="vs-mm-modal-desc" id="vs-mm-modal-desc">
-        Você já está com o equipamento premium. A gente monta o marketing completo para atrair pacientes,
-        gerar leads e transformar interesse em agendamentos.
-      </p>
+      <circle cx="260" cy="260" r="18" fill="rgba(230,198,129,.55)"/>
+      <circle cx="260" cy="260" r="7"  fill="rgba(230,198,129,.95)"/>
+    </svg>
+  </div>
+</div>
 
-      <ol class="vs-mm-steps">
-        <li><strong>Diagnóstico</strong> do público, ticket e objetivo.</li>
-        <li><strong>Identidade e oferta</strong> com estética premium e mensagem clara.</li>
-        <li><strong>Site e página de captura</strong> com prova, confiança e WhatsApp.</li>
-        <li><strong>Tráfego e social</strong> para leads qualificados com constância.</li>
-        <li><strong>Roteiro</strong> de atendimento para converter em horários.</li>
-      </ol>
+<div class="vs-mm-modal" id="vs-mm-modal" hidden>
+  <div class="vs-mm-backdrop" aria-hidden="true"></div>
 
-      <div class="vs-mm-modal-actions">
-        <a
-          class="vs-mm-cta"
-          href="https://wa.me/5511986912169?text=Quero%20um%20plano%20de%20marketing%20em%20parceria%20com%20a%20Visio%20Skyn%21"
-        >Eu quero</a>
-        <button class="vs-mm-ghost" type="button" data-mm-close>Fechar</button>
-      </div>
+  <div
+    class="vs-mm-dialog"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="vs-mm-modal-title"
+    aria-describedby="vs-mm-modal-desc"
+    tabindex="-1"
+  >
+    <button class="vs-mm-x" type="button" data-mm-close aria-label="Fechar">×</button>
+
+    <p class="vs-mm-modal-kicker">COMO FUNCIONA</p>
+    <h3 class="vs-mm-modal-title" id="vs-mm-modal-title">
+      Do posicionamento à execução para quem aluga
+    </h3>
+
+    <p class="vs-mm-modal-desc" id="vs-mm-modal-desc">
+      Você já está com o equipamento premium. A gente monta o marketing completo para atrair pacientes,
+      gerar leads e transformar interesse em agendamentos.
+    </p>
+
+    <ol class="vs-mm-steps">
+      <li><strong>Diagnóstico</strong> do público, ticket e objetivo.</li>
+      <li><strong>Identidade e oferta</strong> com estética premium e mensagem clara.</li>
+      <li><strong>Site e página de captura</strong> com prova, confiança e WhatsApp.</li>
+      <li><strong>Tráfego e social</strong> para leads qualificados com constância.</li>
+      <li><strong>Roteiro</strong> de atendimento para converter em horários.</li>
+    </ol>
+
+    <div class="vs-mm-modal-actions">
+      <a
+        class="vs-mm-cta"
+        href="https://wa.me/5511986912169?text=Quero%20um%20plano%20de%20marketing%20em%20parceria%20com%20a%20Visio%20Skyn%21"
+      >Eu quero</a>
+      <button class="vs-mm-ghost" type="button" data-mm-close>Fechar</button>
     </div>
   </div>
-</section>
+</div>
 
 <style>
-  #vs-marketing-min{
+  /* ✅ escopo mantido: agora aplicado pela âncora da seção (da base) */
+  #marketing{
     --c-dark:#0d1229;
     --c-light:#e2e2e2;
     --c-gold:#e6c681;
@@ -1505,7 +1518,7 @@
     padding:92px 0;
   }
 
-  #vs-marketing-min::before{
+  #marketing::before{
     content:"";
     position:absolute;
     inset:0;
@@ -1623,13 +1636,13 @@
     display:block;
   }
 
-  #vs-marketing-min [data-reveal]{
+  #marketing [data-reveal]{
     opacity:0;
     transform:translateY(18px);
     transition:opacity .85s ease, transform .85s ease;
     will-change:opacity,transform;
   }
-  #vs-marketing-min [data-reveal].is-in{
+  #marketing [data-reveal].is-in{
     opacity:1;
     transform:translateY(0);
   }
@@ -1648,12 +1661,11 @@
   .vs-mm-backdrop{
     position:absolute;
     inset:0;
-    background:rgba(0,0,0,.55); /* mesmo clima do modal anterior */
+    background:rgba(0,0,0,.55);
     backdrop-filter: blur(2px);
     -webkit-backdrop-filter: blur(2px);
   }
 
-  /* ===== AQUI: modal aplicado no MESMO padrão do pop anterior (branco, radius 25) ===== */
   .vs-mm-dialog{
     position:relative;
     width:min(560px, 100%);
@@ -1685,7 +1697,6 @@
   }
   .vs-mm-x:hover{ background:rgba(13,18,41,.06); }
 
-  /* dentro do modal: ajuste de leitura (sem dourado como texto principal) */
   .vs-mm-modal-kicker{
     margin:2px 0 10px;
     letter-spacing:.14em;
@@ -1702,7 +1713,7 @@
     letter-spacing:-.02em;
     font-weight:900;
     color:var(--c-dark);
-    padding-right:46px; /* espaço pro X */
+    padding-right:46px;
   }
 
   .vs-mm-modal-desc{
@@ -1721,7 +1732,7 @@
     font-size:15px;
   }
   .vs-mm-steps li{ margin:7px 0; }
-  .vs-mm-steps strong{ color:var(--c-dark); } /* leitura boa no branco */
+  .vs-mm-steps strong{ color:var(--c-dark); }
 
   .vs-mm-modal-actions{
     margin-top:16px;
@@ -1732,7 +1743,6 @@
     justify-content:flex-end;
   }
 
-  /* mantém o CTA igual ao padrão (dourado com texto escuro funciona no branco) */
   .vs-mm-ghost{
     display:inline-flex;
     align-items:center;
@@ -1750,7 +1760,7 @@
   .vs-mm-ghost:hover{ background:rgba(13,18,41,.04); }
 
   @media (max-width:900px){
-    #vs-marketing-min{ padding:72px 0; }
+    #marketing{ padding:72px 0; }
 
     .vs-mm-wrap{
       grid-template-columns:1fr;
@@ -1778,7 +1788,7 @@
 
     .vs-mm-dialog{
       padding:20px 16px 16px;
-      border-radius:25px; /* mantém 25 também no mobile */
+      border-radius:25px;
     }
     .vs-mm-modal-title{ font-size:20px; }
   }
@@ -1786,7 +1796,8 @@
 
 <script>
   (() => {
-    const root = document.getElementById("vs-marketing-min");
+    // ✅ agora o root é a seção da BASE (id="marketing")
+    const root = document.getElementById("marketing");
     if (!root) return;
 
     const el = root.querySelector("[data-reveal]");
@@ -1875,85 +1886,81 @@
   })();
 </script>
 
+<!-- ====== /EMBED: SESSÃO 3 ====== -->
 
 
 
-    
-</section>
+  </section>
 
 
-  <section id="secao-4">
+  <section id="simulador">
 
-<!-- =========================
-     SIMULADOR DE RETORNO (EMBED • FUNDO CLARO • SLIDER)
-     Ajustes:
-     - Título acima do range: "Selecione o valor"
-     - Menos espaço abaixo do asterisco (web)
-     - Box de resultado muda suavemente para dourado claro conforme aumenta o valor
-     ========================= -->
-<section id="vs-simulador-retorno" aria-label="Simulador de disparos e retorno estimado">
-  <div class="vs-sim-wrap">
-    <header class="vs-sim-head">
-      <p class="vs-sim-kicker">SIMULADOR DE DISPAROS</p>
-      <h2 class="vs-sim-title">Quanto sua clínica pode faturar por disparos?</h2>
-      <p class="vs-sim-sub">Escolha o investimento e veja a estimativa instantânea.</p>
-    </header>
 
-    <div class="vs-sim-card" data-reveal>
-      <div class="vs-sim-row">
-        <div class="vs-sim-col">
-          <div class="vs-sim-rangehead">Selecione o valor</div>
+<!-- ====== EMBED: SESSÃO 4 (SIMULADOR DE RETORNO • FUNDO CLARO • SLIDER) ====== -->
 
-          <!-- Range + balão -->
-          <div class="vs-sim-rangewrap">
-            <div class="vs-sim-tip" id="vsTip" aria-hidden="true">
-              <span class="vs-sim-tip__rs">R$</span>
-              <span class="vs-sim-tip__val">200</span>
-            </div>
 
-            <input
-              class="vs-sim-range"
-              id="vsInvest"
-              type="range"
-              min="50"
-              max="2000"
-              step="50"
-              value="200"
-              aria-label="Ajustar investimento em disparos"
-            />
-          </div>
-          <!-- /Range + balão -->
-        </div>
+<div class="vs-sim-wrap" aria-label="Simulador de disparos e retorno estimado">
+  <header class="vs-sim-head">
+    <p class="vs-sim-kicker">SIMULADOR DE DISPAROS</p>
+    <h2 class="vs-sim-title">Quanto sua clínica pode faturar por disparos?</h2>
+    <p class="vs-sim-sub">Escolha o investimento e veja a estimativa instantânea.</p>
+  </header>
 
-        <div class="vs-sim-col vs-sim-result" id="vsResultBox">
-          <!-- investimento pequeno -->
-          <div class="vs-sim-invest">
-            <span class="vs-sim-invest__label">Investimento</span>
-            <span class="vs-sim-invest__val" id="vsInvestInline">R$ 200</span>
+  <div class="vs-sim-card" data-reveal>
+    <div class="vs-sim-row">
+      <div class="vs-sim-col">
+        <div class="vs-sim-rangehead">Selecione o valor</div>
+
+        <!-- Range + balão -->
+        <div class="vs-sim-rangewrap">
+          <div class="vs-sim-tip" id="vsTip" aria-hidden="true">
+            <span class="vs-sim-tip__rs">R$</span>
+            <span class="vs-sim-tip__val">200</span>
           </div>
 
-          <!-- retorno grande -->
-          <div class="vs-sim-big" id="vsReturnTxt">R$ 2.000</div>
-          <div class="vs-sim-small">Retorno estimado</div>
+          <input
+            class="vs-sim-range"
+            id="vsInvest"
+            type="range"
+            min="50"
+            max="2000"
+            step="50"
+            value="200"
+            aria-label="Ajustar investimento em disparos"
+          />
         </div>
+        <!-- /Range + balão -->
       </div>
 
-      <div class="vs-sim-foot">
-        <span class="vs-sim-note">
-          * Estimativa média e não representa valor real: varia por cidade, ticket, oferta, agenda, atendimento e execução.
-        </span>
+      <div class="vs-sim-col vs-sim-result" id="vsResultBox">
+        <!-- investimento pequeno -->
+        <div class="vs-sim-invest">
+          <span class="vs-sim-invest__label">Investimento</span>
+          <span class="vs-sim-invest__val" id="vsInvestInline">R$ 200</span>
+        </div>
+
+        <!-- retorno grande -->
+        <div class="vs-sim-big" id="vsReturnTxt">R$ 2.000</div>
+        <div class="vs-sim-small">Retorno estimado</div>
       </div>
     </div>
 
-    <!-- ✅ CTA fora da box, abaixo e alinhado à esquerda -->
-    <a class="vs-sim-cta" href="#" aria-label="Alugar agora">
-      Alugar agora!
-    </a>
+    <div class="vs-sim-foot">
+      <span class="vs-sim-note">
+        * Estimativa média e não representa valor real: varia por cidade, ticket, oferta, agenda, atendimento e execução.
+      </span>
+    </div>
   </div>
-</section>
+
+  <!-- ✅ CTA fora da box, abaixo e alinhado à esquerda -->
+  <a class="vs-sim-cta" href="#" aria-label="Alugar agora">
+    Alugar agora!
+  </a>
+</div>
 
 <style>
-  #vs-simulador-retorno{
+  /* ✅ escopo mantido: agora aplicado pela âncora da seção (da base) */
+  #simulador{
     --c-dark:#0d1229;
     --c-light:#e2e2e2;
     --c-gold:#e6c681;
@@ -1966,7 +1973,7 @@
     overflow:hidden;
   }
 
-  #vs-simulador-retorno::before{
+  #simulador::before{
     content:"";
     position:absolute;
     inset:0;
@@ -1977,7 +1984,7 @@
     pointer-events:none;
   }
 
-  #vs-simulador-retorno::after{
+  #simulador::after{
     content:"";
     position:absolute;
     inset:0;
@@ -2154,7 +2161,6 @@
   .vs-sim-result{
     border:1px solid rgba(13,18,41,.10);
     border-radius:20px;
-    /* cor vai ser controlada via CSS var pela % do range */
     background:rgba(13,18,41,.04);
     padding:18px 18px;
     text-align:center;
@@ -2200,8 +2206,8 @@
   /* ✅ menos espaço no web abaixo do * */
   .vs-sim-foot{
     position:relative;
-    margin-top:10px;   /* mais enxuto */
-    padding-top:8px;   /* mais enxuto */
+    margin-top:10px;
+    padding-top:8px;
     border-top:1px solid rgba(13,18,41,.10);
   }
   .vs-sim-note{
@@ -2231,13 +2237,13 @@
   .vs-sim-cta:active{ transform:translateY(0); }
 
   /* reveal */
-  #vs-simulador-retorno [data-reveal]{
+  #simulador [data-reveal]{
     opacity:0;
     transform:translateY(18px);
     transition:opacity .85s ease, transform .85s ease;
     will-change:opacity,transform;
   }
-  #vs-simulador-retorno [data-reveal].is-in{
+  #simulador [data-reveal].is-in{
     opacity:1;
     transform:translateY(0);
   }
@@ -2247,7 +2253,7 @@
   }
 
   @media (max-width:900px){
-    #vs-simulador-retorno{ padding:78px 0; }
+    #simulador{ padding:78px 0; }
 
     .vs-sim-title{ font-size:34px; }
     .vs-sim-sub{ font-size:16px; }
@@ -2265,14 +2271,14 @@
     .vs-sim-tip__rs{ font-size:12px; margin-bottom:4px; }
     .vs-sim-tip__val{ font-size:17px; }
 
-    /* no mobile, mantém um respiro do asterisco */
     .vs-sim-foot{ margin-top:12px; padding-top:10px; }
   }
 </style>
 
 <script>
   (() => {
-    const root = document.getElementById("vs-simulador-retorno");
+    // ✅ agora o root é a seção da BASE (id="simulador")
+    const root = document.getElementById("simulador");
     if (!root) return;
 
     const range = root.querySelector("#vsInvest");
@@ -2325,16 +2331,11 @@
     const updateResultTint = (pct) => {
       if (!resultBox) return;
 
-      // pct 0..1
       const t = Math.max(0, Math.min(1, pct));
 
-      // cor base (quase neutra) -> dourado claro (suave)
-      // de: rgba(13,18,41,.04)  (cinza bem leve)
-      // para: rgba(230,198,129,.38) (dourado claro no branco)
       const a = 0.04 + (0.38 - 0.04) * t;
       resultBox.style.backgroundColor = `rgba(230,198,129, ${a.toFixed(3)})`;
 
-      // borda também acompanha levemente
       const ba = 0.10 + (0.28 - 0.10) * t;
       resultBox.style.borderColor = `rgba(13,18,41, ${ba.toFixed(3)})`;
     };
@@ -2371,12 +2372,18 @@
   })();
 </script>
 
+<!-- ====== /EMBED: SESSÃO 4 ====== -->
 
-    
-</section>
-  <section id="secao-5"><!-- ✅ FAQ (embed sessão 5) --></section>
-  <section id="secao-6"><!-- ✅ Conteúdos (embed sessão 6) --></section>
-  <section id="secao-7"><!-- ✅ Contato (embed sessão 7) --></section>
+
+
+
+  </section>
+
+
+  
+  <section id="faq"><!-- ✅ FAQ (embed sessão 5) --></section>
+  <section id="conteudos"><!-- ✅ Conteúdos (embed sessão 6) --></section>
+  <section id="contato"><!-- ✅ Contato (embed sessão 7) --></section>
 
   <!-- ✅ extra pro futuro (sem link no menu por enquanto) -->
   <section id="secao-8"><!-- ✅ Sessão 8 (extra) --></section>
