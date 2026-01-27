@@ -2956,6 +2956,21 @@
       box-shadow:none;
     }
 
+    /* ✅ capa do card (mantém proporção 900x400 = 2.25:1) */
+    .vs-card__cover{
+      width:100%;
+      aspect-ratio: 900 / 400;
+      overflow:hidden;
+      flex:0 0 auto;
+      background:rgba(13,18,41,.04);
+    }
+    .vs-card__cover img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
     /* ✅ 3 cards (tamanho original — sem reduzir por padding lateral) */
     @media (min-width:901px){
       .vs-card{
@@ -3263,8 +3278,8 @@
     }
 
     @media (min-width:901px){
-  .vs-blog__dots{ display:none !important; }
-}
+      .vs-blog__dots{ display:none !important; }
+    }
   </style>
 
   <script>
@@ -3309,6 +3324,7 @@
       const posts = [
         {
           id:"p1",
+          cover:"SRC/card1.png",
           title:"Locação premium reduz risco e acelera resultados",
           tags:["LocaçãoPremium","ClínicaRentável","Crescimento"],
           lead:"Tecnologia premium sem travar caixa: você testa demanda, cria janelas e ganha previsibilidade com segurança.",
@@ -3327,6 +3343,7 @@
         },
         {
           id:"p2",
+          cover:"SRC/card2.png",
           title:"Dermatologia moderna pede tecnologia disponível agora",
           tags:["Dermatologia","TecnologiaImportada","Posicionamento"],
           lead:"Pacientes comparam, pesquisam e valorizam experiência: quem se posiciona primeiro ganha atenção e agenda.",
@@ -3345,6 +3362,7 @@
         },
         {
           id:"p3",
+          cover:"SRC/card3.png",
           title:"Educação em pele aumenta valor percebido e fideliza",
           tags:["Skincare","Autoridade","PacienteFiel"],
           lead:"Paciente que entende o plano confia mais, segue melhor e tem mais chance de voltar para manutenção.",
@@ -3363,6 +3381,7 @@
         },
         {
           id:"p4",
+          cover:"SRC/card4.png",
           title:"Lucro cresce com jornada, protocolo e recorrência",
           tags:["GestãoClínica","Recorrência","TicketMédio"],
           lead:"Clínica previsível vende plano, não sessão solta: agenda organizada, margem por hora e retorno consistente.",
@@ -3381,6 +3400,7 @@
         },
         {
           id:"p5",
+          cover:"SRC/card5.png",
           title:"Ultraformer MPT: alta procura quando bem posicionado",
           tags:["UltraformerMPT","ContornoFacial","Lifting"],
           lead:"Contorno e firmeza com forte apelo comercial com estratégia, ele vira temporada e agenda concentrada.",
@@ -3399,6 +3419,7 @@
         },
         {
           id:"p6",
+          cover:"SRC/card6.png",
           title:"Lavieen: glow e textura que o paciente percebe",
           tags:["Lavieen","Glow","Rejuvenescimento"],
           lead:"Quando o paciente vê diferença no espelho, ele comenta, indica e volta isso fortalece prova social.",
@@ -3417,6 +3438,7 @@
         },
         {
           id:"p7",
+          cover:"SRC/card7.png",
           title:"Morpheus8: firmeza e textura com percepção premium",
           tags:["Morpheus8","Colágeno","Premium"],
           lead:"Tecnologia premium exige método: protocolo, comunicação correta e janela bem planejada para alta conversão.",
@@ -3435,6 +3457,7 @@
         },
         {
           id:"p8",
+          cover:"SRC/card8.png",
           title:"Transforme tendência em agenda lotada com método",
           tags:["AgendaCheia","Crescimento","Estratégia"],
           lead:"Tendência não basta: posicionamento, oferta e execução consistente são o que cria faturamento previsível.",
@@ -3453,6 +3476,7 @@
         },
         {
           id:"p9",
+          cover:"SRC/card9.png",
           title:"Marketing clínico que sustenta agenda e preço premium",
           tags:["MarketingClínico","AgendaCheia","Autoridade"],
           lead:"Sem marketing, a tecnologia fica invisível; com estratégia, ela vira demanda, prova social e conversão.",
@@ -3471,10 +3495,16 @@
         }
       ];
 
-      const makeCard = (p) => {
+      const makeCard = (p, idx) => {
         const el = document.createElement("article");
         el.className = "vs-card";
+
+        const coverSrc = p.cover || `SRC/card${idx + 1}.png`;
+
         el.innerHTML = `
+          <div class="vs-card__cover" aria-hidden="true">
+            <img src="${coverSrc}" alt="" loading="lazy" decoding="async" />
+          </div>
           <div class="vs-card__top">
             <span class="vs-card__pill">#${p.tags[0]}</span>
             <span class="vs-card__pill">#${p.tags[1]}</span>
@@ -3654,6 +3684,7 @@
   </script>
 </div>
 <!-- ====== /EMBED: SESSÃO CONTEÚDOS ====== -->
+
 
 
 
