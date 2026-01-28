@@ -3693,8 +3693,296 @@
 
 
   
-  <section id="contato"><!-- ✅ Contato (embed sessão 7) --></section>
+  <section id="contato">
 
+
+<!-- ====== EMBED: CONTATO (AZUL • 2 COLUNAS • ALTURA IGUAL • KOMMO • MOBILE: FORM EM CIMA + INFO OCULTA) ====== -->
+<div class="vs-cl" id="vs-contact-lite" aria-label="Contato">
+  <div class="vs-cl__wrap">
+    <header class="vs-cl__head" data-reveal>
+      <p class="vs-cl__kicker">CONTATO</p>
+      <h2 class="vs-cl__title">Fale com a VisioSkyn</h2>
+      <p class="vs-cl__sub">Tire dúvidas, solicite disponibilidade e receba uma proposta rápida.</p>
+    </header>
+
+    <div class="vs-cl__grid" role="region" aria-label="Informações de contato e formulário" data-reveal>
+      <!-- COLUNA 1: INFO (WEB ONLY) -->
+      <div class="vs-cl__col vs-cl__col--info">
+        <div class="vs-cl__panel vs-cl__panel--info" aria-label="Informações de contato">
+          <ul class="vs-cl__list">
+            <li class="vs-cl__row">
+              <span class="vs-cl__label">WhatsApp (São Paulo)</span>
+              <a class="vs-cl__value" href="https://wa.me/5511964478583" target="_blank" rel="noopener">+55 (11) 96447-8583</a>
+            </li>
+
+            <li class="vs-cl__row">
+              <span class="vs-cl__label">WhatsApp (Recife)</span>
+              <a class="vs-cl__value" href="https://wa.me/5581999655568" target="_blank" rel="noopener">+55 (81) 99965-5568</a>
+            </li>
+
+            <li class="vs-cl__row">
+              <span class="vs-cl__label">E-mail</span>
+              <a class="vs-cl__value" href="mailto:comercial@visioskyn.com">comercial@visioskyn.com</a>
+            </li>
+
+            <li class="vs-cl__row">
+              <span class="vs-cl__label">Endereço</span>
+              <span class="vs-cl__text">R. Sena Madureira, 151 — Vila Mariana, São Paulo/SP</span>
+            </li>
+
+            <li class="vs-cl__row">
+              <span class="vs-cl__label">Atendimento</span>
+              <span class="vs-cl__text">Seg–Sex — 09:00 às 18:00</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- COLUNA 2: FORM -->
+      <div class="vs-cl__col vs-cl__col--form">
+        <div class="vs-cl__panel vs-cl__panel--form" aria-label="Formulário Kommo">
+          <div class="vs-cl__embed" id="kommo-form-embed">
+            <script>
+              !function(a,m,o,c,r,m){
+                a[o+c]=a[o+c]||{setMeta:function(p){this.params=(this.params||[]).concat([p])}},
+                a[o+r]=a[o+r]||function(f){a[o+r].f=(a[o+r].f||[]).concat([f])},
+                a[o+r]({id:"1645703",hash:"3ab54ae5e80f9c41b0900d92d5df2e10",locale:"pt"}),
+                a[o+m]=a[o+m]||function(f,k){a[o+m].f=(a[o+m].f||[]).concat([[f,k]])}
+              }(window,0,"amo_forms_","params","load","loaded");
+            </script>
+            <script
+              id="amoforms_script_1645703"
+              async="async"
+              charset="utf-8"
+              src="https://forms.kommo.com/forms/assets/js/amoforms.js?1769570488">
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <style>
+    /* ===== Escopo: seção CONTATO (AZUL padrão) ===== */
+    #contato{
+      --c-dark:#0d1229;
+      --c-light:#e2e2e2;
+      --c-gold:#e6c681;
+      --c-gold2:#a5804c;
+
+      position:relative;
+      background:var(--c-dark);
+      color:var(--c-light);
+      padding:112px 0;
+      overflow:hidden;
+    }
+
+    #contato::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        radial-gradient(900px 420px at 20% 15%, rgba(230,198,129,.16), transparent 60%),
+        radial-gradient(900px 420px at 95% 5%, rgba(165,128,76,.10), transparent 62%);
+      pointer-events:none;
+    }
+
+    #vs-contact-lite, #vs-contact-lite *{box-sizing:border-box}
+    #vs-contact-lite a, #vs-contact-lite button{font-family:Helvetica,Arial,sans-serif}
+
+    .vs-cl__wrap{
+      position:relative;
+      z-index:1;
+      max-width:1100px;
+      margin:0 auto;
+      padding:0 18px;
+    }
+
+    .vs-cl__kicker{
+      margin:0 0 10px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-weight:900;
+      font-size:12px;
+      color:rgba(230,198,129,.95);
+    }
+
+    .vs-cl__title{
+      margin:0;
+      font-size:42px;
+      line-height:1.08;
+      letter-spacing:-.02em;
+      color:rgba(226,226,226,.96);
+    }
+
+    .vs-cl__sub{
+      margin:14px 0 0;
+      font-size:18px;
+      line-height:1.6;
+      color:rgba(226,226,226,.88);
+      max-width:92ch;
+    }
+
+    /* web: 2 colunas */
+    .vs-cl__grid{
+      margin-top:28px;
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:44px;
+      align-items:stretch;
+    }
+    .vs-cl__col{
+      min-width:0;
+      display:flex;
+    }
+
+    .vs-cl__panel{
+      width:100%;
+      flex:1 1 auto;
+      display:flex;
+      flex-direction:column;
+      border:1px solid rgba(255,255,255,.12);
+      border-radius:22px;
+      background:rgba(255,255,255,.06);
+      overflow:hidden;
+      position:relative;
+      padding:18px;
+    }
+
+    .vs-cl__panel::before{
+      content:"";
+      position:absolute;
+      inset:-1px;
+      background:
+        radial-gradient(560px 220px at 10% 0%, rgba(230,198,129,.10), transparent 62%),
+        radial-gradient(560px 220px at 90% 0%, rgba(165,128,76,.08), transparent 62%);
+      pointer-events:none;
+    }
+
+    .vs-cl__list{
+      position:relative;
+      list-style:none;
+      margin:0;
+      padding:0;
+      padding-top: 30px;
+      display:flex;
+      flex-direction:column;
+    }
+
+    .vs-cl__row{
+      padding:14px 0;
+      border-bottom:1px solid rgba(255,255,255,.12);
+      display:flex;
+      flex-direction:column;
+      gap:8px;
+    }
+    .vs-cl__row:last-child{border-bottom:none}
+
+    .vs-cl__label{
+      font-weight:900;
+      font-size:12px;
+      letter-spacing:.2px;
+      text-transform:uppercase;
+      color:rgba(226,226,226,.70);
+    }
+
+    .vs-cl__value{
+      font-weight:900;
+      color:rgba(226,226,226,.96);
+      text-decoration:none;
+      line-height:1.25;
+      width:fit-content;
+    }
+    .vs-cl__value:hover{text-decoration:underline}
+
+    .vs-cl__text{
+      font-weight:800;
+      color:rgba(226,226,226,.88);
+      line-height:1.45;
+    }
+
+    .vs-cl__embed{
+      position:relative;
+      width:100%;
+      flex:1 1 auto;
+      min-height:420px; /* web */
+    }
+
+    .vs-cl__embed iframe{
+      width:100% !important;
+      max-width:100% !important;
+      border:0 !important;
+      display:block;
+      height:100% !important;
+    }
+
+    /* Reveal */
+    #contato [data-reveal]{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .85s ease, transform .85s ease;
+      will-change:opacity,transform;
+    }
+    #contato [data-reveal].is-in{opacity:1; transform:translateY(0)}
+
+    @media (max-width:980px){
+      .vs-cl__title{font-size:38px}
+      .vs-cl__sub{font-size:16px}
+    }
+
+    /* ✅ MOBILE: FORM EM CIMA + INFO OCULTA + ALTURA 410px */
+    @media (max-width:900px){
+      #contato{padding:78px 0}
+      .vs-cl__title{font-size:34px}
+
+      .vs-cl__grid{
+        grid-template-columns:1fr;
+        gap:16px;
+      }
+
+      /* form primeiro */
+      .vs-cl__col--form{order:0;}
+      .vs-cl__col--info{order:1;}
+
+      /* ✅ oculta info no mobile */
+      .vs-cl__col--info{display:none !important;}
+
+      /* ✅ altura do form no mobile */
+      .vs-cl__embed{min-height:415px;}
+
+      .vs-cl__panel{padding:26px;}
+    }
+  </style>
+
+  <script>
+    (() => {
+      const section = document.getElementById("contato");
+      if (!section) return;
+
+      const revealEls = section.querySelectorAll("[data-reveal]");
+      if (!revealEls.length) return;
+
+      const io = new IntersectionObserver((entries) => {
+        for (const e of entries) if (e.isIntersecting) e.target.classList.add("is-in");
+      }, { threshold: 0.16, rootMargin: "0px 0px -12% 0px" });
+
+      revealEls.forEach(el => io.observe(el));
+    })();
+  </script>
+</div>
+<!-- ====== /EMBED: CONTATO (AZUL) ====== -->
+
+
+    
+  </section>
+
+
+
+
+
+
+
+  
   <!-- ✅ extra pro futuro (sem link no menu por enquanto) -->
   <section id="secao-8"><!-- ✅ Sessão 8 (extra) --></section>
 
