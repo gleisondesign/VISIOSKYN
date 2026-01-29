@@ -4213,9 +4213,9 @@
 
   <div class="vkz-panel" role="dialog" aria-modal="true" aria-label="Escolher WhatsApp">
     <div class="vkz-head">
-    <div class="vkz-title">
-      <strong>Escolha a sua região:</strong>
-    </div>
+      <div class="vkz-title">
+        <strong>Escolha a sua região:</strong>
+      </div>
 
       <button class="vkz-close" type="button" aria-label="Fechar" data-vkz-close>
         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
@@ -4271,31 +4271,7 @@
   let lastFocus = null;
   let prevHtmlOverflow = '';
 
-  // ----- Back to top: aparece após 50% do scroll -----
-  let ticking = false;
-  function scrollProgress(){
-    const d = document.documentElement;
-    const top = window.scrollY || d.scrollTop || 0;
-    const scrollable = (d.scrollHeight - window.innerHeight) || 1;
-    return top / scrollable;
-  }
-  function onScroll(){
-    if (ticking) return;
-    ticking = true;
-    requestAnimationFrame(() => {
-      topBtn.classList.toggle('vkz-show', scrollProgress() >= 0.5);
-      ticking = false;
-    });
-  }
-  window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
-
-  topBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, { passive: false });
-
-  // ----- Modal open/close -----
+  // ----- Modal open/close helpers -----
   function lockScroll(){
     prevHtmlOverflow = document.documentElement.style.overflow || '';
     document.documentElement.style.overflow = 'hidden';
@@ -4321,9 +4297,67 @@
     lastFocus = null;
   }
 
+  // ----- ✅ Esconde flutuantes quando o micro post (Conteúdos) estiver aberto -----
+  const blogPage = document.getElementById('vs-blog-page');
+
+  function setFloatingHidden(hidden){
+    // fecha modal se estiver aberto
+    if (hidden && modal.classList.contains('vkz-open')) {
+      modal.classList.remove('vkz-open');
+      modal.setAttribute('aria-hidden','true');
+      unlockScroll();
+      lastFocus = null;
+    }
+
+    // esconde/mostra botões
+    wppBtn.style.display = hidden ? 'none' : '';
+    topBtn.style.display = hidden ? 'none' : '';
+  }
+
+  // Estado inicial
+  if (blogPage && !blogPage.hidden) setFloatingHidden(true);
+
+  // Observa o atributo "hidden" do micro post
+  if (blogPage) {
+    const mo = new MutationObserver(() => {
+      const isOpen = !blogPage.hidden;
+      setFloatingHidden(isOpen);
+    });
+    mo.observe(blogPage, { attributes:true, attributeFilter:['hidden'] });
+  }
+
+  // ----- Back to top: aparece após 50% do scroll -----
+  let ticking = false;
+  function scrollProgress(){
+    const d = document.documentElement;
+    const top = window.scrollY || d.scrollTop || 0;
+    const scrollable = (d.scrollHeight - window.innerHeight) || 1;
+    return top / scrollable;
+  }
+  function onScroll(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      topBtn.classList.toggle('vkz-show', scrollProgress() >= 0.5);
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  topBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, { passive: false });
+
+  // ----- Modal open/close -----
   wppBtn.addEventListener('click', (e) => {
     e.preventDefault();
     e.stopPropagation();
+
+    // ✅ se o micro post estiver aberto, não abre o modal
+    if (blogPage && !blogPage.hidden) return;
+
     openModal();
   });
 
@@ -4357,6 +4391,7 @@
 })();
 </script>
 <!-- /Floating WhatsApp chooser + Back to Top -->
+
 
 
     
