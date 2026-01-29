@@ -3725,7 +3725,7 @@
 
             <li class="vs-cl__row">
               <span class="vs-cl__label">Endereço</span>
-              <span class="vs-cl__text">R. Sena Madureira, 151 — Vila Mariana, São Paulo/SP</span>
+              <span class="vs-cl__text">R. Sena Madureira, 151, São Paulo/SP</span>
             </li>
 
             <li class="vs-cl__row">
@@ -3978,7 +3978,389 @@
 
 
   <!-- ✅ extra pro futuro (sem link no menu por enquanto) -->
-  <section id="secao-8"><!-- ✅ Sessão 8 (extra) --></section>
+  <section id="secao-8">
+
+
+<!-- Floating WhatsApp chooser + Back to Top (NO conflicts: prefix vkz-) -->
+<style>
+  :root{
+    --vkz-size: 58px;
+    --vkz-gap: 22px;
+    --vkz-shadow: 0 14px 35px rgba(0,0,0,.18);
+    --vkz-shadow2: 0 18px 45px rgba(0,0,0,.22);
+    --vkz-wpp: #25D366;
+    --vkz-dark: #0f172a;
+  }
+
+  .vkz-fab{
+    position: fixed;
+    z-index: 9999;
+    width: var(--vkz-size);
+    height: var(--vkz-size);
+    border-radius: 999px;
+    border: 0;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--vkz-shadow);
+    transition: transform .16s ease, box-shadow .16s ease, filter .16s ease, opacity .18s ease;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .vkz-fab:hover{ transform: translateY(-2px); box-shadow: var(--vkz-shadow2); }
+  .vkz-fab:active{ transform: translateY(0); filter: brightness(.98); }
+  .vkz-fab:focus-visible{ outline: 3px solid rgba(255,255,255,.85); outline-offset: 4px; }
+
+  /* WhatsApp (direita) */
+  .vkz-fab--wpp{
+    right: var(--vkz-gap);
+    bottom: var(--vkz-gap);
+    background: radial-gradient(120% 120% at 30% 20%, #46f28e 0%, var(--vkz-wpp) 45%, #1aa852 100%);
+  }
+  .vkz-fab--wpp img{
+    width: 30px;
+    height: 30px;
+    display: block;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,.22));
+    transform: translateY(1px);
+  }
+
+  /* Topo (esquerda) */
+  .vkz-fab--top{
+    left: var(--vkz-gap);
+    bottom: var(--vkz-gap);
+    background: radial-gradient(120% 120% at 30% 20%, #24324d 0%, var(--vkz-dark) 55%, #0b1220 100%);
+    color: #fff;
+
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+  }
+  .vkz-fab--top.vkz-show{
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+  .vkz-fab--top svg{
+    width: 22px;
+    height: 22px;
+    display: block;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,.25));
+  }
+
+  /* Modal */
+  .vkz-modal{
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+  }
+  .vkz-modal.vkz-open{ display: flex; }
+
+  .vkz-backdrop{
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    backdrop-filter: blur(6px);
+  }
+
+  .vkz-panel{
+    position: relative;
+    width: min(420px, 100%);
+    border-radius: 18px;
+    background: rgba(255,255,255,.92);
+    box-shadow: 0 25px 70px rgba(0,0,0,.30);
+    overflow: hidden;
+    transform: translateY(6px);
+    animation: vkz-pop .16s ease-out forwards;
+  }
+  @keyframes vkz-pop{ to { transform: translateY(0); } }
+
+  .vkz-head{
+    padding: 16px 16px 10px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+    background: linear-gradient(180deg, rgba(37,211,102,.12), rgba(37,211,102,0));
+  }
+  .vkz-title{
+    display: grid;
+    gap: 4px;
+  }
+  .vkz-title strong{
+    font: 800 25px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    color: #0f172a;
+  }
+  .vkz-title span{
+    font: 600 13px/1.25 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    color: rgba(15, 23, 42, .75);
+  }
+
+  .vkz-close{
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    border: 0;
+    cursor: pointer;
+    background: rgba(15,23,42,.06);
+    color: rgba(15,23,42,.85);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .15s ease, transform .15s ease;
+  }
+  .vkz-close:hover{ background: rgba(15,23,42,.10); transform: translateY(-1px); }
+
+  .vkz-body{
+    padding: 8px 16px 16px;
+    display: grid;
+    gap: 10px;
+  }
+
+  .vkz-opt{
+    width: 100%;
+    border: 0;
+    cursor: pointer;
+    border-radius: 14px;
+    padding: 12px 12px;
+    background: #fff;
+    box-shadow: 0 10px 28px rgba(2,6,23,.08);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-align: left;
+    transition: transform .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .vkz-opt:hover{
+    transform: translateY(-1px);
+    box-shadow: 0 14px 35px rgba(2,6,23,.10);
+    background: rgba(37,211,102,.06);
+  }
+
+  /* ✅ ÍCONE IGUAL AO BOTÃO PRINCIPAL (verde + PNG branco) */
+  .vkz-badge{
+    width: 42px;
+    height: 42px;
+    border-radius: 999px;
+    background: radial-gradient(120% 120% at 30% 20%, #46f28e 0%, var(--vkz-wpp) 45%, #1aa852 100%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    box-shadow: 0 10px 22px rgba(0,0,0,.10);
+  }
+  .vkz-badge img{
+    width: 20px;
+    height: 20px;
+    display: block;
+    filter: drop-shadow(0 2px 6px rgba(0,0,0,.18));
+    transform: translateY(1px);
+  }
+
+  .vkz-opttext{
+    display: grid;
+    gap: 3px;
+    flex: 1;
+  }
+  .vkz-opttext strong{
+    font: 900 14px/1.15 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    color: #0f172a;
+  }
+  .vkz-opttext span{
+    font: 700 13px/1.2 system-ui, -apple-system, Segoe UI, Roboto, Arial;
+    color: rgba(15,23,42,.72);
+  }
+
+  .vkz-arrow{
+    width: 18px;
+    height: 18px;
+    color: rgba(15,23,42,.55);
+    flex: 0 0 auto;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .vkz-fab, .vkz-opt, .vkz-panel{ transition: none; animation: none; }
+  }
+</style>
+
+<!-- Botão WhatsApp (abre seletor) -->
+<button class="vkz-fab vkz-fab--wpp" type="button" aria-label="Abrir WhatsApp" title="Falar no WhatsApp">
+  <img
+    src="https://www.visioskyn.com/SRC/wpp.png"
+    alt=""
+    width="30"
+    height="30"
+    loading="eager"
+    decoding="async"
+  />
+</button>
+
+<!-- Botão topo -->
+<button class="vkz-fab vkz-fab--top" type="button" aria-label="Voltar ao topo" title="Voltar ao topo">
+  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+    <path d="M12 5l-7 7 1.8 1.8L11 9.6V20h2V9.6l4.2 4.2L19 12l-7-7z" fill="currentColor"/>
+  </svg>
+</button>
+
+<!-- Modal seletor -->
+<div class="vkz-modal" aria-hidden="true">
+  <div class="vkz-backdrop" data-vkz-close></div>
+
+  <div class="vkz-panel" role="dialog" aria-modal="true" aria-label="Escolher WhatsApp">
+    <div class="vkz-head">
+    <div class="vkz-title">
+      <strong>Escolha a sua região:</strong>
+    </div>
+
+      <button class="vkz-close" type="button" aria-label="Fechar" data-vkz-close>
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
+          <path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="vkz-body">
+      <button class="vkz-opt" type="button" data-vkz-wpp="5511964478583" data-vkz-city="São Paulo" aria-label="WhatsApp São Paulo">
+        <span class="vkz-badge" aria-hidden="true">
+          <img src="https://www.visioskyn.com/SRC/wpp.png" alt="" width="20" height="20" loading="eager" decoding="async">
+        </span>
+        <span class="vkz-opttext">
+          <strong>WhatsApp (São Paulo)</strong>
+          <span>+55 (11) 96447-8583</span>
+        </span>
+        <svg class="vkz-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+
+      <button class="vkz-opt" type="button" data-vkz-wpp="5581999655568" data-vkz-city="Recife" aria-label="WhatsApp Recife">
+        <span class="vkz-badge" aria-hidden="true">
+          <img src="https://www.visioskyn.com/SRC/wpp.png" alt="" width="20" height="20" loading="eager" decoding="async">
+        </span>
+        <span class="vkz-opttext">
+          <strong>WhatsApp (Recife)</strong>
+          <span>+55 (81) 99965-5568</span>
+        </span>
+        <svg class="vkz-arrow" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+  const wppBtn = document.querySelector('.vkz-fab--wpp');
+  const topBtn = document.querySelector('.vkz-fab--top');
+  const modal  = document.querySelector('.vkz-modal');
+  const panel  = modal ? modal.querySelector('.vkz-panel') : null;
+
+  if (!wppBtn || !topBtn || !modal || !panel) return;
+
+  const closeEls = modal.querySelectorAll('[data-vkz-close]');
+  const optionEls = modal.querySelectorAll('[data-vkz-wpp]');
+
+  const BASE_MSG = 'vim pelo site VisioSkyn';
+
+  let lastFocus = null;
+  let prevHtmlOverflow = '';
+
+  // ----- Back to top: aparece após 50% do scroll -----
+  let ticking = false;
+  function scrollProgress(){
+    const d = document.documentElement;
+    const top = window.scrollY || d.scrollTop || 0;
+    const scrollable = (d.scrollHeight - window.innerHeight) || 1;
+    return top / scrollable;
+  }
+  function onScroll(){
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      topBtn.classList.toggle('vkz-show', scrollProgress() >= 0.5);
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  topBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, { passive: false });
+
+  // ----- Modal open/close -----
+  function lockScroll(){
+    prevHtmlOverflow = document.documentElement.style.overflow || '';
+    document.documentElement.style.overflow = 'hidden';
+  }
+  function unlockScroll(){
+    document.documentElement.style.overflow = prevHtmlOverflow;
+  }
+
+  function openModal(){
+    lastFocus = document.activeElement;
+    modal.classList.add('vkz-open');
+    modal.setAttribute('aria-hidden','false');
+    lockScroll();
+    const first = modal.querySelector('[data-vkz-wpp]');
+    if (first) first.focus();
+  }
+
+  function closeModal(){
+    modal.classList.remove('vkz-open');
+    modal.setAttribute('aria-hidden','true');
+    unlockScroll();
+    if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+    lastFocus = null;
+  }
+
+  wppBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    openModal();
+  });
+
+  closeEls.forEach(el => el.addEventListener('click', (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    closeModal();
+  }));
+
+  panel.addEventListener('click', (e) => e.stopPropagation());
+
+  window.addEventListener('keydown', (e) => {
+    if (!modal.classList.contains('vkz-open')) return;
+    if (e.key === 'Escape') closeModal();
+  });
+
+  // ----- Seleção do número -----
+  optionEls.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const number = btn.getAttribute('data-vkz-wpp');
+      const city   = btn.getAttribute('data-vkz-city') || '';
+      const text   = encodeURIComponent(`${BASE_MSG}${city ? ' - ' + city : ''}`);
+
+      window.open(`https://wa.me/${number}?text=${text}`, '_blank', 'noopener,noreferrer');
+      requestAnimationFrame(closeModal);
+    }, { passive: false });
+  });
+})();
+</script>
+<!-- /Floating WhatsApp chooser + Back to Top -->
+
+
+    
+  </section>
 
 
 
@@ -4030,7 +4412,7 @@
 
             <div class="vs-ft__mrow">
               <span class="vs-ft__mlabel">Endereço</span>
-              <span class="vs-ft__mval vs-ft__mval--text">R. Sena Madureira, 151 — Vila Mariana, São Paulo/SP</span>
+              <span class="vs-ft__mval vs-ft__mval--text">R. Sena Madureira, 151, São Paulo/SP</span>
             </div>
 
             <div class="vs-ft__mrow">
@@ -4046,7 +4428,7 @@
             © <span id="vsFtYear"></span> Visio Skyn Rental. Todos os direitos reservados.
           </div>
           <div class="vs-ft__legalLine">
-            CNPJ: <strong>00.000.000/0000-00</strong>
+            CNPJ: <strong>54.555.536/0001-00</strong>
           </div>
         </div>
 
