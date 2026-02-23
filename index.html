@@ -2,17 +2,8 @@
 <html lang="pt-BR">
 <head>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-5VH527XR22"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
 
-  gtag('config', 'G-5VH527XR22');
-</script>
-
-  <!-- Meta Pixel Code -->
+<!-- Meta Pixel Code -->
 <script>
 !function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -29,7 +20,17 @@ fbq('track', 'PageView');
 src="https://www.facebook.com/tr?id=1593418908566186&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
-  
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5VH527XR22"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-5VH527XR22');
+</script>
+
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -4856,6 +4857,49 @@ src="https://www.facebook.com/tr?id=1593418908566186&ev=PageView&noscript=1"
 
     
   </footer>
+
+
+
+
+
+<!-- ====== CONFIRMACAO DE ENVIO LEAD ====== -->
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+
+  const observer = new MutationObserver(function() {
+
+    const successMessage = document.querySelector('.amoforms__success');
+
+    if (successMessage && !window.leadTracked) {
+      window.leadTracked = true;
+
+      // 🔵 Envia para Meta
+      fbq('track', 'Lead');
+
+      // 🔵 Envia para Google Analytics
+      gtag('event', 'generate_lead', {
+        event_category: 'form',
+        event_label: 'kommo_form'
+      });
+
+      console.log("✅ Lead enviado para Meta e GA4");
+    }
+
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+
+});
+</script>
+
+
+<!-- ====== CONFIRMACAO DE ENVIO LEAD ====== -->
+
 
 </body>
 </html>
