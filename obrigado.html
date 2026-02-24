@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Inscrição Confirmada | VisioSkyn</title>
+<meta name="description" content="Obrigado pelo contato com a VisioSkyn. Em breve entraremos em contato com você com mais informações sobre nossas aulas gratuitas.">
+
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0d1229">
+
+<link rel="icon" href="https://www.visioskyn.com/SRC/ICO.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+<!-- META PIXEL -->
+<script>
+!function(f,b,e,v,n,t,s)
+{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+n.queue=[];t=b.createElement(e);t.async=!0;
+t.src=v;s=b.getElementsByTagName(e)[0];
+s.parentNode.insertBefore(t,s)}(window, document,'script',
+'https://connect.facebook.net/en_US/fbevents.js');
+
+fbq('init', '1593418908566186');
+fbq('track', 'PageView');
+</script>
+
+<noscript>
+<img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1593418908566186&ev=PageView&noscript=1"/>
+<img height="1" width="1" style="display:none"
+src="https://www.facebook.com/tr?id=1593418908566186&ev=Lead&noscript=1"/>
+</noscript>
+
+<!-- GOOGLE ANALYTICS -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5VH527XR22"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-5VH527XR22');
+</script>
+
+<!-- DISPARO ÚNICO DE CONVERSÃO -->
+<script>
+(function(){
+  try{
+    if(sessionStorage.getItem('vs_lead_sent') === '1') return;
+    sessionStorage.setItem('vs_lead_sent','1');
+
+    if(typeof fbq === 'function'){
+      fbq('track', 'Lead');
+    }
+
+    if(typeof gtag === 'function'){
+      gtag('event', 'generate_lead', {
+        event_category: 'form',
+        event_label: 'aula_gratuita_confirmada',
+        value: 1
+      });
+    }
+  }catch(e){}
+})();
+</script>
+
+<style>
+:root{
+  --blue:#0d1229;
+  --gold:#e6c681;
+}
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:'Montserrat', sans-serif;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  min-height:100vh;
+  text-align:center;
+  padding:30px 20px;
+
+  background:
+    radial-gradient(circle at 20% 20%, rgba(230,198,129,0.15), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(230,198,129,0.12), transparent 40%),
+    linear-gradient(135deg, #0a0f23 0%, #0d1229 60%, #11183a 100%);
+}
+
+.container{
+  max-width:750px;
+}
+
+.logo{
+  margin-bottom:35px;
+}
+
+.logo img{
+  width:170px;
+  height:auto;
+}
+
+h1{
+  font-size:40px;
+  font-weight:900;
+  line-height:1.1;
+}
+
+h1 span{
+  color:var(--gold);
+}
+
+p{
+  margin-top:22px;
+  font-size:17px;
+  line-height:1.6;
+  opacity:0.95;
+}
+
+.highlight{
+  color:var(--gold);
+  font-weight:700;
+}
+
+.button{
+  display:inline-block;
+  margin-top:40px;
+  padding:16px 32px;
+  background:var(--gold);
+  color:var(--blue);
+  font-weight:800;
+  text-decoration:none;
+  border-radius:8px;
+  font-size:16px;
+  transition:0.2s ease;
+}
+
+.button:hover{
+  opacity:0.9;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <div class="logo">
+    <img src="https://www.visioskyn.com/SRC/LOGO_BRANCO_VISIOSKYN.png" alt="VisioSkyn">
+  </div>
+
+  <h1>
+    Inscrição <span>Confirmada</span>
+  </h1>
+
+  <p>
+    Recebemos suas informações e em breve nossa equipe entrará em contato com você pelo <strong>WhatsApp</strong>.
+    Fique atento ao seu celular e aguarde nosso contato.
+  </p>
+
+  <p>
+    Você poderá participar de uma <span class="highlight">aula presencial imersiva gratuita</span> e será avisado em primeira mão.
+    <strong>Vagas limitadas.</strong>
+  </p>
+
+  <p>
+    Para aumentar suas chances de seleção, é obrigatório seguir nosso Instagram e interagir com nossos conteúdos.
+  </p>
+
+  <a href="https://www.instagram.com/visioskyn.rental" target="_blank" class="button">
+    Seguir no Instagram
+  </a>
+
+</div>
+
+</body>
+</html>
