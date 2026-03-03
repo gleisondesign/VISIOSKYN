@@ -2,18 +2,15 @@
 <html lang="pt-BR">
 <head>
 
-  <!-- ==================== PERFORMANCE (não altera design) ==================== -->
+  <!-- ==================== PERFORMANCE ==================== -->
   <link rel="preconnect" href="https://connect.facebook.net" crossorigin>
   <link rel="dns-prefetch" href="//connect.facebook.net">
-
   <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin>
   <link rel="dns-prefetch" href="//www.googletagmanager.com">
-
   <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin>
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="dns-prefetch" href="//fonts.googleapis.com">
   <link rel="dns-prefetch" href="//fonts.gstatic.com">
-
   <link rel="preconnect" href="https://forms.kommo.com" crossorigin>
   <link rel="dns-prefetch" href="//forms.kommo.com">
 
@@ -45,18 +42,15 @@
   gtag('config', 'G-5VH527XR22');
   </script>
 
-  <!-- ==================== SEO / METAS (não altera design) ==================== -->
+  <!-- ==================== SEO / METAS ==================== -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-
   <title>Aula Presencial Gratuita | VisioSkyn</title>
   <meta name="description" content="Você ganhou uma aula presencial gratuita em São Paulo. Vagas limitadas. Inscreva-se agora.">
-
   <link rel="canonical" href="https://www.visioskyn.com/aula-gratis">
   <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-
-  <meta name="theme-color" content="#0d1229">
+  <meta name="theme-color" content="#0a0c18">
   <link rel="icon" href="https://www.visioskyn.com/SRC/ICO.png">
   <link rel="apple-touch-icon" href="https://www.visioskyn.com/SRC/ICO.png">
 
@@ -76,7 +70,7 @@
   <meta name="twitter:description" content="Você ganhou uma aula presencial gratuita em São Paulo. Vagas limitadas. Inscreva-se agora.">
   <meta name="twitter:image" content="https://www.visioskyn.com/SRC/BIO.png">
 
-  <!-- Schema.org (Evento + Organização + Página) -->
+  <!-- Schema.org -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -130,7 +124,7 @@
               "addressRegion": "SP",
               "addressCountry": "BR"
             }
-          },
+          }
         ],
         "offers": {
           "@type": "Offer",
@@ -144,186 +138,459 @@
   }
   </script>
 
-  <!-- Fonte (original) -->
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
   <style>
-  :root{
-    --blue:#0d1229;
-    --blue-dark:#0a0f23;
-    --gold:#e6c681;
-    --white:#ffffff;
-    --urgent:#ff4d4d;
-  }
-
-  .urgencia-badge{
-    display:inline-block;
-    font-size:13px;
-    font-weight:400;
-    color:#ffffff;
-    border:1px solid var(--urgent);
-    border-radius:30px;
-    padding:6px 16px;
-    margin-bottom:18px;
-    background:transparent;
-  }
-
-  *{margin:0;padding:0;box-sizing:border-box;}
-
-  body{
-    font-family:'Montserrat', sans-serif;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    background:
-      radial-gradient(circle at 15% 20%, rgba(230,198,129,0.15), transparent 40%),
-      radial-gradient(circle at 85% 80%, rgba(230,198,129,0.12), transparent 40%),
-      linear-gradient(135deg, var(--blue-dark) 0%, var(--blue) 60%, #11183a 100%);
-    color:white;
-  }
-
-  /* HEADER */
-  .header{
-    background:var(--blue);
-    padding:45px 20px;
-    text-align:center;
-    border-bottom:1px solid rgba(255,255,255,0.05);
-  }
-  .header img{width:200px;}
-
-  /* HERO */
-  .section{
-    flex:1;
-    max-width:1200px;
-    margin:0 auto;
-    padding:90px 20px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:80px;
-  }
-
-  /* TEXT */
-  .content{flex:1;max-width:620px;}
-  .content h1{
-    font-size:38px;
-    font-weight:900;
-    line-height:1.1;
-    margin-bottom:25px;
-  }
-  .content h1 span{color:var(--gold);}
-  .sub{font-size:18px;opacity:0.85;margin-bottom:35px;}
-
-  .rules{
-    background:rgba(255,255,255,0.05);
-    padding:25px;
-    border-radius:12px;
-    border:1px solid rgba(255,255,255,0.08);
-  }
-  .rules p{margin-bottom:12px;font-size:16px;}
-
-  /* FORM */
-  .form-side{flex:1;max-width:550px;}
-  .form-card{
-    background:var(--white);
-    border-radius:16px;
-    overflow:hidden;
-    box-shadow:0 40px 80px rgba(0,0,0,0.35);
-  }
-  .cta-box{
-    background:var(--gold);
-    color:var(--blue);
-    text-align:center;
-    padding:20px;
-    font-weight:800;
-    font-size:18px;
-  }
-  .form-container{
-    padding:10px;
-    max-height:450px;
-    overflow:hidden;
-  }
-
-  /* FOOTER ORIGINAL */
-  .footer{
-    background:var(--blue);
-    padding:60px 20px;
-    text-align:center;
-    border-top:1px solid rgba(255,255,255,0.05);
-  }
-
-  .footer-logo img{
-    width:120px;
-    margin-bottom:25px;
-  }
-
-  .footer-links{
-    margin-bottom:30px;
-  }
-
-  .footer-links a{
-    color:white;
-    text-decoration:none;
-    margin:0 12px;
-    font-size:14px;
-    opacity:0.8;
-  }
-
-  .footer-links a:hover{
-    opacity:1;
-  }
-
-  .footer-info{
-    font-size:13px;
-    opacity:0.7;
-    line-height:1.6;
-  }
-
-  @media(max-width:900px){
-    .section{
-      flex-direction:column;
-      text-align:center;
+    :root {
+      --navy:      #0a0c18;
+      --navy-mid:  #0f1326;
+      --navy-lite: #161b38;
+      --gold:      #e6c681;
+      --gold-lite: #f0d89a;
+      --gold-dark: #b8973a;
+      --gold-dim:  rgba(230,198,129,0.12);
+      --gold-glow: rgba(230,198,129,0.25);
+      --white:     #ffffff;
+      --urgent:    #ff5a5a;
+      --text-dim:  rgba(255,255,255,0.72);
     }
 
-    .content h1{
-      font-size:30px;
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+      min-height: 100vh;
     }
 
-    .form-side{
-      width:100%;
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: .6;
     }
-  }
+
+    /* ── AMBIENT GRADIENT BLOBS ── */
+    .blob-wrap {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: .18;
+      animation: drift 14s ease-in-out infinite alternate;
+    }
+    .blob-1 { width:560px; height:560px; background: var(--gold-dark); top:-120px; left:-160px; animation-delay: 0s; }
+    .blob-2 { width:420px; height:420px; background: var(--gold);      bottom:-80px; right:-100px; animation-delay:-7s; }
+    .blob-3 { width:300px; height:300px; background: #1a2a6c;          top:40%; left:55%; animation-delay:-3s; }
+
+    @keyframes drift {
+      0%   { transform: translate(0,0) scale(1); }
+      100% { transform: translate(30px,20px) scale(1.08); }
+    }
+
+    /* ── HEADER ── */
+    .header {
+      position: relative;
+      z-index: 10;
+      background: rgba(10,12,24,0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(230,198,129,0.15);
+      padding: 28px 20px;
+      text-align: center;
+    }
+
+    .header::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 50%; transform: translateX(-50%);
+      width: 200px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .header img { width: 180px; filter: drop-shadow(0 0 18px rgba(230,198,129,0.3)); }
+
+    /* ── URGENCY BAR ── */
+    .urgency-bar {
+      position: relative;
+      z-index: 10;
+      background: linear-gradient(90deg, rgba(230,198,129,0.06), rgba(230,198,129,0.12), rgba(230,198,129,0.06));
+      border-bottom: 1px solid rgba(230,198,129,0.2);
+      padding: 11px 20px;
+      text-align: center;
+      font-size: 12.5px;
+      font-weight: 600;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--gold-lite);
+      animation: pulse-bar 3s ease-in-out infinite;
+    }
+
+    .urgency-bar .dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      background: var(--urgent);
+      border-radius: 50%;
+      margin-right: 8px;
+      animation: blink 1.2s ease-in-out infinite;
+      vertical-align: middle;
+    }
+
+    @keyframes blink {
+      0%,100% { opacity:1; box-shadow: 0 0 6px var(--urgent); }
+      50%      { opacity:.3; box-shadow: none; }
+    }
+
+    @keyframes pulse-bar {
+      0%,100% { background: linear-gradient(90deg, rgba(230,198,129,0.06), rgba(230,198,129,0.12), rgba(230,198,129,0.06)); }
+      50%      { background: linear-gradient(90deg, rgba(230,198,129,0.04), rgba(230,198,129,0.16), rgba(230,198,129,0.04)); }
+    }
+
+    /* ── MAIN SECTION ── */
+    .section {
+      position: relative;
+      z-index: 5;
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 90px 32px 100px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 70px;
+    }
+
+    /* ── CONTENT SIDE ── */
+    .content { flex: 1; max-width: 580px; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, rgba(230,198,129,0.12), rgba(230,198,129,0.06));
+      border: 1px solid rgba(230,198,129,0.28);
+      border-radius: 100px;
+      padding: 7px 18px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+      animation: fadeSlideUp .7s ease both;
+    }
+
+    .eyebrow svg { width:12px; height:12px; fill:var(--urgent); flex-shrink:0; }
+
+    .content h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 52px;
+      font-weight: 700;
+      line-height: 1.08;
+      margin-bottom: 22px;
+      animation: fadeSlideUp .7s .1s ease both;
+    }
+
+    .content h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--gold-lite) 0%, var(--gold-dark) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .sub {
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text-dim);
+      margin-bottom: 40px;
+      animation: fadeSlideUp .7s .2s ease both;
+    }
+
+    /* ── RULES ── */
+    .rules {
+      background: linear-gradient(135deg, rgba(230,198,129,0.07), rgba(230,198,129,0.03));
+      border: 1px solid rgba(230,198,129,0.18);
+      border-radius: 16px;
+      padding: 28px 30px;
+      animation: fadeSlideUp .7s .3s ease both;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .rules::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px; height: 100%;
+      background: linear-gradient(180deg, var(--gold-lite), var(--gold-dark));
+      border-radius: 3px 0 0 3px;
+    }
+
+    .rule-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 15px;
+      color: rgba(255,255,255,0.88);
+      transition: color .2s;
+    }
+
+    .rule-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .rule-item:first-child { padding-top: 0; }
+
+    .rule-icon {
+      width: 28px; height: 28px;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      font-size: 13px;
+    }
+
+    /* ── FORM SIDE ── */
+    .form-side { flex: 1; max-width: 520px; animation: fadeSlideUp .7s .15s ease both; }
+
+    .form-card {
+      background: #ffffff;
+      border: 1px solid rgba(230,198,129,0.22);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(230,198,129,0.08),
+        0 40px 80px rgba(0,0,0,0.6),
+        0 0 60px rgba(230,198,129,0.05);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, var(--gold-lite) 0%, var(--gold) 50%, var(--gold-dark) 100%);
+      color: var(--navy);
+      text-align: center;
+      padding: 22px 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.2) 50%, transparent 100%);
+      transform: translateX(-100%);
+      animation: shimmer 3s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%   { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .cta-box-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .15em;
+      text-transform: uppercase;
+      opacity: .7;
+      margin-bottom: 4px;
+    }
+
+    .cta-box-title {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--navy);
+    }
+
+    .form-container {
+      padding: 12px;
+      max-height: 450px;
+      overflow: hidden;
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      position: relative;
+      z-index: 5;
+      background: var(--navy-mid);
+      border-top: 1px solid rgba(230,198,129,0.12);
+      padding: 60px 20px;
+      text-align: center;
+    }
+
+    .footer::before {
+      content: '';
+      display: block;
+      width: 120px; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 0 auto 40px;
+    }
+
+    .footer-logo img {
+      width: 110px;
+      margin-bottom: 28px;
+      filter: drop-shadow(0 0 12px rgba(230,198,129,0.2));
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 4px;
+      margin-bottom: 32px;
+    }
+
+    .footer-links a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      font-size: 12.5px;
+      font-weight: 500;
+      letter-spacing: .04em;
+      padding: 5px 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 100px;
+      transition: all .2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold);
+      border-color: rgba(230,198,129,0.35);
+      background: rgba(230,198,129,0.06);
+    }
+
+    .footer-info {
+      font-size: 12.5px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.9;
+    }
+
+    .footer-info strong { color: rgba(255,255,255,0.55); }
+
+    /* ── DEV CREDIT ── */
+    .dev-credit {
+      position: relative;
+      z-index: 5;
+      text-align: center;
+      padding: 14px 16px;
+      font-family: 'Montserrat', sans-serif;
+      font-size: 11.5px;
+      color: rgba(255,255,255,0.4);
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+
+    .dev-credit a {
+      color: rgba(255,255,255,0.6);
+      text-decoration: none;
+      border-bottom: 1px dotted rgba(255,255,255,0.25);
+      padding-bottom: 1px;
+      transition: color .2s;
+    }
+
+    .dev-credit a:hover { color: var(--gold); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeSlideUp {
+      from { opacity:0; transform: translateY(22px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      .section {
+        flex-direction: column;
+        text-align: center;
+        padding: 60px 20px 80px;
+        gap: 48px;
+      }
+      .content { max-width: 100%; }
+      .content h1 { font-size: 38px; }
+      .form-side { width: 100%; max-width: 100%; }
+      .rules::before { display: none; }
+      .rule-item { justify-content: flex-start; text-align: left; }
+    }
+
+    @media (max-width: 480px) {
+      .content h1 { font-size: 30px; }
+      .sub { font-size: 15px; }
+    }
   </style>
 
 </head>
 
 <body>
 
+<!-- Ambient blobs -->
+<div class="blob-wrap" aria-hidden="true">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<!-- Header -->
 <header class="header">
   <img src="https://www.visioskyn.com/SRC/LOGO_BRANCO_VISIOSKYN.png" alt="VisioSkyn">
 </header>
 
+<!-- Urgency bar -->
+<div class="urgency-bar">
+  <span class="dot"></span>
+  Vagas em análise até <strong id="data-dinamica" style="color:var(--gold-lite);margin-left:4px;"></strong>&nbsp; 
+</div>
+
+<!-- Main section -->
 <section class="section">
 
   <div class="content">
 
-    <div class="urgencia-badge">
-      ⚠ Vagas em análise até <span id="data-dinamica"></span>
+    <div class="eyebrow">
+      <svg viewBox="0 0 10 10"><circle cx="5" cy="5" r="5"/></svg>
+      Exclusivo · Vagas Limitadas
     </div>
 
     <h1>
-    Participe de uma <span>aula Presencial Ultraformer MPT</span> Grátis em São Paulo
+      Participe de uma<br>
+      <em>Aula Presencial<br>Ultraformer MPT</em><br>
+      Grátis em São Paulo
     </h1>
 
-    <div class="sub">
-      Tenha chance de testar e ter uma imersão exclusiva com especialistas e descubra estratégias reais aplicadas nas principais clínicas
-    </div>
+    <p class="sub">
+      Tenha chance de testar e ter uma imersão exclusiva com especialistas e descubra estratégias reais aplicadas nas principais clínicas.
+    </p>
 
     <div class="rules">
-      <p>✔ Aula exclusiva e vagas limitadas</p>
-      <p>✔ Aula presencial com especialistas</p>
-      <p>✔ Seleção após envio de formulario</p>
-      <p>✔ Regra: seguir nosso Instagram</p>
+      <div class="rule-item">
+        <span class="rule-icon">✦</span>
+        Aula exclusiva e vagas limitadas
+      </div>
+      <div class="rule-item">
+        <span class="rule-icon">✦</span>
+        Aula presencial com especialistas
+      </div>
+      <div class="rule-item">
+        <span class="rule-icon">✦</span>
+        Seleção após envio de formulário
+      </div>
+      <div class="rule-item">
+        <span class="rule-icon">✦</span>
+        Regra: seguir nosso Instagram
+      </div>
     </div>
 
   </div>
@@ -331,11 +598,12 @@
   <div class="form-side">
     <div class="form-card">
       <div class="cta-box">
-        Garanta sua vaga agora
+        <div class="cta-box-label">Inscrição gratuita</div>
+        <div class="cta-box-title">Garanta sua vaga agora</div>
       </div>
 
       <div class="form-container">
-        <!-- FORM KOMMO -->
+        <!-- FORM KOMMO (inalterado) -->
         <script>
         !function(a,m,o,c,r,m){
           a[o+c]=a[o+c]||{setMeta:function(p){this.params=(this.params||[]).concat([p])}},
@@ -344,7 +612,6 @@
           a[o+m]=a[o+m]||function(f,k){a[o+m].f=(a[o+m].f||[]).concat([[f,k]])}
         }(window,0,"amo_forms_","params","load","loaded");
         </script>
-
         <script async charset="utf-8"
           src="https://forms.kommo.com/forms/assets/js/amoforms.js">
         </script>
@@ -354,6 +621,7 @@
 
 </section>
 
+<!-- Footer -->
 <footer class="footer">
 
   <div class="footer-logo">
@@ -372,56 +640,32 @@
 
   <div class="footer-info">
     Locação premium de equipamentos para estética.<br><br>
-    © 2026 VisioSkyn. Todos os direitos reservados.<br><br>
+    <strong>© 2026 VisioSkyn. Todos os direitos reservados.</strong><br><br>
     R. Sena Madureira, 151, São Paulo/SP<br><br>
     CNPJ: 54.555.536/0001-00
   </div>
 
-
-  
 </footer>
 
-
-
-
-
-
+<!-- Dev credit (inalterado) -->
+<div class="dev-credit">
+  <span style="opacity:.8;">Desenvolvido por:</span>
+  <a href="https://wa.me/5511986912169?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20seus%20projetos%20e%20como%20posso%20ter%20um%20site%20igual.%20Pode%20me%20ajudar%3F"
+     target="_blank" rel="noopener">
+    MindFly Marketing
+  </a>
+</div>
 
 <!-- Assinatura :) 
-
-
-
-
-
-
                  __
                 / _)
        _/\/\___/ / 
      _|         /  
    _|  (  | (  |   
   /__.-'|_|--|_|  
+-->
 
-
-
-
-
-
-  -->
-
-
-
-
-<br>
-<div style="text-align:center;padding:12px 16px;font-family:Montserrat,sans-serif;font-size:12px;color:rgba(255,255,255,0.78);">
-  <span style="opacity:.9;">Desenvolvido por:</span>
-  <a href="https://wa.me/5511986912169?text=Ol%C3%A1!%20Quero%20saber%20mais%20sobre%20seus%20projetos%20e%20como%20posso%20ter%20um%20site%20igual.%20Pode%20me%20ajudar%3F"
-     target="_blank" rel="noopener"
-     style="color:rgba(255,255,255,0.92);text-decoration:none;border-bottom:1px dotted rgba(255,255,255,0.35);padding-bottom:1px;">
-    MindFly Marketing
-  </a>
-</div>
-<br>
-<!-- ==================== ATRIBUIÇÃO (UTM/CLICK IDs) - não altera design ==================== -->
+<!-- ==================== ATRIBUIÇÃO (UTM/CLICK IDs) ==================== -->
 <script>
 (function(){
   try{
@@ -429,19 +673,11 @@
     var keys = ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','gbraid','wbraid','fbclid'];
     var data = {};
     var hasAny = false;
-
     keys.forEach(function(k){
       var v = params.get(k);
-      if(v){
-        data[k] = v;
-        hasAny = true;
-      }
+      if(v){ data[k] = v; hasAny = true; }
     });
-
-    if(hasAny){
-      data._ts = Date.now();
-      localStorage.setItem('vs_attrib', JSON.stringify(data));
-    }
+    if(hasAny){ data._ts = Date.now(); localStorage.setItem('vs_attrib', JSON.stringify(data)); }
   }catch(e){}
 })();
 </script>
@@ -459,4 +695,3 @@
 
 </body>
 </html>
-
