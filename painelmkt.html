@@ -1,675 +1,2096 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MindFly — Painel de Keywords</title>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg:          #0D0D0D;
-    --surface:     #181818;
-    --surface2:    #222222;
-    --line:        rgba(255,255,255,0.07);
-    --orange:      #FF6200;
-    --orange-dim:  rgba(255,98,0,0.12);
-    --orange-glow: rgba(255,98,0,0.22);
-    --white:       #F2F2F2;
-    --muted:       #777;
-    --muted2:      #555;
-    --hot-text:    #FFAA70;
-    --mid-text:    #70C4FF;
-    --low-text:    #888;
-    --neg-text:    #FF8080;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body {
-    height: 100%;
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--white);
-    overflow: hidden;
-  }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MindFly — Planejador de Anúncios</title>
 
-  /* ─── LOGIN ───────────────────── */
-  #login-screen {
-    position: fixed; inset: 0;
-    background: var(--bg);
-    display: flex; align-items: center; justify-content: center;
-    z-index: 100;
-    transition: opacity .45s ease, transform .45s ease;
-  }
-  #login-screen.hide { opacity: 0; transform: scale(1.05); pointer-events: none; }
-  .login-box {
-    width: 100%; max-width: 370px; margin: 20px;
-    background: var(--surface);
-    border: 1px solid rgba(255,98,0,.2);
-    border-radius: 20px;
-    padding: 42px 34px 38px;
-    box-shadow: 0 0 80px rgba(255,98,0,.06), 0 40px 80px rgba(0,0,0,.6);
-    text-align: center;
-  }
-  .login-mark {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 54px; height: 54px;
-    background: var(--orange-dim);
-    border: 1px solid rgba(255,98,0,.3);
-    border-radius: 14px;
-    font-size: 1.5rem; margin-bottom: 18px;
-  }
-  .login-title {
-    font-family: 'Syne', sans-serif;
-    font-weight: 800; font-size: 1.5rem;
-    color: var(--white); margin-bottom: 4px;
-  }
-  .login-title span { color: var(--orange); }
-  .login-subtitle { font-size: .8rem; color: var(--muted); margin-bottom: 30px; }
-  .login-label {
-    display: block; text-align: left;
-    font-size: .68rem; letter-spacing: 1.5px;
-    text-transform: uppercase; color: var(--muted); margin-bottom: 8px;
-  }
-  .login-input {
-    width: 100%;
-    background: var(--bg);
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 13px 16px;
-    color: var(--white);
-    font-family: 'DM Sans', sans-serif; font-size: .95rem;
-    outline: none;
-    transition: border-color .2s, box-shadow .2s;
-    margin-bottom: 8px;
-  }
-  .login-input:focus { border-color: var(--orange); box-shadow: 0 0 0 3px var(--orange-dim); }
-  .login-error { font-size: .75rem; color: #FF5555; height: 16px; margin-bottom: 14px; }
-  .login-btn {
-    width: 100%; background: var(--orange); border: none;
-    border-radius: 10px; padding: 14px;
-    color: #fff; font-family: 'Syne', sans-serif;
-    font-weight: 700; font-size: .95rem;
-    cursor: pointer;
-    transition: background .2s, box-shadow .2s, transform .1s;
-    box-shadow: 0 6px 28px var(--orange-glow);
-  }
-  .login-btn:hover { background: #e05500; }
-  .login-btn:active { transform: scale(.98); }
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
 
-  /* ─── DASHBOARD ───────────────── */
-  #dashboard { display: none; flex-direction: column; height: 100vh; overflow: hidden; }
-  #dashboard.visible { display: flex; }
+    <style>
+      /* ─── TOKENS ─────────────────────────────────────────────── */
+      :root {
+        --bg: #0c0c0c;
+        --s1: #161616;
+        --s2: #202020;
+        --s3: #2a2a2a;
+        --line: rgba(255, 255, 255, 0.07);
+        --line2: rgba(255, 255, 255, 0.12);
+        --orange: #ff5f00;
+        --orange-d: rgba(255, 95, 0, 0.13);
+        --orange-g: rgba(255, 95, 0, 0.25);
+        --white: #f0f0f0;
+        --muted: #6a6a6a;
+        --muted2: #4a4a4a;
+        --hot: #ffb07a;
+        --mid: #72c6ff;
+        --low: #7a7a7a;
+        --neg: #ff8888;
+        --r: 12px;
+      }
 
-  /* Header */
-  .header {
-    background: var(--surface);
-    border-bottom: 1px solid var(--line);
-    height: 54px; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 0 18px; position: relative;
-  }
-  .header::after {
-    content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 1px;
-    background: linear-gradient(90deg, transparent, var(--orange), transparent);
-    opacity: .4;
-  }
-  .brand { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.15rem; }
-  .brand span { color: var(--orange); }
-  .header-tag {
-    font-size: .66rem; letter-spacing: 1.2px; text-transform: uppercase;
-    color: var(--muted); background: var(--surface2);
-    border: 1px solid var(--line); border-radius: 20px; padding: 4px 12px;
-  }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-  /* ─── PILL NAV ─────────────────── */
-  .pill-nav {
-    background: var(--surface);
-    border-bottom: 1px solid var(--line);
-    padding: 11px 14px; flex-shrink: 0;
-  }
-  /* Mobile: 2+2 grid, "Visão Geral" full-width on its own row */
-  .pill-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 7px;
-  }
-  .pill-overview { grid-column: 1 / -1; }
+      html {
+        font-size: 15px;
+      }
 
-  /* Desktop: all 5 side by side */
-  @media (min-width: 600px) {
-    .pill-grid { grid-template-columns: repeat(5, 1fr); }
-    .pill-overview { grid-column: auto; }
-  }
+      body {
+        font-family: "DM Sans", sans-serif;
+        background: var(--bg);
+        color: var(--white);
+        height: 100vh;
+        overflow: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
 
-  .pill-btn {
-    background: var(--surface2);
-    border: 1px solid var(--line);
-    border-radius: 100px;
-    padding: 9px 8px;
-    color: var(--muted);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 500; font-size: .78rem;
-    cursor: pointer; text-align: center;
-    transition: background .2s, border-color .2s, color .2s;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-  }
-  .pill-btn.active {
-    background: var(--orange-dim);
-    border-color: rgba(255,98,0,.45);
-    color: var(--orange); font-weight: 600;
-  }
-  .pill-btn:hover:not(.active) { border-color: var(--muted2); color: var(--white); }
+      /* ─── SCROLLBAR ──────────────────────────────────────────── */
+      ::-webkit-scrollbar {
+        width: 4px;
+        height: 4px;
+      }
 
-  /* ─── CONTENT ──────────────────── */
-  .content {
-    flex: 1; overflow-y: auto;
-    padding: 16px 15px 28px;
-    scrollbar-width: thin;
-    scrollbar-color: var(--surface2) transparent;
-  }
-  .content::-webkit-scrollbar { width: 3px; }
-  .content::-webkit-scrollbar-track { background: transparent; }
-  .content::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 4px; }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
 
-  .tab-panel { display: none; animation: fadeUp .28s ease; }
-  .tab-panel.active { display: block; }
-  @keyframes fadeUp {
-    from { opacity: 0; transform: translateY(8px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
+      ::-webkit-scrollbar-thumb {
+        background: var(--s3);
+        border-radius: 4px;
+      }
 
-  /* Panel header */
-  .panel-header { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 14px; }
-  .panel-icon {
-    width: 44px; height: 44px; flex-shrink: 0;
-    background: var(--orange-dim);
-    border: 1px solid rgba(255,98,0,.25);
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.3rem;
-  }
-  .panel-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; line-height: 1.1; }
-  .panel-title span { color: var(--orange); }
-  .panel-desc { font-size: .76rem; color: var(--muted); margin-top: 4px; line-height: 1.45; }
+      /* ─── LOGIN ──────────────────────────────────────────────── */
+      #login-screen {
+        position: fixed;
+        inset: 0;
+        background: var(--bg);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 200;
+        transition: opacity 0.5s ease, transform 0.5s ease;
+      }
 
-  /* Stats */
-  .stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 14px; }
-  .stat-chip {
-    background: var(--surface);
-    border: 1px solid var(--line);
-    border-radius: 10px;
-    padding: 10px 6px;
-    display: flex; flex-direction: column; align-items: center; gap: 3px;
-    text-align: center;
-  }
-  .s-icon { font-size: .95rem; }
-  .s-num { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1.1rem; color: var(--orange); }
-  .s-label { font-size: .6rem; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; line-height: 1.2; }
+      #login-screen.out {
+        opacity: 0;
+        transform: scale(1.06);
+        pointer-events: none;
+      }
 
-  /* KW sections */
-  .kw-section { margin-bottom: 12px; }
-  .kw-section-title {
-    font-size: .65rem; letter-spacing: 1.8px;
-    text-transform: uppercase; color: var(--muted2);
-    margin-bottom: 8px;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .kw-section-title::after { content: ''; flex: 1; height: 1px; background: var(--line); }
-  .kw-grid { display: flex; flex-wrap: wrap; gap: 7px; }
-  .kw-tag {
-    font-size: .79rem; font-weight: 500;
-    padding: 6px 11px; border-radius: 8px;
-    border: 1px solid transparent;
-    transition: transform .15s; line-height: 1.3;
-  }
-  .kw-tag:hover { transform: translateY(-2px); }
-  .kw-tag.hot  { background: rgba(255,98,0,.1);   border-color: rgba(255,98,0,.28);  color: var(--hot-text); }
-  .kw-tag.mid  { background: rgba(50,130,200,.1); border-color: rgba(50,130,200,.25);color: var(--mid-text); }
-  .kw-tag.low  { background: rgba(255,255,255,.04); border-color: var(--line);        color: var(--low-text); }
+      .lbox {
+        width: 100%;
+        max-width: 400px;
+        margin: 20px;
+        background: var(--s1);
+        border: 1px solid rgba(255, 95, 0, 0.18);
+        border-radius: 20px;
+        padding: 48px 40px 44px;
+        box-shadow: 0 0 100px rgba(255, 95, 0, 0.06), 0 50px 100px rgba(0, 0, 0, 0.7);
+        text-align: center;
+      }
 
-  /* Negatives */
-  .neg-section {
-    background: rgba(255,60,60,.04);
-    border: 1px solid rgba(255,60,60,.14);
-    border-radius: 12px; padding: 12px 13px; margin-top: 12px;
-  }
-  .neg-title {
-    font-size: .64rem; letter-spacing: 1.5px;
-    text-transform: uppercase; color: var(--neg-text);
-    margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
-  }
-  .neg-title::before { content: '✕'; font-size: .72rem; }
-  .neg-grid { display: flex; flex-wrap: wrap; gap: 6px; }
-  .neg-tag {
-    background: rgba(255,60,60,.07);
-    border: 1px solid rgba(255,60,60,.18);
-    border-radius: 6px; padding: 4px 10px;
-    font-size: .74rem; color: #FF9999;
-  }
+      .lbox-icon {
+        width: 58px;
+        height: 58px;
+        margin: 0 auto 22px;
+        background: var(--orange-d);
+        border: 1px solid rgba(255, 95, 0, 0.28);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
 
-  /* Tip */
-  .tip-box {
-    background: var(--orange-dim);
-    border: 1px solid rgba(255,98,0,.2);
-    border-left: 3px solid var(--orange);
-    border-radius: 10px; padding: 11px 13px;
-    font-size: .79rem; color: #FFCFA0;
-    line-height: 1.55; margin-top: 12px;
-  }
-  .tip-box strong { color: var(--orange); }
+      .lbox-icon svg {
+        width: 26px;
+        height: 26px;
+        fill: var(--orange);
+      }
 
-  /* Overview */
-  .overview-intro {
-    background: var(--surface); border: 1px solid var(--line);
-    border-radius: 14px; padding: 15px; margin-bottom: 14px;
-    display: flex; gap: 12px; align-items: flex-start;
-  }
-  .ov-icon { font-size: 1.5rem; flex-shrink: 0; }
-  .ov-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: .95rem; margin-bottom: 5px; }
-  .ov-desc { font-size: .78rem; color: var(--muted); line-height: 1.55; }
-  .ov-desc strong { color: var(--orange); }
+      .lbox-title {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: 1.7rem;
+        letter-spacing: -0.5px;
+        margin-bottom: 5px;
+      }
 
-  .legend { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 14px; }
-  .legend-item { display: flex; align-items: center; gap: 5px; font-size: .72rem; color: var(--muted); }
-  .ldot { width: 8px; height: 8px; border-radius: 2px; }
-  .ldot.hot { background: var(--orange); }
-  .ldot.mid { background: #3282C8; }
-  .ldot.low { background: var(--muted2); }
+      .lbox-title span {
+        color: var(--orange);
+      }
 
-  .overview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px,1fr)); gap: 11px; }
-  .eq-card {
-    background: var(--surface); border: 1px solid var(--line);
-    border-radius: 13px; padding: 14px;
-    transition: transform .2s, box-shadow .2s;
-  }
-  .eq-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,.4),0 0 0 1px rgba(255,98,0,.18); }
-  .eq-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-  .eq-card-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: .92rem; }
-  .eq-icon {
-    font-size: 1.1rem; background: var(--orange-dim);
-    border: 1px solid rgba(255,98,0,.2); border-radius: 7px;
-    width: 32px; height: 32px; display: flex; align-items: center; justify-content: center;
-  }
-  .eq-kws { display: flex; flex-wrap: wrap; gap: 5px; }
-  .eq-kw { background: rgba(255,255,255,.04); border: 1px solid var(--line); border-radius: 5px; padding: 3px 8px; font-size: .71rem; color: var(--muted); }
-  .eq-kw.t { background: rgba(255,98,0,.1); border-color: rgba(255,98,0,.28); color: var(--hot-text); }
+      .lbox-sub {
+        font-size: 0.82rem;
+        color: var(--muted);
+        margin-bottom: 34px;
+      }
 
-  @media (max-width: 400px) {
-    .panel-title { font-size: 1.05rem; }
-    .kw-tag { font-size: .74rem; padding: 5px 9px; }
-    .content { padding: 12px 11px 24px; }
-    .pill-btn { font-size: .74rem; }
-  }
-</style>
-</head>
-<body>
+      .lbox-label {
+        display: block;
+        text-align: left;
+        font-size: 0.68rem;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 8px;
+      }
 
-<!-- ══ LOGIN ══ -->
-<div id="login-screen">
-  <div class="login-box">
+      .lbox-input {
+        width: 100%;
+        background: var(--bg);
+        border: 1px solid var(--line2);
+        border-radius: 10px;
+        padding: 14px 18px;
+        color: var(--white);
+        font-family: "DM Sans", sans-serif;
+        font-size: 1rem;
+        outline: none;
+        letter-spacing: 0.3px;
+        transition: border-color 0.2s, box-shadow 0.2s;
+        margin-bottom: 8px;
+      }
 
-    <div class="login-title">Mind<span>Fly</span></div>
-    <div class="login-subtitle">Painel de Marketing MindFly</div>
-    <label class="login-label" for="pw">Senha de acesso</label>
-    <input id="pw" class="login-input" type="password" placeholder="••••••••••" autocomplete="off"/>
-    <div class="login-error" id="pw-err"></div>
-    <button class="login-btn" onclick="doLogin()">Entrar no Painel</button>
-  </div>
-</div>
+      .lbox-input:focus {
+        border-color: var(--orange);
+        box-shadow: 0 0 0 3px var(--orange-d);
+      }
 
-<!-- ══ DASHBOARD ══ -->
-<div id="dashboard">
+      .lbox-err {
+        font-size: 0.75rem;
+        color: #ff5555;
+        height: 16px;
+        margin-bottom: 14px;
+      }
 
-  <header class="header">
-    <div class="brand">Mind<span>Fly</span></div>
-    <div class="header-tag">Keywords</div>
-  </header>
+      .lbox-btn {
+        width: 100%;
+        background: var(--orange);
+        border: none;
+        border-radius: 10px;
+        padding: 15px;
+        color: #fff;
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+        box-shadow: 0 8px 32px var(--orange-g);
+      }
 
-  <nav class="pill-nav">
-    <div class="pill-grid">
-      <button class="pill-btn active pill-overview" onclick="switchTab('overview',this)">Visão Geral</button>
-      <button class="pill-btn" onclick="switchTab('morpheus',this)">Morpheus 8</button>
-      <button class="pill-btn" onclick="switchTab('ultraformer',this)">Ultraformer MPT</button>
-      <button class="pill-btn" onclick="switchTab('lavieen',this)">Lavieen</button>
-      <button class="pill-btn" onclick="switchTab('co2',this)">CO2 / MTZ40</button>
+      .lbox-btn:hover {
+        background: #e85500;
+        box-shadow: 0 12px 40px var(--orange-g);
+      }
+
+      .lbox-btn:active {
+        transform: scale(0.98);
+      }
+
+      /* ─── DASHBOARD ──────────────────────────────────────────── */
+      #dash {
+        display: none;
+        flex-direction: column;
+        height: 100vh;
+      }
+
+      #dash.on {
+        display: flex;
+      }
+
+      /* Header */
+      .hdr {
+        background: var(--s1);
+        border-bottom: 1px solid var(--line);
+        height: 58px;
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 22px;
+        position: relative;
+      }
+
+      .hdr::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--orange) 40%, transparent);
+        opacity: 0.35;
+      }
+
+      .brand {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: 1.25rem;
+        letter-spacing: -0.4px;
+      }
+
+      .brand span {
+        color: var(--orange);
+      }
+
+      .hdr-badge {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: var(--s2);
+        border: 1px solid var(--line2);
+        border-radius: 20px;
+        padding: 5px 13px;
+        font-size: 0.7rem;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .hdr-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--orange);
+        box-shadow: 0 0 8px var(--orange);
+      }
+
+      /* ─── PILL NAV ───────────────────────────────────────────── */
+      .pnav {
+        background: var(--s1);
+        border-bottom: 1px solid var(--line);
+        padding: 12px 16px 14px;
+        flex-shrink: 0;
+      }
+
+      .pgrid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 7px;
+      }
+
+      .pill {
+        position: relative;
+        background: var(--s2);
+        border: 1px solid var(--line2);
+        border-radius: 100px;
+        padding: 10px 6px;
+        color: var(--muted);
+        font-family: "DM Sans", sans-serif;
+        font-weight: 500;
+        font-size: 0.78rem;
+        cursor: pointer;
+        text-align: center;
+        transition: background 0.18s, border-color 0.18s, color 0.18s, transform 0.15s,
+          box-shadow 0.18s;
+        user-select: none;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .pill:hover:not(.on) {
+        background: var(--s3);
+        border-color: rgba(255, 95, 0, 0.35);
+        color: var(--white);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+      }
+
+      .pill.on {
+        background: rgba(255, 95, 0, 0.14);
+        border-color: rgba(255, 95, 0, 0.5);
+        color: var(--orange);
+        font-weight: 600;
+        box-shadow: 0 0 0 1px rgba(255, 95, 0, 0.15) inset;
+      }
+
+      .pill:not(.on)::after {
+        content: "";
+        position: absolute;
+        bottom: 5px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: 4px;
+        border-radius: 50%;
+        background: var(--muted2);
+        transition: background 0.18s;
+      }
+
+      .pill:hover:not(.on)::after {
+        background: var(--orange);
+      }
+
+      .nav-hint {
+        text-align: center;
+        margin-top: 9px;
+        font-size: 0.68rem;
+        color: var(--muted2);
+        letter-spacing: 0.5px;
+        transition: opacity 1s ease;
+      }
+
+      /* ─── CONTENT ────────────────────────────────────────────── */
+      .cnt {
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 20px 18px 32px;
+      }
+
+      .tab {
+        display: none;
+        animation: fadeUp 0.3s ease;
+      }
+
+      .tab.on {
+        display: block;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* ─── PANEL TOP ──────────────────────────────────────────── */
+      .ptop {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        margin-bottom: 18px;
+      }
+
+      .pico {
+        width: 48px;
+        height: 48px;
+        flex-shrink: 0;
+        background: var(--orange-d);
+        border: 1px solid rgba(255, 95, 0, 0.22);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .pico svg {
+        width: 22px;
+        height: 22px;
+        fill: var(--orange);
+      }
+
+      .ptitle {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: 1.3rem;
+        line-height: 1.1;
+      }
+
+      .ptitle span {
+        color: var(--orange);
+      }
+
+      .pdesc {
+        font-size: 0.8rem;
+        color: var(--muted);
+        margin-top: 5px;
+        line-height: 1.5;
+      }
+
+      /* ─── STATS ──────────────────────────────────────────────── */
+      .srow {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+
+      .schip {
+        background: var(--s1);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 12px 8px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .schip-n {
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: 1.3rem;
+        color: var(--orange);
+      }
+
+      .schip-l {
+        font-size: 0.62rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.7px;
+      }
+
+      /* ─── KW SECTIONS ────────────────────────────────────────── */
+      .kwsec {
+        margin-bottom: 14px;
+      }
+
+      .kwst {
+        font-size: 0.67rem;
+        letter-spacing: 1.8px;
+        text-transform: uppercase;
+        color: var(--muted2);
+        margin-bottom: 9px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .kwst::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--line);
+      }
+
+      .kwg {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+
+      .kw {
+        font-size: 0.82rem;
+        font-weight: 500;
+        padding: 7px 13px;
+        border-radius: 8px;
+        border: 1px solid transparent;
+        transition: transform 0.15s, box-shadow 0.15s;
+        cursor: default;
+        line-height: 1.3;
+      }
+
+      .kw:hover {
+        transform: translateY(-2px);
+      }
+
+      .kw.h {
+        background: rgba(255, 95, 0, 0.1);
+        border-color: rgba(255, 95, 0, 0.3);
+        color: var(--hot);
+      }
+
+      .kw.h:hover {
+        box-shadow: 0 4px 16px rgba(255, 95, 0, 0.18);
+      }
+
+      .kw.m {
+        background: rgba(80, 160, 230, 0.1);
+        border-color: rgba(80, 160, 230, 0.28);
+        color: var(--mid);
+      }
+
+      .kw.m:hover {
+        box-shadow: 0 4px 14px rgba(80, 160, 230, 0.15);
+      }
+
+      .kw.l {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: var(--line);
+        color: var(--low);
+      }
+
+      /* ─── NEGATIVES ──────────────────────────────────────────── */
+      .negsec {
+        background: rgba(220, 50, 50, 0.04);
+        border: 1px solid rgba(220, 50, 50, 0.13);
+        border-radius: 12px;
+        padding: 14px 16px;
+        margin-top: 16px;
+      }
+
+      .negtitle {
+        font-size: 0.67rem;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--neg);
+        margin-bottom: 9px;
+        display: flex;
+        align-items: center;
+        gap: 7px;
+      }
+
+      .negtitle::before {
+        content: "";
+        width: 12px;
+        height: 12px;
+        border: 1.5px solid var(--neg);
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12'%3E%3Cpath d='M3 3l6 6M9 3l-6 6' stroke='%23FF8888' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E")
+          center/10px no-repeat;
+      }
+
+      .negg {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+
+      .negt {
+        background: rgba(220, 50, 50, 0.07);
+        border: 1px solid rgba(220, 50, 50, 0.18);
+        border-radius: 6px;
+        padding: 5px 11px;
+        font-size: 0.77rem;
+        color: #ffaaaa;
+      }
+
+      /* ─── ROTATING TIP ───────────────────────────────────────── */
+      .tiprotator {
+        background: var(--s1);
+        border: 1px solid var(--line2);
+        border-left: 3px solid var(--orange);
+        border-radius: 12px;
+        padding: 16px 18px 12px;
+        margin-top: 18px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .tiprotator-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+
+      .tiprotator-label {
+        font-size: 0.67rem;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--orange);
+        font-weight: 600;
+      }
+
+      .tiprotator-counter {
+        font-size: 0.7rem;
+        color: var(--muted);
+      }
+
+      .tiprotator-body {
+        font-size: 0.83rem;
+        color: var(--white);
+        line-height: 1.6;
+        min-height: 60px;
+        transition: opacity 0.35s ease, transform 0.35s ease;
+      }
+
+      .tiprotator-body.fade {
+        opacity: 0;
+        transform: translateY(4px);
+      }
+
+      .tiprotator-bar {
+        height: 2px;
+        background: var(--s3);
+        border-radius: 2px;
+        margin-top: 12px;
+        overflow: hidden;
+      }
+
+      .tiprotator-fill {
+        height: 100%;
+        width: 0;
+        background: var(--orange);
+        border-radius: 2px;
+      }
+
+      .tiprotator-fill.run {
+        animation: tpfill 15s linear forwards;
+      }
+
+      @keyframes tpfill {
+        from {
+          width: 0;
+        }
+        to {
+          width: 100%;
+        }
+      }
+
+      /* ─── OVERVIEW ───────────────────────────────────────────── */
+      .ov-hero {
+        background: var(--s1);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 18px 20px;
+        margin-bottom: 18px;
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+      }
+
+      .ov-hero-icon {
+        width: 44px;
+        height: 44px;
+        flex-shrink: 0;
+        background: var(--orange-d);
+        border: 1px solid rgba(255, 95, 0, 0.22);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .ov-hero-icon svg {
+        width: 20px;
+        height: 20px;
+        fill: var(--orange);
+      }
+
+      .ov-title {
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: 1rem;
+        margin-bottom: 6px;
+      }
+
+      .ov-desc {
+        font-size: 0.82rem;
+        color: var(--muted);
+        line-height: 1.6;
+      }
+
+      .ov-desc strong {
+        color: var(--orange);
+        font-weight: 600;
+      }
+
+      .legend {
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+        margin-bottom: 16px;
+      }
+
+      .lgitem {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 0.75rem;
+        color: var(--muted);
+      }
+
+      .lgdot {
+        width: 9px;
+        height: 9px;
+        border-radius: 2px;
+      }
+
+      .lgdot.h {
+        background: var(--orange);
+      }
+
+      .lgdot.m {
+        background: #5090c8;
+      }
+
+      .lgdot.l {
+        background: var(--muted2);
+      }
+
+      .ov-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 12px;
+      }
+
+      .eqcard {
+        background: var(--s1);
+        border: 1px solid var(--line);
+        border-radius: 13px;
+        padding: 16px;
+        transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      }
+
+      .eqcard:hover {
+        transform: translateY(-3px);
+        border-color: rgba(255, 95, 0, 0.22);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+      }
+
+      .eqcard-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 11px;
+      }
+
+      .eqcard-name {
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: 0.95rem;
+      }
+
+      .eqcard-ico {
+        width: 34px;
+        height: 34px;
+        background: var(--orange-d);
+        border: 1px solid rgba(255, 95, 0, 0.2);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .eqcard-ico svg {
+        width: 16px;
+        height: 16px;
+        fill: var(--orange);
+      }
+
+      .eqkws {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 5px;
+      }
+
+      .eqkw {
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid var(--line);
+        border-radius: 5px;
+        padding: 3px 9px;
+        font-size: 0.72rem;
+        color: var(--muted);
+      }
+
+      .eqkw.t {
+        background: rgba(255, 95, 0, 0.1);
+        border-color: rgba(255, 95, 0, 0.28);
+        color: var(--hot);
+      }
+
+      /* ─── AD SECTION ─────────────────────────────────────────── */
+      .ad-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+        margin-bottom: 20px;
+      }
+
+      .af-btn {
+        background: var(--s2);
+        border: 1px solid var(--line2);
+        border-radius: 100px;
+        padding: 7px 15px;
+        font-size: 0.78rem;
+        color: var(--muted);
+        cursor: pointer;
+        font-family: "DM Sans", sans-serif;
+        font-weight: 500;
+        transition: all 0.18s;
+      }
+
+      .af-btn:hover:not(.on) {
+        border-color: rgba(255, 95, 0, 0.35);
+        color: var(--white);
+      }
+
+      .af-btn.on {
+        background: var(--orange-d);
+        border-color: rgba(255, 95, 0, 0.5);
+        color: var(--orange);
+        font-weight: 600;
+      }
+
+      .ad-group {
+        margin-bottom: 28px;
+      }
+
+      .ad-group-title {
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: 0.82rem;
+        letter-spacing: 0.5px;
+        color: var(--muted);
+        text-transform: uppercase;
+        margin-bottom: 14px;
+        padding-bottom: 9px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .ad-group-title span {
+        background: var(--orange-d);
+        border: 1px solid rgba(255, 95, 0, 0.22);
+        color: var(--orange);
+        font-size: 0.7rem;
+        padding: 2px 9px;
+        border-radius: 20px;
+        text-transform: none;
+        letter-spacing: 0;
+        font-family: "DM Sans", sans-serif;
+      }
+
+      .ad-cards {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      /* Google Ad Preview Card */
+      .adcard {
+        background: #fff;
+        border: 1px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 18px 20px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        transition: box-shadow 0.2s, transform 0.2s;
+      }
+
+      .adcard:hover {
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        transform: translateY(-2px);
+      }
+
+      .adcard-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 0.72rem;
+        color: #555;
+        margin-bottom: 4px;
+        font-family: arial, sans-serif;
+      }
+
+      .adcard-badge::before {
+        content: "";
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        background: #ff5f00;
+        border-radius: 3px;
+      }
+
+      .adcard-url {
+        font-size: 0.78rem;
+        color: #0d7a1c;
+        font-family: arial, sans-serif;
+        margin-bottom: 6px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .adcard-url svg {
+        width: 12px;
+        height: 12px;
+        fill: #0d7a1c;
+        flex-shrink: 0;
+      }
+
+      .adcard-headline {
+        font-size: 1.1rem;
+        color: #1558d6;
+        font-weight: 400;
+        font-family: arial, sans-serif;
+        line-height: 1.35;
+        margin-bottom: 4px;
+        cursor: pointer;
+        transition: color 0.15s;
+      }
+
+      .adcard-headline:hover {
+        color: #0b3d91;
+        text-decoration: underline;
+      }
+
+      .adcard-desc {
+        font-size: 0.84rem;
+        color: #444;
+        font-family: arial, sans-serif;
+        line-height: 1.5;
+      }
+
+      .adcard-sep {
+        color: #aaa;
+        font-weight: 300;
+        margin: 0 2px;
+      }
+
+      /* ─── DESKTOP BREAKPOINTS ────────────────────────────────── */
+      @media (min-width: 768px) {
+        html {
+          font-size: 16px;
+        }
+
+        body {
+          overflow: hidden;
+        }
+
+        .lbox {
+          padding: 52px 48px 48px;
+        }
+
+        .hdr {
+          height: 64px;
+          padding: 0 32px;
+        }
+
+        .brand {
+          font-size: 1.35rem;
+        }
+
+        .pnav {
+          padding: 14px 24px 16px;
+        }
+
+        .pgrid {
+          grid-template-columns: repeat(6, 1fr);
+          gap: 8px;
+        }
+
+        .pill {
+          font-size: 0.82rem;
+          padding: 11px 8px;
+        }
+
+        .pill:not(.on)::after {
+          display: none;
+        }
+
+        .nav-hint {
+          display: none;
+        }
+
+        .cnt {
+          padding: 28px 32px 40px;
+        }
+
+        .ptitle {
+          font-size: 1.6rem;
+        }
+
+        .pdesc {
+          font-size: 0.88rem;
+        }
+
+        .kw {
+          font-size: 0.87rem;
+          padding: 8px 15px;
+        }
+
+        .negt {
+          font-size: 0.82rem;
+        }
+
+        .tiprotator-body {
+          font-size: 0.9rem;
+        }
+
+        .ov-title {
+          font-size: 1.1rem;
+        }
+
+        .ov-desc {
+          font-size: 0.88rem;
+        }
+
+        .kwst {
+          font-size: 0.72rem;
+        }
+
+        .schip-n {
+          font-size: 1.5rem;
+        }
+
+        .schip-l {
+          font-size: 0.68rem;
+        }
+
+        .ad-cards {
+          grid-template-columns: repeat(3, 1fr);
+        }
+
+        .adcard {
+          padding: 20px 22px;
+        }
+
+        .adcard-headline {
+          font-size: 1.15rem;
+        }
+
+        .adcard-desc {
+          font-size: 0.87rem;
+        }
+
+        .srow {
+          gap: 12px;
+        }
+
+        .schip {
+          padding: 14px 12px;
+        }
+
+        .negsec {
+          padding: 16px 18px;
+        }
+
+        .ptop {
+          margin-bottom: 22px;
+        }
+
+        .pico {
+          width: 54px;
+          height: 54px;
+          border-radius: 14px;
+        }
+
+        .pico svg {
+          width: 26px;
+          height: 26px;
+        }
+      }
+
+      @media (min-width: 1100px) {
+        .cnt {
+          max-width: 1100px;
+          margin: 0 auto;
+          padding: 32px 40px 48px;
+        }
+
+        .ov-grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+
+      @media (max-width: 380px) {
+        .lbox {
+          padding: 36px 24px 32px;
+        }
+
+        .pgrid {
+          gap: 6px;
+        }
+
+        .pill {
+          font-size: 0.72rem;
+          padding: 8px 4px;
+        }
+
+        .kw {
+          font-size: 0.76rem;
+          padding: 5px 10px;
+        }
+
+        .ptitle {
+          font-size: 1.1rem;
+        }
+
+        .cnt {
+          padding: 14px 13px 28px;
+        }
+
+        .tiprotator {
+          padding: 13px 14px 10px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- ═══════════════════ LOGIN ═══════════════════ -->
+    <div id="login-screen">
+      <div class="lbox">
+        <div class="lbox-title">Mind<span>Fly</span></div>
+        <div class="lbox-sub">Painel de Marketing MindFly</div>
+
+        <label class="lbox-label" for="pw">Senha de acesso</label>
+        <input
+          id="pw"
+          class="lbox-input"
+          type="password"
+          placeholder="••••••••••••"
+          autocomplete="off"
+        />
+
+        <div class="lbox-err" id="pw-err"></div>
+
+        <button class="lbox-btn" onclick="doLogin()">Entrar no Painel</button>
+      </div>
     </div>
-  </nav>
 
-  <main class="content">
-
-    <!-- VISÃO GERAL -->
-    <div id="tab-overview" class="tab-panel active">
-      <div class="overview-intro">
-        <div class="ov-icon">🎯</div>
-        <div>
-          <div class="ov-title">Inteligência de Keywords — Locação de Equipamentos</div>
-          <p class="ov-desc">Mapeamento das <strong>palavras-chave com maior potencial de conversão</strong> no Google Ads para locação de equipamentos dermatológicos. Termos ranqueados por intenção de compra — do mais quente ao complementar — para campanhas de alta performance.</p>
+    <!-- ═══════════════════ DASHBOARD ═══════════════════ -->
+    <div id="dash">
+      <header class="hdr">
+        <div class="brand">Mind<span>Fly</span></div>
+        <div class="hdr-badge">
+          <div class="hdr-dot"></div>
+          Google Ads - VisioSkyn
         </div>
-      </div>
-      <div class="legend">
-        <div class="legend-item"><div class="ldot hot"></div> Alta Conversão</div>
-        <div class="legend-item"><div class="ldot mid"></div> Média-Alta</div>
-        <div class="legend-item"><div class="ldot low"></div> Complementar</div>
-      </div>
-      <div class="overview-grid">
-        <div class="eq-card">
-          <div class="eq-card-top"><div class="eq-card-name">Morpheus 8</div><div class="eq-icon">🔬</div></div>
-          <div class="eq-kws">
-            <span class="eq-kw t">locação Morpheus8</span>
-            <span class="eq-kw t">aluguel Morpheus8</span>
-            <span class="eq-kw t">alugar Morpheus 8</span>
-            <span class="eq-kw">Morpheus8 clínica</span>
-            <span class="eq-kw">RF microagulhamento</span>
+      </header>
+
+      <nav class="pnav">
+        <div class="pgrid">
+          <button class="pill on" onclick="stab('ov', this)">Visão Geral</button>
+          <button class="pill" onclick="stab('m8', this)">Morpheus 8</button>
+          <button class="pill" onclick="stab('uf', this)">Ultraformer MPT</button>
+          <button class="pill" onclick="stab('lv', this)">Lavieen</button>
+          <button class="pill" onclick="stab('co', this)">MTZ40</button>
+          <button class="pill" onclick="stab('ads', this)">Anúncios</button>
+        </div>
+
+        <div class="nav-hint" id="nav-hint">Toque em qualquer aba para navegar</div>
+      </nav>
+
+      <main class="cnt">
+        <!-- ──────── VISÃO GERAL ──────── -->
+        <div id="tab-ov" class="tab on">
+          <div class="ov-hero">
+            <div>
+              <div class="ov-title">
+                Painel de anúncios Google Ads com foco em locação de Equipamentos para clínicas de
+                estética
+              </div>
+              <p class="ov-desc">
+                Mapeamento das
+                <strong>palavras-chave com maior potencial de conversão</strong>
+                Termos ranqueados por intenção de compra, do mais quente ao complementar, para
+                campanhas de alta performance. Selecione cada aba para ver a lista completa com
+                dicas estratégicas.
+              </p>
+            </div>
+          </div>
+
+          <div class="legend">
+            <div class="lgitem"><div class="lgdot h"></div> Alta Conversão</div>
+            <div class="lgitem"><div class="lgdot m"></div> Média-Alta</div>
+            <div class="lgitem"><div class="lgdot l"></div> Complementar</div>
+          </div>
+
+          <div class="ov-grid">
+            <div class="eqcard">
+              <div class="eqkws">
+                <span class="eqkw t">locação Morpheus8</span>
+                <span class="eqkw t">aluguel Morpheus8</span>
+                <span class="eqkw t">alugar Morpheus 8</span>
+                <span class="eqkw">Morpheus8 clínica</span>
+                <span class="eqkw">locação RF microagulhamento</span>
+              </div>
+            </div>
+
+            <div class="eqcard">
+              <div class="eqkws">
+                <span class="eqkw t">locação Ultraformer MPT</span>
+                <span class="eqkw t">aluguel Ultraformer MPT</span>
+                <span class="eqkw t">alugar Ultraformer MPT</span>
+                <span class="eqkw">HIFU clínica</span>
+                <span class="eqkw">ultrassom microfocado</span>
+              </div>
+            </div>
+
+            <div class="eqcard">
+              <div class="eqkws">
+                <span class="eqkw t">locação Lavieen</span>
+                <span class="eqkw t">aluguel Lavieen</span>
+                <span class="eqkw t">locação laser Thulium</span>
+                <span class="eqkw">alugar laser Thulium</span>
+                <span class="eqkw">laser 1927nm</span>
+              </div>
+            </div>
+
+            <div class="eqcard">
+              <div class="eqkws">
+                <span class="eqkw t">locação laser CO2 fracionado</span>
+                <span class="eqkw t">aluguel MTZ40</span>
+                <span class="eqkw t">locação MTZ40</span>
+                <span class="eqkw">locação CO2 clínica</span>
+                <span class="eqkw">laser CO2 médico</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="tiprotator" id="tr-ov">
+            <div class="tiprotator-top">
+              <span class="tiprotator-label">Insight da Campanha</span>
+              <span class="tiprotator-counter" id="tc-ov">1 / 4</span>
+            </div>
+
+            <div class="tiprotator-body" id="tb-ov">
+              Palavras-chave exatas como [locação Morpheus8] têm CPC mais alto, mas geram leads
+              muito mais qualificados. Teste correspondência exata vs frase para encontrar o
+              equilíbrio ideal entre volume de buscas e taxa de conversão.
+            </div>
+
+            <div class="tiprotator-bar">
+              <div class="tiprotator-fill run" id="tf-ov"></div>
+            </div>
           </div>
         </div>
-        <div class="eq-card">
-          <div class="eq-card-top"><div class="eq-card-name">Ultraformer MPT</div><div class="eq-icon">📡</div></div>
-          <div class="eq-kws">
-            <span class="eq-kw t">locação Ultraformer MPT</span>
-            <span class="eq-kw t">aluguel Ultraformer MPT</span>
-            <span class="eq-kw t">alugar Ultraformer MPT</span>
-            <span class="eq-kw">HIFU clínica</span>
-            <span class="eq-kw">ultrassom microfocado</span>
+
+        <!-- ──────── MORPHEUS 8 ──────── -->
+        <div id="tab-m8" class="tab">
+          <div class="ptop">
+            <div>
+              <div class="ptitle">Morpheus <span>8</span></div>
+              <div class="pdesc">
+                Radiofrequência fracionada com microagulhamento · InMode · Minimamente invasivo ·
+                Corpo e face
+              </div>
+            </div>
+          </div>
+
+          <div class="srow">
+            <div class="schip">
+              <div class="schip-n">6</div>
+              <div class="schip-l">Alta Conv.</div>
+            </div>
+            <div class="schip">
+              <div class="schip-n">6</div>
+              <div class="schip-l">Média-Alta</div>
+            </div>
+            <div class="schip">
+              <div class="schip-n">4</div>
+              <div class="schip-l">Complementar</div>
+            </div>
+          </div>
+
+          <div class="kwsec">
+            <div class="kwst">Alta Conversão</div>
+            <div class="kwg">
+              <span class="kw h">locação Morpheus8</span>
+              <span class="kw h">aluguel Morpheus8</span>
+              <span class="kw h">alugar Morpheus 8</span>
+              <span class="kw h">locação Morpheus 8 clínica</span>
+              <span class="kw h">aluguel Morpheus 8 médico</span>
+              <span class="kw h">locação Morpheus8 por dia</span>
+            </div>
+          </div>
+
+          <div class="kwsec">
+            <div class="kwst">Média-Alta Conversão</div>
+            <div class="kwg">
+              <span class="kw m">locação Morpheus8 dermatologista</span>
+              <span class="kw m">alugar equipamento Morpheus8</span>
+              <span class="kw m">locação Morpheus 8 procedimentos</span>
+              <span class="kw m">Morpheus8 aluguel diário</span>
+              <span class="kw m">locação Morpheus8 cirurgião plástico</span>
+              <span class="kw m">aluguel Morpheus 8 radiofrequência</span>
+            </div>
+          </div>
+
+          <div class="kwsec">
+            <div class="kwst">Complementar</div>
+            <div class="kwg">
+              <span class="kw l">locação RF microagulhamento Morpheus</span>
+              <span class="kw l">Morpheus8 locação mensal</span>
+              <span class="kw l">locação InMode Morpheus</span>
+              <span class="kw l">aluguel radiofrequência fracionada clínica</span>
+            </div>
+          </div>
+
+          <div class="negsec">
+            <div class="negtitle">Palavras-Chave Negativas</div>
+            <div class="negg">
+              <span class="negt">preço Morpheus8</span>
+              <span class="negt">quanto custa Morpheus</span>
+              <span class="negt">resultado Morpheus8</span>
+              <span class="negt">antes e depois</span>
+              <span class="negt">clínica Morpheus8</span>
+              <span class="negt">sessão Morpheus</span>
+              <span class="negt">tratamento Morpheus</span>
+              <span class="negt">fazer Morpheus8</span>
+            </div>
+          </div>
+
+          <div class="tiprotator" id="tr-m8">
+            <div class="tiprotator-top">
+              <span class="tiprotator-label">Insight da Campanha</span>
+              <span class="tiprotator-counter" id="tc-m8">1 / 4</span>
+            </div>
+
+            <div class="tiprotator-body" id="tb-m8">
+              O termo "locação Morpheus8" tem alta intenção comercial. Quem pesquisa com essa
+              precisão já conhece o equipamento e está em fase de decisão, não de pesquisa.
+              Priorize esse exato termo no início da campanha para capturar os leads mais quentes.
+            </div>
+
+            <div class="tiprotator-bar">
+              <div class="tiprotator-fill" id="tf-m8"></div>
+            </div>
           </div>
         </div>
-        <div class="eq-card">
-          <div class="eq-card-top"><div class="eq-card-name">Lavieen</div><div class="eq-icon">✨</div></div>
-          <div class="eq-kws">
-            <span class="eq-kw t">locação Lavieen</span>
-            <span class="eq-kw t">aluguel Lavieen</span>
-            <span class="eq-kw t">locação laser Thulium</span>
-            <span class="eq-kw">alugar laser Thulium</span>
-            <span class="eq-kw">laser 1927nm</span>
+
+        <!-- ──────── ULTRAFORMER MPT ──────── -->
+        <div id="tab-uf" class="tab">
+          <div class="ptop">
+            <div>
+              <div class="ptitle">Ultraformer <span>MPT</span></div>
+              <div class="pdesc">
+                Ultrassom micro e macrofocado · Micro-Pulsed Technology · Lifting não cirúrgico ·
+                HIFU
+              </div>
+            </div>
+          </div>
+
+          <div class="srow">
+            <div class="schip">
+              <div class="schip-n">6</div>
+              <div class="schip-l">Alta Conv.</div>
+            </div>
+            <div class="schip">
+              <div class="schip-n">5</div>
+              <div class="schip-l">Média-Alta</div>
+            </div>
+            <div class="schip">
+              <div class="schip-n">4</div>
+              <div class="schip-l">Complementar</div>
+            </div>
+          </div>
+
+          <div class="kwsec">
+            <div class="kwst">Alta Conversão</div>
+            <div class="kwg">
+              <span class="kw h">locação Ultraformer MPT</span>
+              <span class="kw h">aluguel Ultraformer MPT</span>
+              <span class="kw h">alugar Ultraformer MPT</span>
+              <span class="kw h">locação Ultraformer MPT clínica</span>
+              <span class="kw h">aluguel Ultraformer MPT médico</span>
+              <span class="kw h">Ultraformer MPT locação por dia</span>
+            </div>
+          </div>
+
+          <div class="kwsec">
+            <div class="kwst">Média-Alta Conversão</div>
+            <div class="kwg">
+              <span class="kw m">locação Ultraformer MPT dermatologia</span>
+              <span class="kw m">aluguel Ultraformer MPT dermatologista</span>
+              <span class="kw m">locação ultrassom microfocado MPT</span>
+              <span class="kw m">aluguel Ultraformer cirurgião plástico</span>
+              <span class="kw m">locação Ultraformer lifting não cirúrgico</span>
+            </div>
+          </div>
+
+          <div class="kwsec">
+            <div class="kwst">Complementar</div>
+            <div class="kwg">
+              <span class="kw l">locação HIFU Ultraformer</span>
+              <span class="kw l">aluguel ultrassom microfocado clínica</span>
+              <span class="kw l">Ultraformer MPT aluguel mensal</span>
+              <span class="kw l">locação HIFU lifting facial médico</span>
+            </div>
+          </div>
+
+          <div class="negsec">
+            <div class="negtitle">Palavras-Chave Negativas</div>
+            <div class="negg">
+              <span class="negt">tratamento Ultraformer</span>
+              <span class="negt">preço Ultraformer MPT</span>
+              <span class="negt">sessão Ultraformer</span>
+              <span class="negt">quanto custa</span>
+              <span class="negt">antes e depois</span>
+              <span class="negt">clínica Ultraformer</span>
+              <span class="negt">fazer Ultraformer</span>
+            </div>
+          </div>
+
+          <div class="tiprotator" id="tr-uf">
+            <div class="tiprotator-top">
+              <span class="tiprotator-label">Insight da Campanha</span>
+              <span class="tiprotator-counter" id="tc-uf">1 / 4</span>
+            </div>
+
+            <div class="tiprotator-body" id="tb-uf">
+              O Ultraformer MPT tem maior volume de busca comparado aos concorrentes diretos. Isso
+              significa mais impressões e oportunidades, mas também maior concorrência de lances.
+              Diferencie pelo serviço e suporte técnico, não apenas pelo preço da locação.
+            </div>
+
+            <div class="tiprotator-bar">
+              <div class="tiprotator-fill" id="tf-uf"></div>
+            </div>
           </div>
         </div>
-        <div class="eq-card">
-          <div class="eq-card-top"><div class="eq-card-name">CO2 / MTZ40</div><div class="eq-icon">⚡</div></div>
-          <div class="eq-kws">
-            <span class="eq-kw t">locação laser CO2 fracionado</span>
-            <span class="eq-kw t">aluguel MTZ40</span>
-            <span class="eq-kw t">locação MTZ40</span>
-            <span class="eq-kw">locação CO2 clínica</span>
-            <span class="eq-kw">laser CO2 médico</span>
+
+        <!-- ──────── LAVIEEN ──────── -->
+        <div id="tab-lv" class="tab">
+          <div class="ptop">
+            <div>
+              <div class="ptitle">Laser <span>Lavieen</span></div>
+              <div class="pdesc">
+                Laser Thulium 1927nm · BB Laser · Renovação celular · Baixo downtime · Resultados
+                desde a 1ª sessão
+              </div>
+            </div>
+          </div>
+
+          <div class="srow">
+            <div class="schip">
+              <div class="schip-n">6</div>
+              <div class="schip-l">Alta Conv.</div>
+            </div>
+            <div class="schip">
+              <div class="schip-n">5</div>
+              <div class="schip-l">Média-Alta</div>
+            </div>
+            <div class="schip">
+              <div class="schip-n">4</div>
+              <div class="schip-l">Complementar</div>
+            </div>
+          </div>
+
+          <div class="kwsec">
+            <div class="kwst">Alta Conversão</div>
+            <div class="kwg">
+              <span class="kw h">locação Lavieen</span>
+              <span class="kw h">aluguel Lavieen</span>
+              <span class="kw h">alugar Lavieen</span>
+              <span class="kw h">locação laser Lavieen</span>
+              <span class="kw h">aluguel laser Lavieen clínica</span>
+              <span class="kw h">locação Lavieen por dia</span>
+            </div>
+          </div>
+
+          <div class="kwsec">
+            <div class="kwst">Média-Alta Conversão</div>
+            <div class="kwg">
+              <span class="kw m">locação laser Thulium</span>
+              <span class="kw m">aluguel laser Thulium 1927nm</span>
+              <span class="kw m">alugar laser Thulium clínica</span>
+              <span class="kw m">locação Lavieen dermatologista</span>
+              <span class="kw m">aluguel laser Lavieen procedimento</span>
+            </div>
+          </div>
+
+          <div class="kwsec">
+            <div class="kwst">Complementar</div>
+            <div class="kwg">
+              <span class="kw l">locação Lavieen BB laser</span>
+              <span class="kw l">locação laser Thulium dermatologia</span>
+              <span class="kw l">aluguel Lavieen mensal clínica</span>
+              <span class="kw l">locação laser não ablativo dermatologista</span>
+            </div>
+          </div>
+
+          <div class="negsec">
+            <div class="negtitle">Palavras-Chave Negativas</div>
+            <div class="negg">
+              <span class="negt">sessão Lavieen</span>
+              <span class="negt">preço Lavieen</span>
+              <span class="negt">tratamento Lavieen</span>
+              <span class="negt">clínica Lavieen</span>
+              <span class="negt">quanto custa</span>
+              <span class="negt">resultado Lavieen</span>
+              <span class="negt">comprar Lavieen</span>
+            </div>
+          </div>
+
+          <div class="tiprotator" id="tr-lv">
+            <div class="tiprotator-top">
+              <span class="tiprotator-label">Insight da Campanha</span>
+              <span class="tiprotator-counter" id="tc-lv">1 / 4</span>
+            </div>
+
+            <div class="tiprotator-body" id="tb-lv">
+              O Lavieen é relativamente novo no Brasil. Muitos médicos pesquisam pela tecnologia
+              "laser Thulium" sem ainda conhecer o nome do produto. Use os dois termos nas
+              campanhas para maximizar o alcance qualificado sem perder relevância.
+            </div>
+
+            <div class="tiprotator-bar">
+              <div class="tiprotator-fill" id="tf-lv"></div>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="tip-box" style="margin-top:14px">
-        💡 <strong>Estrutura recomendada:</strong> 1 campanha por equipamento — grupos separados por correspondência <em>exata</em> e de <em>frase</em>. Navegue pelas abas para a lista completa com dicas estratégicas de cada equipamento.
-      </div>
+
+        <!-- ──────── CO2 / MTZ40 ──────── -->
+        <div id="tab-co" class="tab">
+          <div class="ptop">
+            <div>
+              <div class="ptitle">CO2 <span>MTZ 40</span></div>
+              <div class="pdesc">
+                Laser ablativo · Ícone Medical MTZ40 · Dermatologia e Ginecologia · 10.600nm · Alta
+                precisão
+              </div>
+            </div>
+          </div>
+
+          <div class="srow">
+            <div class="schip">
+              <div class="schip-n">7</div>
+              <div class="schip-l">Alta Conv.</div>
+            </div>
+            <div class="schip">
+              <div class="schip-n">6</div>
+              <div class="schip-l">Média-Alta</div>
+            </div>
+            <div class="schip">
+              <div class="schip-n">4</div>
+              <div class="schip-l">Complementar</div>
+            </div>
+          </div>
+
+          <div class="kwsec">
+            <div class="kwst">Alta Conversão</div>
+            <div class="kwg">
+              <span class="kw h">locação laser CO2 fracionado</span>
+              <span class="kw h">aluguel laser CO2 fracionado</span>
+              <span class="kw h">alugar laser CO2 fracionado</span>
+              <span class="kw h">locação MTZ40</span>
+              <span class="kw h">aluguel MTZ40</span>
+              <span class="kw h">locação CO2 fracionado clínica</span>
+              <span class="kw h">aluguel laser CO2 médico</span>
+            </div>
+          </div>
+
+          <div class="kwsec">
+            <div class="kwst">Média-Alta Conversão</div>
+            <div class="kwg">
+              <span class="kw m">locação MTZ40 dermatologia</span>
+              <span class="kw m">locação laser CO2 por dia</span>
+              <span class="kw m">aluguel MTZ40 Ícone Medical</span>
+              <span class="kw m">locação laser CO2 ablativo clínica</span>
+              <span class="kw m">aluguel laser CO2 cirurgião plástico</span>
+              <span class="kw m">locação laser CO2 ginecologia</span>
+            </div>
+          </div>
+
+          <div class="kwsec">
+            <div class="kwst">Complementar</div>
+            <div class="kwg">
+              <span class="kw l">locação CO2 fracionado rejuvenescimento</span>
+              <span class="kw l">aluguel CO2 fracionado dermatologista</span>
+              <span class="kw l">locação laser CO2 fracionado MTZ</span>
+              <span class="kw l">aluguel CO2 ablativo médico</span>
+            </div>
+          </div>
+
+          <div class="negsec">
+            <div class="negtitle">Palavras-Chave Negativas</div>
+            <div class="negg">
+              <span class="negt">laser CO2 quanto custa</span>
+              <span class="negt">CO2 fracionado dói</span>
+              <span class="negt">resultado CO2</span>
+              <span class="negt">sessão CO2 fracionado</span>
+              <span class="negt">clínica CO2 fracionado</span>
+              <span class="negt">antes e depois CO2</span>
+              <span class="negt">preço MTZ40</span>
+              <span class="negt">tratamento CO2</span>
+            </div>
+          </div>
+
+          <div class="tiprotator" id="tr-co">
+            <div class="tiprotator-top">
+              <span class="tiprotator-label">Insight da Campanha</span>
+              <span class="tiprotator-counter" id="tc-co">1 / 4</span>
+            </div>
+
+            <div class="tiprotator-body" id="tb-co">
+              CO2 fracionado tem o maior volume de busca entre todos os equipamentos desse grupo. O
+              lead tende a ser mais aquecido porque a tecnologia é consolidada no mercado médico há
+              décadas, com alta aceitação por parte dos pacientes.
+            </div>
+
+            <div class="tiprotator-bar">
+              <div class="tiprotator-fill" id="tf-co"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ──────── EXEMPLOS DE ANÚNCIOS ──────── -->
+        <div id="tab-ads" class="tab">
+          <div class="ptop" style="margin-bottom: 14px">
+            <div>
+              <div class="ptitle">Exemplos de <span>Anúncios</span></div>
+              <div class="pdesc">
+                Pré-visualização de anúncios para a Rede de Pesquisa do Google Ads. Formato real com
+                título, descrição e URL. Três variações por equipamento com chamadas e CTAs de alta
+                conversão.
+              </div>
+            </div>
+          </div>
+
+          <div class="ad-filters">
+            <button class="af-btn on" onclick="filterAds('all', this)">Todos</button>
+            <button class="af-btn" onclick="filterAds('m8', this)">Morpheus 8</button>
+            <button class="af-btn" onclick="filterAds('uf', this)">Ultraformer MPT</button>
+            <button class="af-btn" onclick="filterAds('lv', this)">Lavieen</button>
+            <button class="af-btn" onclick="filterAds('co', this)">CO2 / MTZ40</button>
+          </div>
+
+          <!-- Morpheus 8 ads -->
+          <div class="ad-group" data-eq="m8">
+            <div class="ad-group-title">Morpheus 8 <span>3 variações</span></div>
+
+            <div class="ad-cards">
+              <div class="adcard">
+                <div class="adcard-badge">Patrocinado</div>
+                <div class="adcard-url">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                    />
+                  </svg>
+                  www.suaempresa.com.br &rsaquo; locacao &rsaquo; morpheus8
+                </div>
+                <div class="adcard-headline">
+                  Locação Morpheus8 Hoje <span class="adcard-sep">|</span> Entrega e Suporte
+                  Inclusos <span class="adcard-sep">|</span> Solicite Proposta
+                </div>
+                <div class="adcard-desc">
+                  Alugue o Morpheus8 para sua clínica sem investimento inicial. Sem contrato de
+                  fidelidade, com suporte técnico especializado. Pontualidade garantida. Fale pelo WhatsApp agora.
+                </div>
+              </div>
+
+              <div class="adcard">
+                <div class="adcard-badge">Patrocinado</div>
+                <div class="adcard-url">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                    />
+                  </svg>
+                  www.suaempresa.com.br &rsaquo; morpheus8-clinicas
+                </div>
+                <div class="adcard-headline">
+                  Morpheus8 Para Clínicas <span class="adcard-sep">|</span> Tecnologia InMode
+                  <span class="adcard-sep">|</span> Treinamento Incluso
+                </div>
+                <div class="adcard-desc">
+                  RF com microagulhamento disponível para locação. Ideal para dermatologistas e
+                  cirurgiões plásticos. Sem necessidade de comprar o equipamento. Amplie seus
+                  procedimentos com tecnologia de ponta.
+                </div>
+              </div>
+
+              <div class="adcard">
+                <div class="adcard-badge">Patrocinado</div>
+                <div class="adcard-url">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                    />
+                  </svg>
+                  www.suaempresa.com.br &rsaquo; alugar-morpheus8
+                </div>
+                <div class="adcard-headline">
+                  Alugue Morpheus8 Agora <span class="adcard-sep">|</span> Cartuchos Originais
+                  <span class="adcard-sep">|</span> Entrega em 24h
+                </div>
+                <div class="adcard-desc">
+                  Morpheus8 disponível para locação em São Paulo com pontualidade e suporte
+                  técnico garantidos. Não pague pelo equipamento, pague pelo resultado. Agende e
+                  amplie sua clínica hoje mesmo.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ultraformer MPT ads -->
+          <div class="ad-group" data-eq="uf">
+            <div class="ad-group-title">Ultraformer MPT <span>3 variações</span></div>
+
+            <div class="ad-cards">
+              <div class="adcard">
+                <div class="adcard-badge">Patrocinado</div>
+                <div class="adcard-url">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                    />
+                  </svg>
+                  www.suaempresa.com.br &rsaquo; ultraformer-mpt
+                </div>
+                <div class="adcard-headline">
+                  Locação Ultraformer MPT <span class="adcard-sep">|</span> Cartuchos Originais
+                  <span class="adcard-sep">|</span> Agende Hoje
+                </div>
+                <div class="adcard-desc">
+                  Alugue o Ultraformer MPT com cartuchos originais certificados. Lifting facial e
+                  corporal não cirúrgico na sua clínica sem investimento em equipamento. Suporte
+                  técnico completo incluso.
+                </div>
+              </div>
+
+              <div class="adcard">
+                <div class="adcard-badge">Patrocinado</div>
+                <div class="adcard-url">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                    />
+                  </svg>
+                  www.suaempresa.com.br &rsaquo; locacao &rsaquo; ultraformer
+                </div>
+                <div class="adcard-headline">
+                  Ultraformer MPT <span class="adcard-sep">|</span> Ultrassom Microfocado
+                  <span class="adcard-sep">|</span> Suporte Técnico Completo
+                </div>
+                <div class="adcard-desc">
+                  Locação do Ultraformer MPT com treinamento presencial e entrega pontual. Ofereça
+                  HIFU e lifting não cirúrgico sem comprar o aparelho. Fale com um especialista
+                  agora e solicite proposta.
+                </div>
+              </div>
+
+              <div class="adcard">
+                <div class="adcard-badge">Patrocinado</div>
+                <div class="adcard-url">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                    />
+                  </svg>
+                  www.suaempresa.com.br &rsaquo; ultraformer-para-clinicas
+                </div>
+                <div class="adcard-headline">
+                  Alugue Ultraformer MPT <span class="adcard-sep">|</span> HIFU Para Clínicas
+                  <span class="adcard-sep">|</span> Sem Fidelidade
+                </div>
+                <div class="adcard-desc">
+                  Tecnologia de ultrassom micro e macrofocado disponível para locação. Sem contrato
+                  de fidelidade, com todo o suporte. Expanda os tratamentos da sua clínica. Solicite
+                  proposta personalizada agora.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lavieen ads -->
+          <div class="ad-group" data-eq="lv">
+            <div class="ad-group-title">Laser Lavieen <span>3 variações</span></div>
+
+            <div class="ad-cards">
+              <div class="adcard">
+                <div class="adcard-badge">Patrocinado</div>
+                <div class="adcard-url">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                    />
+                  </svg>
+                  www.suaempresa.com.br &rsaquo; lavieen-locacao
+                </div>
+                <div class="adcard-headline">
+                  Locação Laser Lavieen <span class="adcard-sep">|</span> Thulium 1927nm
+                  <span class="adcard-sep">|</span> Solicite Proposta
+                </div>
+                <div class="adcard-desc">
+                  Alugue o Lavieen para tratamentos de renovação celular com baixo downtime. Entrega
+                  pontual, suporte técnico e treinamento presencial inclusos. Locação diária ou
+                  semanal para clínicas em São Paulo.
+                </div>
+              </div>
+
+              <div class="adcard">
+                <div class="adcard-badge">Patrocinado</div>
+                <div class="adcard-url">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                    />
+                  </svg>
+                  www.suaempresa.com.br &rsaquo; laser-lavieen
+                </div>
+                <div class="adcard-headline">
+                  Laser Lavieen Para Clínicas <span class="adcard-sep">|</span> BB Laser
+                  <span class="adcard-sep">|</span> Treinamento Incluso
+                </div>
+                <div class="adcard-desc">
+                  Ofereça tratamentos de melasma, manchas e rejuvenescimento com o laser Thulium
+                  mais avançado do mercado. Cartuchos originais e suporte técnico especializado.
+                  Locação com pontualidade garantida.
+                </div>
+              </div>
+
+              <div class="adcard">
+                <div class="adcard-badge">Patrocinado</div>
+                <div class="adcard-url">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                    />
+                  </svg>
+                  www.suaempresa.com.br &rsaquo; alugar-lavieen
+                </div>
+                <div class="adcard-headline">
+                  Alugue Laser Lavieen <span class="adcard-sep">|</span> Resultados na 1ª Sessão
+                  <span class="adcard-sep">|</span> Agende Já
+                </div>
+                <div class="adcard-desc">
+                  Lavieen disponível para locação com baixo downtime e alta eficácia. Expanda sua
+                  clínica sem comprar equipamento. Fale com especialista via WhatsApp. Proposta
+                  personalizada em minutos.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- CO2 MTZ40 ads -->
+          <div class="ad-group" data-eq="co">
+            <div class="ad-group-title">CO2 Fracionado / MTZ40 <span>3 variações</span></div>
+
+            <div class="ad-cards">
+              <div class="adcard">
+                <div class="adcard-badge">Patrocinado</div>
+                <div class="adcard-url">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                    />
+                  </svg>
+                  www.suaempresa.com.br &rsaquo; co2-fracionado
+                </div>
+                <div class="adcard-headline">
+                  Locação Laser CO2 Fracionado <span class="adcard-sep">|</span> MTZ40
+                  <span class="adcard-sep">|</span> Agende Agora
+                </div>
+                <div class="adcard-desc">
+                  Alugue o MTZ40 para rejuvenescimento, cicatrizes e procedimentos ginecológicos.
+                  Suporte técnico especializado e treinamento inclusos. Locação diária, semanal ou
+                  mensal em São Paulo.
+                </div>
+              </div>
+
+              <div class="adcard">
+                <div class="adcard-badge">Patrocinado</div>
+                <div class="adcard-url">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                    />
+                  </svg>
+                  www.suaempresa.com.br &rsaquo; mtz40-locacao
+                </div>
+                <div class="adcard-headline">
+                  MTZ40 Para Clínicas <span class="adcard-sep">|</span> CO2 Fracionado Completo
+                  <span class="adcard-sep">|</span> Suporte Técnico
+                </div>
+                <div class="adcard-desc">
+                  O laser CO2 mais completo do mercado disponível para locação. Indicado para
+                  dermatologia, cirurgia plástica e ginecologia funcional. Sem necessidade de
+                  comprar o equipamento. Pontualidade garantida.
+                </div>
+              </div>
+
+              <div class="adcard">
+                <div class="adcard-badge">Patrocinado</div>
+                <div class="adcard-url">
+                  <svg viewBox="0 0 24 24">
+                    <path
+                      d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"
+                    />
+                  </svg>
+                  www.suaempresa.com.br &rsaquo; laser-co2-locacao
+                </div>
+                <div class="adcard-headline">
+                  Alugue CO2 Fracionado <span class="adcard-sep">|</span> MTZ40 Ícone Medical
+                  <span class="adcard-sep">|</span> Sem Fidelidade
+                </div>
+                <div class="adcard-desc">
+                  CO2 fracionado MTZ40 disponível por dia, semana ou mês. Blefaroplastia,
+                  rejuvenescimento e estética íntima. Amplie os procedimentos da sua clínica sem
+                  custos fixos. Solicite proposta agora.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tiprotator" id="tr-ads">
+            <div class="tiprotator-top">
+              <span class="tiprotator-label">Insight sobre Anúncios</span>
+              <span class="tiprotator-counter" id="tc-ads">1 / 4</span>
+            </div>
+
+            <div class="tiprotator-body" id="tb-ads">
+              Google Ads recomenda criar ao menos 3 variações de título e 2 descrições por anúncio
+              responsivo. O algoritmo testa combinações automaticamente e prioriza as que geram mais
+              cliques e conversões.
+            </div>
+
+            <div class="tiprotator-bar">
+              <div class="tiprotator-fill" id="tf-ads"></div>
+            </div>
+          </div>
+        </div>
+      </main>
     </div>
 
-    <!-- MORPHEUS 8 -->
-    <div id="tab-morpheus" class="tab-panel">
-      <div class="panel-header">
-        <div class="panel-icon">🔬</div>
-        <div>
-          <div class="panel-title">Morpheus <span>8</span></div>
-          <div class="panel-desc">RF fracionada · Microagulhamento · InMode · Minimamente invasivo</div>
-        </div>
-      </div>
-      <div class="stats-row">
-        <div class="stat-chip"><span class="s-icon">🔥</span><div class="s-num">6</div><div class="s-label">Alta Conv.</div></div>
-        <div class="stat-chip"><span class="s-icon">⚡</span><div class="s-num">6</div><div class="s-label">Média-Alta</div></div>
-        <div class="stat-chip"><span class="s-icon">💡</span><div class="s-num">4</div><div class="s-label">Complementar</div></div>
-      </div>
-      <div class="kw-section">
-        <div class="kw-section-title">🔥 Alta Conversão</div>
-        <div class="kw-grid">
-          <span class="kw-tag hot">locação Morpheus8</span>
-          <span class="kw-tag hot">aluguel Morpheus8</span>
-          <span class="kw-tag hot">alugar Morpheus 8</span>
-          <span class="kw-tag hot">locação Morpheus 8 clínica</span>
-          <span class="kw-tag hot">aluguel Morpheus 8 médico</span>
-          <span class="kw-tag hot">locação Morpheus8 por dia</span>
-        </div>
-      </div>
-      <div class="kw-section">
-        <div class="kw-section-title">⚡ Média-Alta Conversão</div>
-        <div class="kw-grid">
-          <span class="kw-tag mid">locação Morpheus8 dermatologista</span>
-          <span class="kw-tag mid">alugar equipamento Morpheus8</span>
-          <span class="kw-tag mid">locação Morpheus 8 procedimentos</span>
-          <span class="kw-tag mid">Morpheus8 aluguel diário</span>
-          <span class="kw-tag mid">locação Morpheus8 cirurgião plástico</span>
-          <span class="kw-tag mid">aluguel Morpheus 8 radiofrequência</span>
-        </div>
-      </div>
-      <div class="kw-section">
-        <div class="kw-section-title">💡 Complementar</div>
-        <div class="kw-grid">
-          <span class="kw-tag low">locação RF microagulhamento Morpheus</span>
-          <span class="kw-tag low">Morpheus8 locação mensal</span>
-          <span class="kw-tag low">locação InMode Morpheus</span>
-          <span class="kw-tag low">aluguel radiofrequência fracionada</span>
-        </div>
-      </div>
-      <div class="neg-section">
-        <div class="neg-title">Palavras-Chave Negativas</div>
-        <div class="neg-grid">
-          <span class="neg-tag">preço Morpheus8</span>
-          <span class="neg-tag">quanto custa</span>
-          <span class="neg-tag">resultado Morpheus8</span>
-          <span class="neg-tag">antes e depois</span>
-          <span class="neg-tag">clínica Morpheus8</span>
-          <span class="neg-tag">sessão Morpheus</span>
-          <span class="neg-tag">tratamento Morpheus</span>
-          <span class="neg-tag">fazer Morpheus8</span>
-        </div>
-      </div>
-      <div class="tip-box">💡 <strong>Dica:</strong> Use correspondência exata <code>[locação Morpheus8]</code> como grupo principal. Destaque <strong>suporte técnico + entrega inclusa</strong> — são os critérios decisivos do público médico.</div>
-    </div>
+    <script>
+      /* ─── LOGIN ─────────────────────────────── */
+      function doLogin() {
+        const v = document.getElementById("pw").value;
+        const e = document.getElementById("pw-err");
 
-    <!-- ULTRAFORMER MPT -->
-    <div id="tab-ultraformer" class="tab-panel">
-      <div class="panel-header">
-        <div class="panel-icon">📡</div>
-        <div>
-          <div class="panel-title">Ultraformer <span>MPT</span></div>
-          <div class="panel-desc">Ultrassom micro e macrofocado · Micro-Pulsed Technology · Lifting não cirúrgico</div>
-        </div>
-      </div>
-      <div class="stats-row">
-        <div class="stat-chip"><span class="s-icon">🔥</span><div class="s-num">6</div><div class="s-label">Alta Conv.</div></div>
-        <div class="stat-chip"><span class="s-icon">⚡</span><div class="s-num">5</div><div class="s-label">Média-Alta</div></div>
-        <div class="stat-chip"><span class="s-icon">💡</span><div class="s-num">4</div><div class="s-label">Complementar</div></div>
-      </div>
-      <div class="kw-section">
-        <div class="kw-section-title">🔥 Alta Conversão</div>
-        <div class="kw-grid">
-          <span class="kw-tag hot">locação Ultraformer MPT</span>
-          <span class="kw-tag hot">aluguel Ultraformer MPT</span>
-          <span class="kw-tag hot">alugar Ultraformer MPT</span>
-          <span class="kw-tag hot">locação Ultraformer MPT clínica</span>
-          <span class="kw-tag hot">aluguel Ultraformer MPT médico</span>
-          <span class="kw-tag hot">Ultraformer MPT locação por dia</span>
-        </div>
-      </div>
-      <div class="kw-section">
-        <div class="kw-section-title">⚡ Média-Alta Conversão</div>
-        <div class="kw-grid">
-          <span class="kw-tag mid">locação Ultraformer MPT dermatologia</span>
-          <span class="kw-tag mid">aluguel Ultraformer MPT dermatologista</span>
-          <span class="kw-tag mid">locação ultrassom microfocado MPT</span>
-          <span class="kw-tag mid">aluguel Ultraformer cirurgião plástico</span>
-          <span class="kw-tag mid">locação Ultraformer lifting não cirúrgico</span>
-        </div>
-      </div>
-      <div class="kw-section">
-        <div class="kw-section-title">💡 Complementar</div>
-        <div class="kw-grid">
-          <span class="kw-tag low">locação HIFU Ultraformer</span>
-          <span class="kw-tag low">aluguel ultrassom microfocado clínica</span>
-          <span class="kw-tag low">Ultraformer MPT aluguel mensal</span>
-          <span class="kw-tag low">locação HIFU lifting facial médico</span>
-        </div>
-      </div>
-      <div class="neg-section">
-        <div class="neg-title">Palavras-Chave Negativas</div>
-        <div class="neg-grid">
-          <span class="neg-tag">tratamento Ultraformer</span>
-          <span class="neg-tag">preço Ultraformer MPT</span>
-          <span class="neg-tag">sessão Ultraformer</span>
-          <span class="neg-tag">quanto custa</span>
-          <span class="neg-tag">antes e depois</span>
-          <span class="neg-tag">clínica Ultraformer</span>
-          <span class="neg-tag">fazer Ultraformer</span>
-        </div>
-      </div>
-      <div class="tip-box">💡 <strong>Dica:</strong> Alto volume de busca neste segmento. Mencione <em>cartuchos originais inclusos</em> e <em>treinamento presencial</em> no anúncio — são os diferenciais mais valorizados pelas clínicas.</div>
-    </div>
+        if (v === "visioskynmkt") {
+          const s = document.getElementById("login-screen");
+          s.classList.add("out");
 
-    <!-- LAVIEEN -->
-    <div id="tab-lavieen" class="tab-panel">
-      <div class="panel-header">
-        <div class="panel-icon">✨</div>
-        <div>
-          <div class="panel-title">Laser <span>Lavieen</span></div>
-          <div class="panel-desc">Thulium 1927nm · BB Laser · Renovação celular · Baixo downtime</div>
-        </div>
-      </div>
-      <div class="stats-row">
-        <div class="stat-chip"><span class="s-icon">🔥</span><div class="s-num">6</div><div class="s-label">Alta Conv.</div></div>
-        <div class="stat-chip"><span class="s-icon">⚡</span><div class="s-num">5</div><div class="s-label">Média-Alta</div></div>
-        <div class="stat-chip"><span class="s-icon">💡</span><div class="s-num">4</div><div class="s-label">Complementar</div></div>
-      </div>
-      <div class="kw-section">
-        <div class="kw-section-title">🔥 Alta Conversão</div>
-        <div class="kw-grid">
-          <span class="kw-tag hot">locação Lavieen</span>
-          <span class="kw-tag hot">aluguel Lavieen</span>
-          <span class="kw-tag hot">alugar Lavieen</span>
-          <span class="kw-tag hot">locação laser Lavieen</span>
-          <span class="kw-tag hot">aluguel laser Lavieen clínica</span>
-          <span class="kw-tag hot">locação Lavieen por dia</span>
-        </div>
-      </div>
-      <div class="kw-section">
-        <div class="kw-section-title">⚡ Média-Alta Conversão</div>
-        <div class="kw-grid">
-          <span class="kw-tag mid">locação laser Thulium</span>
-          <span class="kw-tag mid">aluguel laser Thulium 1927nm</span>
-          <span class="kw-tag mid">alugar laser Thulium clínica</span>
-          <span class="kw-tag mid">locação Lavieen dermatologista</span>
-          <span class="kw-tag mid">aluguel laser Lavieen procedimento</span>
-        </div>
-      </div>
-      <div class="kw-section">
-        <div class="kw-section-title">💡 Complementar</div>
-        <div class="kw-grid">
-          <span class="kw-tag low">locação Lavieen BB laser</span>
-          <span class="kw-tag low">locação laser Thulium dermatologia</span>
-          <span class="kw-tag low">aluguel Lavieen mensal clínica</span>
-          <span class="kw-tag low">locação laser não ablativo</span>
-        </div>
-      </div>
-      <div class="neg-section">
-        <div class="neg-title">Palavras-Chave Negativas</div>
-        <div class="neg-grid">
-          <span class="neg-tag">sessão Lavieen</span>
-          <span class="neg-tag">preço Lavieen</span>
-          <span class="neg-tag">tratamento Lavieen</span>
-          <span class="neg-tag">clínica Lavieen</span>
-          <span class="neg-tag">quanto custa</span>
-          <span class="neg-tag">resultado Lavieen</span>
-          <span class="neg-tag">comprar Lavieen</span>
-        </div>
-      </div>
-      <div class="tip-box">💡 <strong>Dica:</strong> Inclua variações <em>"laser Thulium"</em> e <em>"1927nm"</em> — muitos médicos conhecem a tecnologia mas ainda não o nome do equipamento. Amplia alcance sem perder qualidade do lead.</div>
-    </div>
+          setTimeout(() => {
+            s.style.display = "none";
+            document.getElementById("dash").classList.add("on");
+            initAllTips();
 
-    <!-- CO2 MTZ40 -->
-    <div id="tab-co2" class="tab-panel">
-      <div class="panel-header">
-        <div class="panel-icon">⚡</div>
-        <div>
-          <div class="panel-title">CO2 Fracionado <span>/ MTZ40</span></div>
-          <div class="panel-desc">Laser ablativo · Ícone Medical · Dermatologia + Ginecologia · 10.600nm</div>
-        </div>
-      </div>
-      <div class="stats-row">
-        <div class="stat-chip"><span class="s-icon">🔥</span><div class="s-num">7</div><div class="s-label">Alta Conv.</div></div>
-        <div class="stat-chip"><span class="s-icon">⚡</span><div class="s-num">6</div><div class="s-label">Média-Alta</div></div>
-        <div class="stat-chip"><span class="s-icon">💡</span><div class="s-num">4</div><div class="s-label">Complementar</div></div>
-      </div>
-      <div class="kw-section">
-        <div class="kw-section-title">🔥 Alta Conversão</div>
-        <div class="kw-grid">
-          <span class="kw-tag hot">locação laser CO2 fracionado</span>
-          <span class="kw-tag hot">aluguel laser CO2 fracionado</span>
-          <span class="kw-tag hot">alugar laser CO2 fracionado</span>
-          <span class="kw-tag hot">locação MTZ40</span>
-          <span class="kw-tag hot">aluguel MTZ40</span>
-          <span class="kw-tag hot">locação CO2 fracionado clínica</span>
-          <span class="kw-tag hot">aluguel laser CO2 médico</span>
-        </div>
-      </div>
-      <div class="kw-section">
-        <div class="kw-section-title">⚡ Média-Alta Conversão</div>
-        <div class="kw-grid">
-          <span class="kw-tag mid">locação MTZ40 dermatologia</span>
-          <span class="kw-tag mid">locação laser CO2 por dia</span>
-          <span class="kw-tag mid">aluguel MTZ40 Ícone Medical</span>
-          <span class="kw-tag mid">locação laser CO2 ablativo clínica</span>
-          <span class="kw-tag mid">aluguel laser CO2 cirurgião plástico</span>
-          <span class="kw-tag mid">locação laser CO2 ginecologia</span>
-        </div>
-      </div>
-      <div class="kw-section">
-        <div class="kw-section-title">💡 Complementar</div>
-        <div class="kw-grid">
-          <span class="kw-tag low">locação CO2 rejuvenescimento</span>
-          <span class="kw-tag low">aluguel CO2 fracionado dermatologista</span>
-          <span class="kw-tag low">locação laser CO2 fracionado MTZ</span>
-          <span class="kw-tag low">aluguel CO2 ablativo médico</span>
-        </div>
-      </div>
-      <div class="neg-section">
-        <div class="neg-title">Palavras-Chave Negativas</div>
-        <div class="neg-grid">
-          <span class="neg-tag">laser CO2 quanto custa</span>
-          <span class="neg-tag">CO2 fracionado dói</span>
-          <span class="neg-tag">resultado CO2</span>
-          <span class="neg-tag">sessão CO2 fracionado</span>
-          <span class="neg-tag">clínica CO2 fracionado</span>
-          <span class="neg-tag">antes e depois CO2</span>
-          <span class="neg-tag">preço MTZ40</span>
-          <span class="neg-tag">tratamento CO2</span>
-        </div>
-      </div>
-      <div class="tip-box">💡 <strong>Dica:</strong> É o equipamento com <strong>maior volume de busca</strong> do grupo. Explore segmentações para <em>ginecologia funcional</em> — reduz concorrência e pode baixar o CPC consideravelmente.</div>
-    </div>
+            setTimeout(() => {
+              const h = document.getElementById("nav-hint");
+              if (h) h.style.opacity = "0";
+            }, 4000);
+          }, 500);
+        } else {
+          e.textContent = "Senha incorreta. Tente novamente.";
+          const i = document.getElementById("pw");
+          i.value = "";
+          i.focus();
+          i.style.borderColor = "#FF5555";
+          i.style.boxShadow = "0 0 0 3px rgba(255,85,85,.12)";
 
-  </main>
-</div>
+          setTimeout(() => {
+            e.textContent = "";
+            i.style.borderColor = "";
+            i.style.boxShadow = "";
+          }, 2400);
+        }
+      }
 
-<script>
-  function doLogin() {
-    const v = document.getElementById('pw').value;
-    const e = document.getElementById('pw-err');
-    if (v === 'visioskynmkt') {
-      const s = document.getElementById('login-screen');
-      s.classList.add('hide');
-      setTimeout(() => {
-        s.style.display = 'none';
-        document.getElementById('dashboard').classList.add('visible');
-      }, 460);
-    } else {
-      e.textContent = 'Senha incorreta. Tente novamente.';
-      const i = document.getElementById('pw');
-      i.value = ''; i.focus();
-      i.style.borderColor = '#FF5555';
-      i.style.boxShadow = '0 0 0 3px rgba(255,85,85,.12)';
-      setTimeout(() => { e.textContent = ''; i.style.borderColor = ''; i.style.boxShadow = ''; }, 2400);
-    }
-  }
-  document.getElementById('pw').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+      document.getElementById("pw").addEventListener("keydown", (e) => {
+        if (e.key === "Enter") doLogin();
+      });
 
-  function switchTab(id, btn) {
-    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById('tab-' + id).classList.add('active');
-    btn.classList.add('active');
-    document.querySelector('.content').scrollTop = 0;
-  }
-</script>
-</body>
+      /* ─── TABS ──────────────────────────────── */
+      let activeTab = "ov";
+
+      function stab(id, btn) {
+        document.querySelectorAll(".tab").forEach((p) => p.classList.remove("on"));
+        document.querySelectorAll(".pill").forEach((b) => b.classList.remove("on"));
+
+        document.getElementById("tab-" + id).classList.add("on");
+        btn.classList.add("on");
+        document.querySelector(".cnt").scrollTop = 0;
+
+        activeTab = id;
+        startTip(id);
+      }
+
+      /* ─── ROTATING TIPS ─────────────────────── */
+      const tips = {
+        ov: [
+          "Palavras-chave exatas como [locação Morpheus8] têm CPC mais alto, mas geram leads muito mais qualificados. Teste correspondência exata versus frase para encontrar o equilíbrio ideal entre volume e conversão.",
+          "Separe campanhas por equipamento para controlar melhor o orçamento e identificar quais aparelhos geram mais retorno. Isso também facilita a otimização individual de cada campanha ao longo do tempo.",
+          "Configure palavras-chave negativas desde o primeiro dia de campanha. Termos como 'preço', 'quanto custa' e 'resultado do tratamento' atraem pacientes finais, não clínicas buscando locação de equipamento.",
+          "Profissionais da área médica pesquisam principalmente em horário comercial. Configure o agendamento de anúncios para terça a quinta, das 8h às 18h, para reduzir o CPC médio sem perder conversões.",
+        ],
+        m8: [
+          "O termo 'locação Morpheus8' tem alta intenção comercial. Quem pesquisa com essa precisão já conhece o equipamento e está em fase de decisão, não de pesquisa. Priorize esse exato termo no início da campanha.",
+          "Inclua extensões de sitelinks como 'Orçamento via WhatsApp' e 'Como funciona a locação'. Elas aumentam a taxa de clique sem custo adicional e qualificam melhor o lead antes do primeiro contato.",
+          "Dermatologistas e cirurgiões plásticos são o público ideal para o Morpheus8. Mencionar 'tecnologia InMode' nos anúncios aumenta a credibilidade para médicos que já conhecem a marca e confiam nela.",
+          "A variação 'locação Morpheus8 por dia' captura clínicas que testam a demanda antes de fechar contrato mensal. Essa é uma ótima porta de entrada para converter em clientes recorrentes de longo prazo.",
+        ],
+        uf: [
+          "O Ultraformer MPT tem maior volume de busca comparado aos concorrentes diretos. Isso significa mais oportunidades, mas também maior concorrência de lances. Diferencie pelo serviço e suporte, não apenas pelo preço.",
+          "A menção de 'cartuchos originais inclusos' no anúncio é um diferencial decisivo. Clínicas têm receio de receber equipamento com cartuchos genéricos que comprometem o resultado do procedimento médico.",
+          "Termos com 'lifting não cirúrgico' capturam médicos que buscam oferecer alternativas a procedimentos invasivos. Este nicho está em forte crescimento e tem menor concorrência de palavras-chave.",
+          "Segmente por localização geográfica para reduzir o custo por clique. Médicos raramente alugam equipamentos de locadoras de outros estados. Campanhas regionais têm CTR e taxa de conversão significativamente maiores.",
+        ],
+        lv: [
+          "O Lavieen é relativamente novo no Brasil. Muitos médicos pesquisam pela tecnologia 'laser Thulium' sem ainda conhecer o nome do produto. Use os dois termos para maximizar o alcance qualificado da campanha.",
+          "O baixo downtime do Lavieen é um argumento de venda poderoso. Mencionar 'paciente retorna as atividades no mesmo dia' no anúncio atrai médicos com agenda intensa que precisam de procedimentos rápidos.",
+          "O termo 'BB Laser' está em crescimento nas buscas. Inclua como palavra-chave de frase para capturar profissionais antenados nas tendências e que já utilizam essa nomenclatura com seus pacientes.",
+          "Médicos que trabalham com protocolos combinados alugam com mais frequência do que aqueles com procedimentos isolados. Enfatize a versatilidade do Lavieen nos anúncios para atrair esse perfil de profissional.",
+        ],
+        co: [
+          "CO2 fracionado tem o maior volume de busca entre todos os equipamentos deste grupo. O lead tende a ser mais aquecido pois a tecnologia é consolidada no mercado médico há décadas, com alta aceitação.",
+          "O nome 'MTZ40' é bastante buscado por dermatologistas que já conhecem o modelo especificamente. Incluir o nome do modelo nos anúncios aumenta o Índice de Qualidade e reduz o CPC por maior relevância.",
+          "A aplicação ginecológica do MTZ40 abre um segmento de busca menos disputado. Ginecologistas e urologistas também alugam esse equipamento e têm poucos concorrentes anunciando diretamente para eles.",
+          "Quem busca 'locação laser CO2 por dia' geralmente tem agenda pontual de procedimentos em dias específicos. Ofereça flexibilidade de prazo como principal argumento no anúncio e nas extensões de sitelinks.",
+        ],
+        ads: [
+          "Google Ads recomenda criar ao menos 3 variações de título e 2 descrições por anúncio responsivo. O algoritmo testa combinações automaticamente e prioriza as que geram mais cliques e conversões reais.",
+          "Incluir a palavra-chave principal no título 1 aumenta o Índice de Qualidade, o que reduz o custo por clique. A relevância entre palavra-chave, anúncio e página de destino é o fator mais importante da campanha.",
+          "CTAs como 'Solicite Proposta', 'Agende Agora' e 'Fale pelo WhatsApp' têm CTR comprovadamente maior do que 'Clique Aqui' ou 'Saiba Mais'. Seja direto sobre a ação que o usuário deve tomar.",
+          "Números específicos nos anúncios geram mais credibilidade e cliques. 'Entrega em 24h', 'Locação a partir de 1 dia' e 'Disponível em todo o Brasil' são muito mais convincentes do que promessas genéricas.",
+        ],
+      };
+
+      const tipState = {};
+      const tipTimers = {};
+
+      function initAllTips() {
+        startTip("ov");
+      }
+
+      function startTip(tabId) {
+        if (tipTimers[tabId]) clearInterval(tipTimers[tabId]);
+
+        if (!tipState[tabId]) tipState[tabId] = 0;
+
+        renderTip(tabId);
+        tipTimers[tabId] = setInterval(() => advanceTip(tabId), 15000);
+      }
+
+      function advanceTip(tabId) {
+        const t = tips[tabId];
+        if (!t) return;
+
+        tipState[tabId] = (tipState[tabId] + 1) % t.length;
+        renderTip(tabId);
+      }
+
+      function renderTip(tabId) {
+        const t = tips[tabId];
+        if (!t) return;
+
+        const idx = tipState[tabId];
+        const body = document.getElementById("tb-" + tabId);
+        const counter = document.getElementById("tc-" + tabId);
+        const fill = document.getElementById("tf-" + tabId);
+
+        if (!body || !counter || !fill) return;
+
+        body.classList.add("fade");
+
+        setTimeout(() => {
+          body.textContent = t[idx];
+          counter.textContent = idx + 1 + " / " + t.length;
+          body.classList.remove("fade");
+
+          fill.classList.remove("run");
+          fill.style.animation = "none";
+          void fill.offsetWidth;
+          fill.style.animation = "";
+          fill.classList.add("run");
+        }, 350);
+      }
+
+      /* ─── AD FILTERS ─────────────────────────── */
+      function filterAds(eq, btn) {
+        document.querySelectorAll(".af-btn").forEach((b) => b.classList.remove("on"));
+        btn.classList.add("on");
+
+        document.querySelectorAll(".ad-group").forEach((g) => {
+          g.style.display = eq === "all" || g.dataset.eq === eq ? "" : "none";
+        });
+      }
+    </script>
+  </body>
 </html>
