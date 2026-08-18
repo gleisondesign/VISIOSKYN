@@ -1,0 +1,1859 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Biblioteca de Materiais de Marketing | Visioskyn</title>
+  <meta name="description" content="Biblioteca de artes personalizáveis para divulgação de procedimentos, com aplicação de logo e download em PNG.">
+  <meta name="theme-color" content="#0a0c18">
+  <link rel="icon" href="https://www.visioskyn.com/SRC/ICO.png">
+
+  <style>
+    :root {
+      --navy: #0a0c18;
+      --navy-mid: #0f1326;
+      --gold: #e6c681;
+      --gold-lite: #f0d89a;
+      --gold-dark: #b8973a;
+      --white: #ffffff;
+      --muted: rgba(255,255,255,.72);
+      --muted-2: rgba(255,255,255,.52);
+      --border: rgba(230,198,129,.18);
+      --surface: rgba(255,255,255,.045);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--navy);
+      color: var(--white);
+      overflow-x: hidden;
+    }
+
+    button, input { font: inherit; }
+    button { -webkit-tap-highlight-color: transparent; }
+    img { max-width: 100%; }
+
+    .blob-wrap {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(90px);
+      opacity: .16;
+      animation: drift 14s ease-in-out infinite alternate;
+    }
+
+    .blob-1 { width: 560px; height: 560px; background: var(--gold-dark); top: -120px; left: -160px; }
+    .blob-2 { width: 420px; height: 420px; background: var(--gold); bottom: -80px; right: -100px; animation-delay: -7s; }
+    .blob-3 { width: 340px; height: 340px; background: #1a2a6c; top: 42%; left: 55%; animation-delay: -3s; }
+
+    @keyframes drift {
+      from { transform: translate(0,0) scale(1); }
+      to { transform: translate(30px,20px) scale(1.08); }
+    }
+
+    .header {
+      position: relative;
+      z-index: 3;
+      padding: 26px 20px;
+      text-align: center;
+      background: rgba(10,12,24,.86);
+      border-bottom: 1px solid rgba(230,198,129,.15);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+
+    .header::after,
+    .footer::before {
+      content: '';
+      display: block;
+      width: 200px;
+      height: 1px;
+      margin: 0 auto;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    }
+
+    .header::after {
+      position: absolute;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%);
+    }
+
+    .brand-mark {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 38px;
+      text-decoration: none;
+    }
+
+    .brand-mark img {
+      display: block;
+      width: 190px;
+      max-width: 70vw;
+      height: auto;
+      filter: drop-shadow(0 0 18px rgba(230,198,129,.24));
+    }
+
+    main { position: relative; z-index: 1; }
+
+    .section {
+      width: min(1220px, 100%);
+      margin: 0 auto;
+      padding: 70px 24px 96px;
+    }
+
+    .hero { text-align: center; }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 22px;
+      padding: 8px 18px;
+      border: 1px solid rgba(230,198,129,.28);
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(230,198,129,.12), rgba(230,198,129,.06));
+      color: var(--gold);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 1160px;
+      margin: 0 auto 14px;
+      font-size: clamp(31px, 4vw, 52px);
+      line-height: 1.1;
+      font-weight: 800;
+    }
+
+    .hero-title-line { display: block; }
+
+    h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--gold-lite), var(--gold-dark));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .intro {
+      max-width: 760px;
+      margin: 0 auto 42px;
+      color: var(--muted);
+      font-size: 15.5px;
+      line-height: 1.72;
+    }
+
+    .panel {
+      border: 1px solid var(--border);
+      border-radius: 28px;
+      background: var(--surface);
+      box-shadow: 0 34px 90px rgba(0,0,0,.34);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .equipment-panel { padding: 26px; }
+
+    .panel-heading {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .panel-heading h2 {
+      margin-bottom: 5px;
+      font-size: 21px;
+      line-height: 1.2;
+    }
+
+
+    .equipment-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .equipment-card {
+      position: relative;
+      min-height: 154px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 20px 18px 18px 22px;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 22px;
+      overflow: hidden;
+      background: rgba(255,255,255,.045);
+      color: var(--white);
+      text-align: left;
+      cursor: pointer;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease, box-shadow .2s ease;
+    }
+
+    .equipment-card::before {
+      content: '';
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      right: -42px;
+      bottom: -55px;
+      border-radius: 50%;
+      background: var(--gold);
+      filter: blur(34px);
+      opacity: .11;
+    }
+
+    .equipment-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(230,198,129,.26);
+      background: rgba(230,198,129,.065);
+    }
+
+    .equipment-card:hover .equipment-image {
+      transform: translateY(-3px) scale(1.045);
+      filter: drop-shadow(0 18px 24px rgba(0,0,0,.34));
+    }
+
+    .equipment-card.is-active {
+      border-color: rgba(230,198,129,.54);
+      background: linear-gradient(135deg, rgba(230,198,129,.16), rgba(230,198,129,.05));
+      box-shadow: 0 18px 46px rgba(0,0,0,.25), inset 0 0 0 1px rgba(230,198,129,.08);
+    }
+
+    .equipment-name {
+      display: block;
+      position: relative;
+      z-index: 1;
+      flex: 1 1 auto;
+      max-width: 58%;
+      font-size: clamp(20px, 2vw, 24px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -.02em;
+    }
+
+    .equipment-name-line { display: block; }
+
+    .equipment-image {
+      position: relative;
+      z-index: 1;
+      width: 42%;
+      max-width: 142px;
+      height: 122px;
+      object-fit: contain;
+      object-position: center;
+      pointer-events: none;
+      user-select: none;
+      filter: drop-shadow(0 14px 20px rgba(0,0,0,.28));
+      transform: scale(.98);
+      transition: transform .22s ease, filter .22s ease;
+    }
+
+    .customizer {
+      display: grid;
+      grid-template-columns: minmax(0, .78fr) minmax(0, 1.22fr);
+      grid-template-areas:
+        "summary controls"
+        "selector controls";
+      align-items: start;
+      gap: 20px 24px;
+      margin-top: 24px;
+      padding: 26px;
+      text-align: left;
+    }
+
+    .logo-summary {
+      grid-area: summary;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .logo-thumb {
+      width: 86px;
+      aspect-ratio: 1;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      padding: 9px;
+      border: 1px solid rgba(230,198,129,.2);
+      border-radius: 20px;
+      overflow: hidden;
+      background:
+        linear-gradient(45deg, #ececec 25%, transparent 25%),
+        linear-gradient(-45deg, #ececec 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #ececec 75%),
+        linear-gradient(-45deg, transparent 75%, #ececec 75%),
+        #fff;
+      background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+      background-size: 16px 16px;
+    }
+
+    .logo-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .logo-copy { min-width: 0; }
+
+    .logo-copy strong {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 18px;
+    }
+
+    .logo-note {
+      display: block;
+      margin-bottom: 7px;
+      color: rgba(255,255,255,.66);
+      font-size: 11.5px;
+      line-height: 1.45;
+    }
+
+    .logo-copy span {
+      display: block;
+      overflow: hidden;
+      color: var(--muted-2);
+      font-size: 12.5px;
+      line-height: 1.45;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .remove-logo-button {
+      display: inline-flex;
+      margin-top: 9px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: var(--gold);
+      font-size: 10.5px;
+      font-weight: 900;
+      letter-spacing: .04em;
+      line-height: 1.3;
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      text-transform: uppercase;
+      cursor: pointer;
+    }
+
+    .remove-logo-button:hover { color: var(--gold-lite); }
+
+    .remove-logo-button:disabled {
+      opacity: .42;
+      cursor: not-allowed;
+    }
+
+    .logo-piece-selector {
+      grid-area: selector;
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      align-self: start;
+    }
+
+    .logo-piece-option {
+      position: relative;
+      min-width: 0;
+      aspect-ratio: 1;
+      display: grid;
+      place-items: center;
+      padding: 18px 8px 12px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 18px;
+      background: rgba(255,255,255,.035);
+      color: rgba(255,255,255,.72);
+      font-size: 10.5px;
+      font-weight: 900;
+      letter-spacing: .045em;
+      line-height: 1.28;
+      text-align: center;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: transform .18s ease, border-color .18s ease, background .18s ease, color .18s ease;
+    }
+
+    .logo-piece-option:hover {
+      transform: translateY(-2px);
+      border-color: rgba(230,198,129,.32);
+      background: rgba(230,198,129,.07);
+      color: var(--white);
+    }
+
+    .logo-piece-option.is-active {
+      border-color: rgba(230,198,129,.62);
+      background: linear-gradient(135deg, rgba(230,198,129,.18), rgba(230,198,129,.055));
+      color: var(--gold-lite);
+      box-shadow: inset 0 0 0 1px rgba(230,198,129,.08), 0 12px 30px rgba(0,0,0,.2);
+    }
+
+    .piece-check {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-lite), var(--gold-dark));
+      color: var(--navy);
+      font-size: 14px;
+      font-weight: 900;
+      opacity: 0;
+      transform: scale(.72);
+      transition: opacity .18s ease, transform .18s ease;
+    }
+
+    .logo-piece-option.is-active .piece-check {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .control-stack {
+      grid-area: controls;
+      display: grid;
+      gap: 17px;
+    }
+
+    .upload-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      width: 100%;
+    }
+
+    .upload-row .btn,
+    .upload-row .upload-label {
+      width: 100%;
+    }
+
+    .btn,
+    .upload-label {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 0;
+      border-radius: 999px;
+      padding: 12px 19px;
+      background: linear-gradient(135deg, var(--gold-lite), var(--gold-dark));
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: .055em;
+      line-height: 1.1;
+      text-decoration: none;
+      text-transform: uppercase;
+      cursor: pointer;
+      box-shadow: 0 14px 32px rgba(0,0,0,.24), 0 0 24px rgba(230,198,129,.1);
+      transition: transform .18s ease, filter .18s ease, background .18s ease;
+    }
+
+    .btn:hover,
+    .upload-label:hover { transform: translateY(-2px); filter: brightness(1.04); }
+
+    .btn:focus-visible,
+    .upload-label:focus-visible,
+    .remove-logo-button:focus-visible,
+    .logo-piece-option:focus-visible,
+    .equipment-card:focus-visible,
+    .carousel-arrow:focus-visible,
+    .carousel-dot:focus-visible {
+      outline: 3px solid rgba(230,198,129,.34);
+      outline-offset: 3px;
+    }
+
+    .btn.secondary {
+      background: rgba(255,255,255,.075);
+      color: var(--white);
+      border: 1px solid rgba(230,198,129,.2);
+      box-shadow: none;
+    }
+
+    .btn.small {
+      min-height: 40px;
+      padding: 10px 15px;
+      font-size: 10.5px;
+    }
+
+    .btn:disabled {
+      opacity: .42;
+      cursor: not-allowed;
+      transform: none;
+      filter: none;
+    }
+
+    .upload-input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0 0 0 0);
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+
+    .range-wrap {
+      padding: 15px 17px;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      background: rgba(255,255,255,.035);
+    }
+
+    .range-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 12px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .range-value {
+      min-width: 52px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(230,198,129,.12);
+      color: var(--gold);
+      font-size: 12px;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    .range-value.position-value {
+      min-width: 92px;
+      text-transform: none;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      appearance: none;
+      -webkit-appearance: none;
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold-lite));
+      outline: 0;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      width: 22px;
+      height: 22px;
+      border: 3px solid var(--navy-mid);
+      border-radius: 50%;
+      appearance: none;
+      -webkit-appearance: none;
+      background: var(--gold-lite);
+      box-shadow: 0 3px 12px rgba(0,0,0,.35);
+    }
+
+    input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border: 3px solid var(--navy-mid);
+      border-radius: 50%;
+      background: var(--gold-lite);
+      box-shadow: 0 3px 12px rgba(0,0,0,.35);
+    }
+
+
+    .art-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 22px;
+      margin-top: 38px;
+    }
+
+    .art-card {
+      min-width: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 26px;
+      background: rgba(15,19,38,.78);
+      box-shadow: 0 28px 76px rgba(0,0,0,.31);
+      transition: transform .2s ease, border-color .2s ease;
+    }
+
+    .art-card:hover {
+      transform: translateY(-3px);
+      border-color: rgba(230,198,129,.31);
+    }
+
+    .art-card-head {
+      min-height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 14px;
+      padding: 19px 20px;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .art-card-title small {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--gold);
+      font-size: 9.5px;
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .art-card-title h3 {
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+
+    .art-stage {
+      position: relative;
+      /* Formato vertical dos posts: 1080 × 1350 (4:5). */
+      aspect-ratio: 1080 / 1350;
+      overflow: hidden;
+      background: #080a14;
+      isolation: isolate;
+    }
+
+    .base-art {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .logo-overlay {
+      position: absolute;
+      z-index: 2;
+      width: var(--piece-logo-size, 20%);
+      max-height: 30%;
+      object-fit: contain;
+      pointer-events: none;
+      user-select: none;
+      filter: drop-shadow(0 4px 10px rgba(0,0,0,.28));
+    }
+
+    .logo-overlay.position-top-left {
+      top: calc(5% + var(--piece-logo-offset-y, 0%) + var(--piece-logo-base-y, 0%));
+      left: calc(5% + var(--piece-logo-offset-x, 0%) + var(--piece-logo-base-x, 0%));
+    }
+
+    .logo-overlay.position-center-upper {
+      top: calc(31% + var(--piece-logo-offset-y, 0%) + var(--piece-logo-base-y, 0%));
+      left: calc(50% + var(--piece-logo-offset-x, 0%) + var(--piece-logo-base-x, 0%));
+      transform: translate(-50%, -50%);
+    }
+
+    .logo-overlay.is-hidden,
+    .logo-thumb img.is-hidden { display: none; }
+
+    .carousel-arrow {
+      position: absolute;
+      z-index: 4;
+      top: 50%;
+      width: 42px;
+      height: 42px;
+      border: 1px solid rgba(255,255,255,.16);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: rgba(10,12,24,.72);
+      color: var(--white);
+      font-size: 24px;
+      line-height: 1;
+      cursor: pointer;
+      transform: translateY(-50%);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: background .18s ease, border-color .18s ease;
+    }
+
+    .carousel-arrow:hover {
+      background: rgba(184,151,58,.78);
+      border-color: rgba(240,216,154,.7);
+    }
+
+    .carousel-arrow.prev { left: 13px; }
+    .carousel-arrow.next { right: 13px; }
+
+    .carousel-dots {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 13px 16px 0;
+    }
+
+    .carousel-dot {
+      width: 8px;
+      height: 8px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,.24);
+      cursor: pointer;
+      transition: width .18s ease, border-radius .18s ease, background .18s ease;
+    }
+
+    .carousel-dot.is-active {
+      width: 25px;
+      border-radius: 999px;
+      background: var(--gold);
+    }
+
+    .art-card-body {
+      margin-top: auto;
+      padding: 18px 20px 20px;
+    }
+
+    /* Reserva nos cards estáticos o mesmo espaço ocupado pelos pontos do carrossel. */
+    .art-card:not(.carousel-card) .art-card-body { padding-top: 39px; }
+
+    .action-row { width: 100%; }
+
+    .action-row .btn { width: 100%; }
+
+    .how-it-works {
+      margin-bottom: 24px;
+      padding: 22px 24px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .how-step {
+      display: flex;
+      gap: 13px;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .how-number {
+      width: 31px;
+      height: 31px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold-lite), var(--gold-dark));
+      color: var(--navy);
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .how-step strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 13px;
+    }
+
+    .how-step p {
+      color: var(--muted-2);
+      font-size: 11.5px;
+      line-height: 1.5;
+    }
+
+    .marketing-cta {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      margin-top: 30px;
+      padding: 28px 30px;
+      overflow: hidden;
+      text-align: left;
+    }
+
+    .marketing-cta::after {
+      content: '';
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      right: -80px;
+      bottom: -125px;
+      border-radius: 50%;
+      background: var(--gold);
+      filter: blur(52px);
+      opacity: .12;
+      pointer-events: none;
+    }
+
+    .marketing-cta-copy {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+    }
+
+    .marketing-cta-label {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--gold);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .marketing-cta h2 {
+      margin-bottom: 8px;
+      font-size: clamp(22px, 2.6vw, 31px);
+      line-height: 1.18;
+    }
+
+    .marketing-cta p {
+      color: var(--muted);
+      font-size: 13.5px;
+      line-height: 1.6;
+    }
+
+    .marketing-cta .btn {
+      position: relative;
+      z-index: 1;
+      flex: 0 0 auto;
+      min-width: 230px;
+    }
+
+    .footer {
+      position: relative;
+      z-index: 2;
+      padding: 60px 20px;
+      text-align: center;
+      background: var(--navy-mid);
+      border-top: 1px solid rgba(230,198,129,.12);
+    }
+
+    .footer::before { width: 120px; margin-bottom: 35px; }
+
+    .footer-brand {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 24px;
+      text-decoration: none;
+    }
+
+    .footer-brand img {
+      display: block;
+      width: 138px;
+      max-width: 60vw;
+      height: auto;
+      filter: drop-shadow(0 0 14px rgba(230,198,129,.2));
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 4px;
+      margin-bottom: 28px;
+    }
+
+    .footer-links a {
+      padding: 5px 12px;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 999px;
+      color: rgba(255,255,255,.6);
+      font-size: 12.5px;
+      text-decoration: none;
+      transition: .2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold);
+      border-color: rgba(230,198,129,.35);
+      background: rgba(230,198,129,.06);
+    }
+
+    .footer-info {
+      color: rgba(255,255,255,.4);
+      font-size: 12.5px;
+      line-height: 1.85;
+    }
+
+    .footer-info strong { color: rgba(255,255,255,.56); }
+
+    .dev-credit {
+      position: relative;
+      z-index: 2;
+      padding: 14px 16px;
+      text-align: center;
+      background: var(--navy);
+      border-top: 1px solid rgba(255,255,255,.04);
+      color: rgba(255,255,255,.4);
+      font-size: 11.5px;
+    }
+
+    .dev-credit a {
+      color: rgba(255,255,255,.64);
+      text-decoration: none;
+      border-bottom: 1px dotted rgba(255,255,255,.25);
+    }
+
+    .dev-credit a:hover { color: var(--gold); }
+
+    .toast {
+      position: fixed;
+      z-index: 20;
+      left: 50%;
+      bottom: 24px;
+      width: min(520px, calc(100% - 28px));
+      padding: 14px 17px;
+      border: 1px solid rgba(230,198,129,.3);
+      border-radius: 16px;
+      background: rgba(15,19,38,.96);
+      color: var(--white);
+      box-shadow: 0 18px 54px rgba(0,0,0,.46);
+      font-size: 13px;
+      font-weight: 700;
+      line-height: 1.45;
+      text-align: center;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 18px);
+      transition: opacity .22s ease, transform .22s ease;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+
+    .toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
+    .toast.is-error { border-color: rgba(255,127,127,.4); color: #ffd0d0; }
+    .toast.is-success { border-color: rgba(158,232,188,.4); color: #d9ffe8; }
+
+
+    @media (min-width: 901px) {
+      .hero-title-line { white-space: nowrap; }
+    }
+
+    @media (max-width: 1080px) {
+      .art-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 900px) {
+      .section { padding: 56px 15px 76px; }
+      .equipment-grid { grid-template-columns: 1fr; }
+      .equipment-name-line { display: inline; }
+      .equipment-card { min-height: 124px; }
+      .equipment-image { height: 105px; max-width: 132px; }
+      .customizer {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+          "summary"
+          "controls"
+          "selector";
+      }
+      .art-grid { grid-template-columns: 1fr; }
+      .how-it-works { grid-template-columns: 1fr; }
+      .marketing-cta { align-items: flex-start; flex-direction: column; }
+      .marketing-cta .btn { width: 100%; min-width: 0; }
+    }
+
+    @media (max-width: 620px) {
+      .header { padding: 21px 14px; }
+      .brand-mark img { width: 164px; }
+      .panel-heading { align-items: flex-start; flex-direction: column; }
+      .equipment-panel,
+      .customizer { padding: 19px; border-radius: 22px; }
+      .logo-summary { align-items: flex-start; }
+      .logo-thumb { width: 76px; border-radius: 17px; }
+      .upload-row { display: grid; grid-template-columns: 1fr; }
+      .btn, .upload-label { width: 100%; }
+      .art-card { border-radius: 22px; }
+      .art-card-head { padding: 16px; }
+      .art-card-body { padding: 16px; }
+      .marketing-cta { padding: 22px 19px; border-radius: 22px; }
+      .logo-piece-selector { gap: 8px; }
+      .logo-piece-option { padding: 16px 5px 10px; border-radius: 15px; font-size: 9px; }
+      .piece-check { top: 6px; right: 6px; width: 19px; height: 19px; font-size: 12px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="blob-wrap" aria-hidden="true">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <header class="header">
+    <a class="brand-mark" href="https://www.visioskyn.com/" aria-label="Ir para a página inicial da Visioskyn">
+      <img src="https://www.visioskyn.com/SRC/LOGO_BRANCO_VISIOSKYN.png" alt="Visioskyn">
+    </a>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="hero">
+        <div class="eyebrow">Materiais de marketing</div>
+        <h1>
+          <span class="hero-title-line">Artes personalizáveis para divulgação</span>
+          <span class="hero-title-line"><em>dos procedimentos</em></span>
+        </h1>
+        <p class="intro">
+          Escolha o equipamento, personalize a arte e baixe a imagem exatamente como aparece na prévia.
+        </p>
+      </div>
+
+      <aside class="panel how-it-works" aria-label="Como usar a biblioteca">
+          <div class="how-step">
+            <span class="how-number">1</span>
+            <div><strong>Escolha o equipamento</strong><p>A biblioteca atualiza as peças disponíveis para a seleção.</p></div>
+          </div>
+          <div class="how-step">
+            <span class="how-number">2</span>
+            <div><strong>Envie seu logo</strong><p>Prefira PNG transparente e ajuste o tamanho e a posição</p></div>
+          </div>
+          <div class="how-step">
+            <span class="how-number">3</span>
+            <div><strong>Baixe em PNG</strong><p>A imagem será baixada exatamente como aparece na prévia.</p></div>
+          </div>
+      </aside>
+
+      <section class="panel equipment-panel" aria-labelledby="equipmentTitle">
+        <div class="panel-heading">
+          <div>
+            <h2 id="equipmentTitle">Escolha o equipamento</h2>
+          </div>
+        </div>
+
+        <div class="equipment-grid" role="group" aria-label="Equipamentos disponíveis">
+          <button class="equipment-card is-active" type="button" data-equipment="ultraformer" aria-pressed="true">
+            <span class="equipment-name">
+              <span class="equipment-name-line">Ultraformer</span>
+              <span class="equipment-name-line">MPT</span>
+            </span>
+            <img class="equipment-image" src="https://www.visioskyn.com/SRC/equip1.png" alt="" aria-hidden="true">
+          </button>
+
+          <button class="equipment-card" type="button" data-equipment="lavieen" aria-pressed="false">
+            <span class="equipment-name">
+              <span class="equipment-name-line">Laser</span>
+              <span class="equipment-name-line">Lavieen</span>
+            </span>
+            <img class="equipment-image" src="https://www.visioskyn.com/SRC/equip2.png" alt="" aria-hidden="true">
+          </button>
+
+          <button class="equipment-card" type="button" data-equipment="mtz40" aria-pressed="false">
+            <span class="equipment-name">
+              <span class="equipment-name-line">Laser de CO2</span>
+              <span class="equipment-name-line">MTZ40</span>
+            </span>
+            <img class="equipment-image" src="https://www.visioskyn.com/SRC/equip4.png" alt="" aria-hidden="true">
+          </button>
+        </div>
+      </section>
+
+      <section class="panel customizer" aria-labelledby="logoTitle">
+        <div class="logo-summary">
+          <div class="logo-thumb" aria-hidden="true">
+            <img id="logoThumb" alt="">
+          </div>
+          <div class="logo-copy">
+            <strong id="logoTitle">Personalize com seu logo</strong>
+            <small class="logo-note">Logotipo em .png com fundo transparente é a melhor opção.</small>
+            <span id="logoFileName">Logo padrão de demonstração</span>
+            <button class="remove-logo-button" id="removeLogo" type="button">Remover logotipo</button>
+          </div>
+        </div>
+
+        <div class="logo-piece-selector" role="group" aria-label="Selecione a peça para editar o logotipo">
+          <button class="logo-piece-option is-active" type="button" data-logo-art="staticOne" aria-pressed="true">
+            <span class="piece-check" aria-hidden="true">✓</span>
+            <span>Peça 01</span>
+          </button>
+          <button class="logo-piece-option" type="button" data-logo-art="carouselOne" aria-pressed="false">
+            <span class="piece-check" aria-hidden="true">✓</span>
+            <span>Peças 02 e 03</span>
+          </button>
+          <button class="logo-piece-option" type="button" data-logo-art="staticTwo" aria-pressed="false">
+            <span class="piece-check" aria-hidden="true">✓</span>
+            <span>Peça 04</span>
+          </button>
+        </div>
+
+        <div class="control-stack">
+          <div class="upload-row">
+            <label class="upload-label" for="logoUpload">
+              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M11 16h2V8.83l3.59 3.58L18 11l-6-6l-6 6l1.41 1.41L11 8.83V16Zm-5 4h12a2 2 0 0 0 2-2v-3h-2v3H6v-3H4v3a2 2 0 0 0 2 2Z"/></svg>
+              Selecionar logo
+            </label>
+            <input class="upload-input" id="logoUpload" type="file" accept="image/png,image/jpeg,image/webp">
+
+            <button class="btn secondary" id="restoreLogo" type="button">
+              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 5V2L8 6l4 4V7a5 5 0 1 1-4.9 6H5.05A7 7 0 1 0 12 5Z"/></svg>
+              Restaurar padrão
+            </button>
+          </div>
+
+          <div class="range-wrap">
+            <div class="range-head">
+              <label for="logoSize">Tamanho do logo nas artes</label>
+              <output class="range-value" id="logoSizeValue" for="logoSize">20%</output>
+            </div>
+            <input id="logoSize" type="range" min="8" max="38" value="20" step="1">
+          </div>
+
+          <div class="range-wrap">
+            <div class="range-head">
+              <label for="logoOffsetX">Mover o logo para os lados</label>
+              <output class="range-value position-value" id="logoOffsetXValue" for="logoOffsetX">Centro</output>
+            </div>
+            <input id="logoOffsetX" type="range" min="-5" max="5" value="0" step="1">
+          </div>
+
+          <div class="range-wrap">
+            <div class="range-head">
+              <label for="logoOffsetY">Mover o logo para cima e para baixo</label>
+              <output class="range-value position-value" id="logoOffsetYValue" for="logoOffsetY">Centro</output>
+            </div>
+            <input id="logoOffsetY" type="range" min="-5" max="5" value="0" step="1">
+          </div>
+        </div>
+      </section>
+
+      <div class="art-grid" id="artGrid">
+        <article class="art-card">
+          <header class="art-card-head">
+            <div class="art-card-title">
+              <small>Peça 01</small>
+              <h3>Arte estática</h3>
+            </div>
+          </header>
+
+          <div class="art-stage">
+            <img class="base-art" id="staticOneArt" alt="Prévia da primeira arte estática">
+            <img class="logo-overlay position-top-left js-logo-preview" id="staticOneLogo" alt="Logo aplicado na arte">
+          </div>
+
+          <div class="art-card-body">
+            <div class="action-row">
+              <button class="btn small js-download" type="button" data-art="staticOne">Baixar imagem</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="art-card carousel-card">
+          <header class="art-card-head">
+            <div class="art-card-title">
+              <small>Peças 02 e 03</small>
+              <h3>Carrossel de 2 artes</h3>
+            </div>
+          </header>
+
+          <div class="art-stage">
+            <img class="base-art" id="carouselArt" alt="Prévia da arte atual do carrossel">
+            <img class="logo-overlay position-center-upper js-logo-preview" id="carouselLogo" alt="Logo aplicado no primeiro slide do carrossel">
+
+            <button class="carousel-arrow prev" id="carouselPrev" type="button" aria-label="Ver slide anterior">‹</button>
+            <button class="carousel-arrow next" id="carouselNext" type="button" aria-label="Ver próximo slide">›</button>
+          </div>
+
+          <div class="carousel-dots" aria-label="Slides do carrossel">
+            <button class="carousel-dot is-active" type="button" data-slide="0" aria-label="Abrir slide 1" aria-current="true"></button>
+            <button class="carousel-dot" type="button" data-slide="1" aria-label="Abrir slide 2" aria-current="false"></button>
+          </div>
+
+          <div class="art-card-body">
+            <div class="action-row">
+              <button class="btn small" id="carouselDownload" type="button">Baixar imagem</button>
+            </div>
+          </div>
+        </article>
+
+        <article class="art-card">
+          <header class="art-card-head">
+            <div class="art-card-title">
+              <small>Peça 04</small>
+              <h3>Arte estática</h3>
+            </div>
+          </header>
+
+          <div class="art-stage">
+            <img class="base-art" id="staticTwoArt" alt="Prévia da segunda arte estática">
+            <img class="logo-overlay position-top-left js-logo-preview" id="staticTwoLogo" alt="Logo aplicado na arte">
+          </div>
+
+          <div class="art-card-body">
+            <div class="action-row">
+              <button class="btn small js-download" type="button" data-art="staticTwo">Baixar imagem</button>
+            </div>
+          </div>
+        </article>
+
+      </div>
+
+      <aside class="panel marketing-cta" aria-labelledby="marketingSupportTitle">
+        <div class="marketing-cta-copy">
+          <span class="marketing-cta-label">Suporte de marketing</span>
+          <h2 id="marketingSupportTitle">Precisa de apoio para alcançar novos pacientes com marketing digital?</h2>
+          <p>Fale com nosso suporte de marketing e receba orientação para divulgar melhor a sua clínica.</p>
+        </div>
+        <a class="btn" href="https://wa.me/5511986912169?text=Ol%C3%A1%20preciso%20de%20ajuda%20com%20a%20parte%20de%20marketing%20na%20minha%20clinica." target="_blank" rel="noopener noreferrer">
+          <svg width="17" height="17" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.75 13.96c-.25-.12-1.47-.72-1.7-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.78.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-2-1.24-.74-.66-1.24-1.47-1.38-1.72-.15-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.85-.2-.49-.41-.42-.56-.43h-.48c-.17 0-.43.06-.66.31-.23.25-.87.85-.87 2.08 0 1.22.89 2.4 1.01 2.57.13.16 1.75 2.67 4.24 3.75.59.26 1.05.41 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.21-.58.21-1.08.15-1.18-.06-.11-.23-.17-.48-.29ZM12.04 2a9.84 9.84 0 0 0-8.42 14.91L2.05 22l5.22-1.52A9.96 9.96 0 1 0 12.04 2Zm0 17.99a8.1 8.1 0 0 1-4.13-1.13l-.3-.18-3.1.9.91-3.02-.2-.31A8 8 0 1 1 12.04 20Z"/></svg>
+          Chamar suporte de marketing
+        </a>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <a class="footer-brand" href="https://www.visioskyn.com/" aria-label="Ir para a página inicial da Visioskyn">
+      <img src="https://www.visioskyn.com/SRC/LOGO_BRANCO_VISIOSKYN.png" alt="Visioskyn">
+    </a>
+    <nav class="footer-links" aria-label="Links do rodapé">
+      <a href="https://www.visioskyn.com/#equipamentos">Equipamentos</a>
+      <a href="https://www.visioskyn.com/agenda">Agende online</a>
+      <a href="https://www.visioskyn.com/#locacao">Locação</a>
+      <a href="https://www.visioskyn.com/marketing">Materiais de marketing</a>
+      <a href="https://www.visioskyn.com/kit-comercial">Kit comercial</a>
+      <a href="https://www.visioskyn.com/#contato">Contato</a>
+    </nav>
+    <div class="footer-info">
+      Biblioteca de materiais de marketing para clientes Visioskyn.<br><br>
+      <strong>© 2026 Visioskyn. Todos os direitos reservados.</strong>
+    </div>
+  </footer>
+
+  <div class="dev-credit">
+    <span style="opacity:.8;">Desenvolvido por:</span>
+    <a href="https://www.mindfly.com.br/" target="_blank" rel="noopener">MindFly Digital</a>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      /*
+       * CONFIGURAÇÃO DAS ARTES
+       * ------------------------------------------------------------
+       * As artes e o logo padrão usam arquivos hospedados no domínio
+       * da Visioskyn. Para manter o download via canvas, preserve esses
+       * arquivos no mesmo domínio da página ou habilite CORS no servidor.
+       */
+
+      const EQUIPMENTS = {
+        ultraformer: {
+          name: 'Ultraformer MPT',
+          slug: 'ultraformer-mpt',
+          arts: {
+            staticOne: 'https://www.visioskyn.com/SRC/uf1.png',
+            carouselOne: 'https://www.visioskyn.com/SRC/uf2.png',
+            carouselTwo: 'https://www.visioskyn.com/SRC/uf22.png',
+            staticTwo: 'https://www.visioskyn.com/SRC/uf3.png'
+          }
+        },
+        lavieen: {
+          name: 'Laser Lavieen',
+          slug: 'laser-lavieen',
+          arts: {
+            staticOne: 'https://www.visioskyn.com/SRC/lv1.png',
+            carouselOne: 'https://www.visioskyn.com/SRC/lv2.png',
+            carouselTwo: 'https://www.visioskyn.com/SRC/lv22.png',
+            staticTwo: 'https://www.visioskyn.com/SRC/lv3.png'
+          }
+        },
+        mtz40: {
+          name: 'Laser de CO2 MTZ40',
+          slug: 'laser-co2-mtz40',
+          arts: {
+            staticOne: 'https://www.visioskyn.com/SRC/mtz1.png',
+            carouselOne: 'https://www.visioskyn.com/SRC/mtz2.png',
+            carouselTwo: 'https://www.visioskyn.com/SRC/mtz22.png',
+            staticTwo: 'https://www.visioskyn.com/SRC/mtz3.png'
+          }
+        }
+      };
+
+      const ART_SETTINGS = {
+        staticOne: {
+          label: 'arte-estatica-01',
+          logoPosition: 'top-left',
+          baseOffsetX: 0,
+          baseOffsetY: 0
+        },
+        carouselOne: {
+          label: 'carrossel-slide-01',
+          logoPosition: 'center-upper',
+          baseOffsetX: 10,
+          baseOffsetY: -10
+        },
+        carouselTwo: {
+          label: 'carrossel-slide-02',
+          logoPosition: null,
+          baseOffsetX: 0,
+          baseOffsetY: 0
+        },
+        staticTwo: {
+          label: 'arte-estatica-02',
+          logoPosition: 'top-left',
+          baseOffsetX: 8,
+          baseOffsetY: 0
+        }
+      };
+
+      const DEFAULT_LOGO = 'https://www.visioskyn.com/SRC/logodefult.png';
+      const EXPORT_WIDTH = 1080;
+      const EXPORT_HEIGHT = 1350;
+      const MAX_LOGO_FILE_SIZE = 10 * 1024 * 1024;
+      const ALLOWED_LOGO_TYPES = ['image/png', 'image/jpeg', 'image/webp'];
+      const ALLOWED_LOGO_EXTENSION = /\.(png|jpe?g|webp)$/i;
+
+      let currentEquipmentKey = 'ultraformer';
+      let currentCarouselSlide = 0;
+      let currentLogoSource = DEFAULT_LOGO;
+      let currentLogoName = 'Logo padrão de demonstração';
+      let logoEnabled = true;
+      let selectedLogoArtKey = 'staticOne';
+      let toastTimer = null;
+
+      const logoControlsByArt = {
+        staticOne: { size: 20, offsetX: 0, offsetY: 0 },
+        carouselOne: { size: 20, offsetX: 0, offsetY: 0 },
+        staticTwo: { size: 20, offsetX: 0, offsetY: 0 }
+      };
+
+      const equipmentButtons = Array.from(document.querySelectorAll('[data-equipment]'));
+      const logoPieceButtons = Array.from(document.querySelectorAll('[data-logo-art]'));
+      const logoPreviewTargets = Array.from(document.querySelectorAll('.js-logo-preview'));
+      const logoThumb = document.getElementById('logoThumb');
+      const logoFileName = document.getElementById('logoFileName');
+      const logoUpload = document.getElementById('logoUpload');
+      const logoSize = document.getElementById('logoSize');
+      const logoSizeValue = document.getElementById('logoSizeValue');
+      const logoOffsetX = document.getElementById('logoOffsetX');
+      const logoOffsetXValue = document.getElementById('logoOffsetXValue');
+      const logoOffsetY = document.getElementById('logoOffsetY');
+      const logoOffsetYValue = document.getElementById('logoOffsetYValue');
+      const restoreLogo = document.getElementById('restoreLogo');
+      const removeLogo = document.getElementById('removeLogo');
+      const staticOneArt = document.getElementById('staticOneArt');
+      const staticTwoArt = document.getElementById('staticTwoArt');
+      const carouselArt = document.getElementById('carouselArt');
+      const staticOneLogo = document.getElementById('staticOneLogo');
+      const carouselLogo = document.getElementById('carouselLogo');
+      const staticTwoLogo = document.getElementById('staticTwoLogo');
+      const carouselDownload = document.getElementById('carouselDownload');
+      const carouselPrev = document.getElementById('carouselPrev');
+      const carouselNext = document.getElementById('carouselNext');
+      const carouselDots = Array.from(document.querySelectorAll('.carousel-dot'));
+      const carouselCard = document.querySelector('.carousel-card');
+      const toast = document.getElementById('toast');
+
+      const logoPreviewByArt = {
+        staticOne: staticOneLogo,
+        carouselOne: carouselLogo,
+        staticTwo: staticTwoLogo
+      };
+
+      function getEquipment() {
+        return EQUIPMENTS[currentEquipmentKey];
+      }
+
+      function currentCarouselArtKey() {
+        return currentCarouselSlide === 0 ? 'carouselOne' : 'carouselTwo';
+      }
+
+      function setImageSource(image, source) {
+        if (/^https?:/i.test(source)) {
+          image.crossOrigin = 'anonymous';
+        } else {
+          image.removeAttribute('crossorigin');
+        }
+        image.src = source;
+      }
+
+      function updateEquipmentView() {
+        const equipment = getEquipment();
+
+        setImageSource(staticOneArt, equipment.arts.staticOne);
+        setImageSource(staticTwoArt, equipment.arts.staticTwo);
+        renderCarousel();
+      }
+
+
+      function updateLogoView() {
+        logoFileName.textContent = currentLogoName;
+        removeLogo.disabled = !logoEnabled;
+        logoThumb.classList.toggle('is-hidden', !logoEnabled);
+
+        if (logoEnabled) {
+          setImageSource(logoThumb, currentLogoSource);
+        } else {
+          logoThumb.removeAttribute('src');
+        }
+
+        logoPreviewTargets.forEach(function (image) {
+          image.classList.toggle('is-hidden', !logoEnabled);
+          if (logoEnabled) {
+            setImageSource(image, currentLogoSource);
+          } else {
+            image.removeAttribute('src');
+          }
+        });
+
+        applyAllLogoPreviewStyles();
+        renderCarousel();
+      }
+
+      function describeAxisValue(value, axis) {
+        if (value === 0) return 'Centro';
+        const amount = Math.abs(value) + '%';
+        if (axis === 'x') return amount + (value < 0 ? ' esquerda' : ' direita');
+        return amount + (value < 0 ? ' acima' : ' abaixo');
+      }
+
+      function applyLogoPreviewStyle(artKey) {
+        const image = logoPreviewByArt[artKey];
+        const controls = logoControlsByArt[artKey];
+        const settings = ART_SETTINGS[artKey];
+
+        if (!image || !controls || !settings) return;
+
+        const baseOffsetXPercent = ((settings.baseOffsetX || 0) / EXPORT_WIDTH) * 100;
+        const baseOffsetYPercent = ((settings.baseOffsetY || 0) / EXPORT_HEIGHT) * 100;
+
+        image.style.setProperty('--piece-logo-size', controls.size + '%');
+        image.style.setProperty('--piece-logo-offset-x', controls.offsetX + '%');
+        image.style.setProperty('--piece-logo-offset-y', controls.offsetY + '%');
+        image.style.setProperty('--piece-logo-base-x', baseOffsetXPercent + '%');
+        image.style.setProperty('--piece-logo-base-y', baseOffsetYPercent + '%');
+      }
+
+      function applyAllLogoPreviewStyles() {
+        Object.keys(logoPreviewByArt).forEach(applyLogoPreviewStyle);
+      }
+
+      function syncLogoControlsFromSelection() {
+        const controls = logoControlsByArt[selectedLogoArtKey];
+        if (!controls) return;
+
+        logoSize.value = String(controls.size);
+        logoOffsetX.value = String(controls.offsetX);
+        logoOffsetY.value = String(controls.offsetY);
+        logoSizeValue.textContent = controls.size + '%';
+        logoOffsetXValue.textContent = describeAxisValue(controls.offsetX, 'x');
+        logoOffsetYValue.textContent = describeAxisValue(controls.offsetY, 'y');
+
+        logoPieceButtons.forEach(function (button) {
+          const active = button.getAttribute('data-logo-art') === selectedLogoArtKey;
+          button.classList.toggle('is-active', active);
+          button.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+      }
+
+      function selectLogoArt(artKey) {
+        if (!logoControlsByArt[artKey]) return;
+
+        selectedLogoArtKey = artKey;
+
+        if (artKey === 'carouselOne' && currentCarouselSlide !== 0) {
+          currentCarouselSlide = 0;
+          renderCarousel();
+        }
+
+        syncLogoControlsFromSelection();
+      }
+
+      function updateSelectedLogoSize() {
+        const controls = logoControlsByArt[selectedLogoArtKey];
+        if (!controls) return;
+
+        controls.size = Number(logoSize.value);
+        logoSizeValue.textContent = controls.size + '%';
+        applyLogoPreviewStyle(selectedLogoArtKey);
+      }
+
+      function updateSelectedLogoPosition() {
+        const controls = logoControlsByArt[selectedLogoArtKey];
+        if (!controls) return;
+
+        controls.offsetX = Number(logoOffsetX.value);
+        controls.offsetY = Number(logoOffsetY.value);
+        logoOffsetXValue.textContent = describeAxisValue(controls.offsetX, 'x');
+        logoOffsetYValue.textContent = describeAxisValue(controls.offsetY, 'y');
+        applyLogoPreviewStyle(selectedLogoArtKey);
+      }
+
+      function renderCarousel() {
+        const equipment = getEquipment();
+        const artKey = currentCarouselArtKey();
+        const isFirstSlide = currentCarouselSlide === 0;
+        const showCarouselLogo = isFirstSlide && logoEnabled;
+
+        setImageSource(carouselArt, equipment.arts[artKey]);
+        carouselLogo.classList.toggle('is-hidden', !showCarouselLogo);
+
+        carouselDots.forEach(function (dot, index) {
+          const active = index === currentCarouselSlide;
+          dot.classList.toggle('is-active', active);
+          dot.setAttribute('aria-current', active ? 'true' : 'false');
+        });
+      }
+
+      function selectEquipment(key) {
+        if (!EQUIPMENTS[key]) return;
+
+        currentEquipmentKey = key;
+        currentCarouselSlide = 0;
+
+        equipmentButtons.forEach(function (button) {
+          const active = button.getAttribute('data-equipment') === key;
+          button.classList.toggle('is-active', active);
+          button.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+
+        updateEquipmentView();
+        showToast('Artes de ' + getEquipment().name + ' carregadas.', 'success');
+      }
+
+      function changeCarouselSlide(index) {
+        const slideCount = carouselDots.length;
+        currentCarouselSlide = (index + slideCount) % slideCount;
+        renderCarousel();
+      }
+
+      function showToast(message, type) {
+        window.clearTimeout(toastTimer);
+        toast.textContent = message;
+        toast.classList.remove('is-error', 'is-success');
+        if (type === 'error') toast.classList.add('is-error');
+        if (type === 'success') toast.classList.add('is-success');
+        toast.classList.add('is-visible');
+        toastTimer = window.setTimeout(function () {
+          toast.classList.remove('is-visible');
+        }, 3600);
+      }
+
+      function loadImage(source) {
+        return new Promise(function (resolve, reject) {
+          if (!source) {
+            reject(new Error('Fonte da imagem não informada.'));
+            return;
+          }
+
+          const image = new Image();
+          if (/^https?:/i.test(source)) image.crossOrigin = 'anonymous';
+          image.decoding = 'async';
+          image.onload = function () { resolve(image); };
+          image.onerror = function () { reject(new Error('Falha ao carregar a imagem.')); };
+          image.src = source;
+        });
+      }
+
+      function readFileAsDataURL(file) {
+        return new Promise(function (resolve, reject) {
+          const reader = new FileReader();
+          reader.onload = function () { resolve(String(reader.result)); };
+          reader.onerror = function () { reject(new Error('Falha ao ler o arquivo.')); };
+          reader.readAsDataURL(file);
+        });
+      }
+
+      function drawImageCover(context, image, width, height) {
+        const imageWidth = image.naturalWidth;
+        const imageHeight = image.naturalHeight;
+        const scale = Math.max(width / imageWidth, height / imageHeight);
+        const sourceWidth = width / scale;
+        const sourceHeight = height / scale;
+        const sourceX = (imageWidth - sourceWidth) / 2;
+        const sourceY = (imageHeight - sourceHeight) / 2;
+
+        context.drawImage(
+          image,
+          sourceX,
+          sourceY,
+          sourceWidth,
+          sourceHeight,
+          0,
+          0,
+          width,
+          height
+        );
+      }
+
+      function calculateLogoBox(baseWidth, baseHeight, logoImage, settings, controls) {
+        const position = settings.logoPosition;
+        const requestedWidth = baseWidth * (controls.size / 100);
+        const ratio = logoImage.naturalHeight / logoImage.naturalWidth;
+        let width = requestedWidth;
+        let height = width * ratio;
+        const maxHeight = baseHeight * .30;
+
+        if (height > maxHeight) {
+          height = maxHeight;
+          width = height / ratio;
+        }
+
+        let x;
+        let y;
+
+        if (position === 'center-upper') {
+          x = (baseWidth - width) / 2;
+          y = (baseHeight * .31) - (height / 2);
+        } else {
+          x = baseWidth * .05;
+          y = baseHeight * .05;
+        }
+
+        x += settings.baseOffsetX || 0;
+        y += settings.baseOffsetY || 0;
+        x += baseWidth * (controls.offsetX / 100);
+        y += baseHeight * (controls.offsetY / 100);
+
+        x = Math.max(0, Math.min(x, baseWidth - width));
+        y = Math.max(0, Math.min(y, baseHeight - height));
+
+        return { x: x, y: y, width: width, height: height };
+      }
+
+      function sanitizeFileName(value) {
+        return value
+          .normalize('NFD')
+          .replace(/[\u0300-\u036f]/g, '')
+          .toLowerCase()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/^-+|-+$/g, '');
+      }
+
+      function canvasToBlob(canvas) {
+        return new Promise(function (resolve, reject) {
+          canvas.toBlob(function (blob) {
+            if (blob) {
+              resolve(blob);
+            } else {
+              reject(new Error('O navegador não conseguiu gerar o arquivo PNG.'));
+            }
+          }, 'image/png');
+        });
+      }
+
+      function triggerDownload(blob, fileName) {
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        window.setTimeout(function () { URL.revokeObjectURL(url); }, 1200);
+      }
+
+      async function downloadArt(artKey) {
+        const equipment = getEquipment();
+        const artSource = equipment.arts[artKey];
+        const settings = ART_SETTINGS[artKey];
+        const controls = logoControlsByArt[artKey] || { size: 20, offsetX: 0, offsetY: 0 };
+        const logoState = {
+          enabled: logoEnabled,
+          source: currentLogoSource,
+          size: controls.size,
+          offsetX: controls.offsetX,
+          offsetY: controls.offsetY
+        };
+        const shouldDrawLogo = Boolean(
+          settings.logoPosition &&
+          logoState.enabled &&
+          logoState.source
+        );
+
+        try {
+          showToast('Preparando seu PNG...', '');
+
+          const baseImage = await loadImage(artSource);
+          const canvas = document.createElement('canvas');
+          canvas.width = EXPORT_WIDTH;
+          canvas.height = EXPORT_HEIGHT;
+
+          const context = canvas.getContext('2d', { alpha: true });
+          if (!context) throw new Error('Canvas indisponível.');
+
+          context.clearRect(0, 0, EXPORT_WIDTH, EXPORT_HEIGHT);
+          context.imageSmoothingEnabled = true;
+          context.imageSmoothingQuality = 'high';
+          drawImageCover(context, baseImage, EXPORT_WIDTH, EXPORT_HEIGHT);
+
+          if (shouldDrawLogo) {
+            const logoImage = await loadImage(logoState.source);
+            const box = calculateLogoBox(
+              EXPORT_WIDTH,
+              EXPORT_HEIGHT,
+              logoImage,
+              settings,
+              logoState
+            );
+            context.drawImage(logoImage, box.x, box.y, box.width, box.height);
+          }
+
+          const suffix = shouldDrawLogo ? '-com-logo' : '-original';
+          const fileName = sanitizeFileName(
+            equipment.slug + '-' + settings.label + suffix
+          ) + '.png';
+          const blob = await canvasToBlob(canvas);
+
+          triggerDownload(blob, fileName);
+          showToast('Download iniciado: ' + fileName, 'success');
+        } catch (error) {
+          console.error(error);
+          showToast(
+            'Não foi possível gerar o PNG. Verifique se a URL da arte permite uso em canvas (CORS).',
+            'error'
+          );
+        }
+      }
+
+      equipmentButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          selectEquipment(button.getAttribute('data-equipment'));
+        });
+      });
+
+      document.querySelectorAll('.js-download').forEach(function (button) {
+        button.addEventListener('click', function () {
+          downloadArt(button.getAttribute('data-art'));
+        });
+      });
+
+      logoPieceButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+          selectLogoArt(button.getAttribute('data-logo-art'));
+        });
+      });
+
+      logoUpload.addEventListener('change', async function () {
+        const file = logoUpload.files && logoUpload.files[0];
+        if (!file) return;
+
+        const hasValidExtension = ALLOWED_LOGO_EXTENSION.test(file.name);
+        const hasValidType = !file.type || ALLOWED_LOGO_TYPES.includes(file.type);
+
+        if (!hasValidExtension || !hasValidType) {
+          logoUpload.value = '';
+          showToast('Envie um logo em PNG, JPG ou WebP.', 'error');
+          return;
+        }
+
+        if (file.size > MAX_LOGO_FILE_SIZE) {
+          logoUpload.value = '';
+          showToast('O arquivo do logo deve ter no máximo 10 MB.', 'error');
+          return;
+        }
+
+        try {
+          const source = await readFileAsDataURL(file);
+          await loadImage(source);
+
+          currentLogoSource = source;
+          currentLogoName = file.name;
+          logoEnabled = true;
+          updateLogoView();
+          showToast('Logo atualizado nas prévias.', 'success');
+        } catch (error) {
+          console.error(error);
+          logoUpload.value = '';
+          showToast('O arquivo selecionado não é uma imagem válida.', 'error');
+        }
+      });
+
+      restoreLogo.addEventListener('click', function () {
+        currentLogoSource = DEFAULT_LOGO;
+        currentLogoName = 'Logo padrão de demonstração';
+        logoEnabled = true;
+        logoUpload.value = '';
+        updateLogoView();
+        showToast('Logo padrão restaurado.', 'success');
+      });
+
+      removeLogo.addEventListener('click', function () {
+        currentLogoSource = '';
+        currentLogoName = 'Sem logotipo';
+        logoEnabled = false;
+        logoUpload.value = '';
+        updateLogoView();
+        showToast('Logotipo removido das prévias.', 'success');
+      });
+
+      logoSize.addEventListener('input', updateSelectedLogoSize);
+      logoOffsetX.addEventListener('input', updateSelectedLogoPosition);
+      logoOffsetY.addEventListener('input', updateSelectedLogoPosition);
+
+      carouselPrev.addEventListener('click', function () {
+        changeCarouselSlide(currentCarouselSlide - 1);
+      });
+
+      carouselNext.addEventListener('click', function () {
+        changeCarouselSlide(currentCarouselSlide + 1);
+      });
+
+      carouselDots.forEach(function (dot) {
+        dot.addEventListener('click', function () {
+          changeCarouselSlide(Number(dot.getAttribute('data-slide')));
+        });
+      });
+
+      carouselDownload.addEventListener('click', function () {
+        downloadArt(currentCarouselArtKey());
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (!carouselCard || !carouselCard.contains(document.activeElement)) return;
+
+        if (event.key === 'ArrowLeft') {
+          event.preventDefault();
+          changeCarouselSlide(currentCarouselSlide - 1);
+        }
+
+        if (event.key === 'ArrowRight') {
+          event.preventDefault();
+          changeCarouselSlide(currentCarouselSlide + 1);
+        }
+      });
+
+      applyAllLogoPreviewStyles();
+      syncLogoControlsFromSelection();
+      updateEquipmentView();
+      updateLogoView();
+    })();
+  </script>
+</body>
+</html>
