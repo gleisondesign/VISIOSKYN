@@ -741,7 +741,61 @@
         background-position:center center, center top;
       }
     }
-  </style>
+  
+    .footer-legal-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 14px 0 16px;
+      font-size: 12px;
+    }
+
+    .footer-legal-bar a {
+      color: rgba(255,255,255,0.65);
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+
+    .footer-legal-bar a:hover {
+      color: var(--gold, #e6c681);
+      text-decoration: underline;
+    }
+
+    .footer-legal-bar .sep {
+      color: rgba(230,198,129,0.6);
+      font-size: 11px;
+    }
+
+    .footer-consent {
+      margin: 14px auto 18px;
+      max-width: 620px;
+      font-size: 12px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.48);
+    }
+
+    .footer-consent a {
+      color: rgba(230,198,129,0.85);
+      text-decoration: underline;
+      transition: color .2s ease;
+    }
+
+    .footer-consent a:hover {
+      color: var(--gold-lite, #f0d89a);
+    }
+
+    .footer-br-web {
+      display: inline;
+    }
+
+    @media (max-width: 680px) {
+      .footer-br-web {
+        display: none;
+      }
+    }
+</style>
 
 </head>
 <body>
@@ -832,14 +886,16 @@
 <footer class="footer">
 
   <div class="footer-logo">
-    <img src="https://www.visioskyn.com/SRC/LOGO_BRANCO_VISIOSKYN.png" alt="VisioSkyn">
+    <a href="https://www.visioskyn.com/" aria-label="Ir para a página inicial da VisioSkyn">
+      <img src="https://www.visioskyn.com/SRC/LOGO_BRANCO_VISIOSKYN.png" alt="VisioSkyn Rental">
+    </a>
   </div>
 
   <div class="footer-links">
     <a href="https://www.visioskyn.com/#equipamentos">Equipamentos</a>
     <a href="https://www.visioskyn.com/agenda">Agende online</a>
     <a href="https://www.visioskyn.com/#locacao">Locação</a>
-    <a href="https://www.visioskyn.com/#marketing">Marketing</a>
+    <a href="https://www.visioskyn.com/marketing">Kit Marketing</a>
     <a href="https://www.visioskyn.com/kit-comercial">Kit comercial</a>
     <a href="https://www.visioskyn.com/#simulador">Simulador</a>
     <a href="https://www.visioskyn.com/#faq">FAQ</a>
@@ -849,7 +905,17 @@
 
   <div class="footer-info">
     Locação premium de equipamentos para estética.<br><br>
-    <strong>© 2026 VisioSkyn. Todos os direitos reservados.</strong><br><br>
+    <strong>© 2026 VisioSkyn Rental. Todos os direitos reservados.</strong>
+    <div class="footer-legal-bar">
+      <a href="/termos-de-uso.html">Termos de Uso</a>
+      <span class="sep">•</span>
+      <a href="/politica-de-privacidade.html">Política de Privacidade</a>
+      <span class="sep">•</span>
+      <a href="/politica-de-cookies">Política de Cookies</a>
+    </div>
+    <div class="footer-consent">
+      Ao enviar seus dados, você declara que leu e concorda com<br class="footer-br-web"> nossos <a href="/termos-de-uso.html">Termos de Uso</a> e nossa <a href="/politica-de-privacidade.html">Política de Privacidade</a>.
+    </div>
     R. Sena Madureira, 151, São Paulo/SP<br><br>
     CNPJ: 54.555.536/0001-00
   </div>
