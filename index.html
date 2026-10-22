@@ -3122,8 +3122,9 @@ src="https://www.facebook.com/tr?id=1593418908566186&ev=PageView&noscript=1"
       font-weight:900;
 
       display:-webkit-box;
-      -webkit-line-clamp:2;
       -webkit-box-orient:vertical;
+      -webkit-line-clamp:2;
+      line-clamp:2;
       overflow:hidden;
       min-height:calc(2 * 1.25em);
     }
@@ -3136,8 +3137,9 @@ src="https://www.facebook.com/tr?id=1593418908566186&ev=PageView&noscript=1"
       flex:1 1 auto;
 
       display:-webkit-box;
-      -webkit-line-clamp:3;
       -webkit-box-orient:vertical;
+      -webkit-line-clamp:3;
+      line-clamp:3;
       overflow:hidden;
       min-height:calc(3 * 1.6em);
     }
@@ -4507,11 +4509,11 @@ src="https://www.facebook.com/tr?id=1593418908566186&ev=PageView&noscript=1"
   <footer id="rodape">
 
 
-<!-- ====== RODAPÉ VISIOSKYN (WEB OK • MOBILE 1 COLUNA • MOBILE SEM LINKS ÚTEIS • SOCIAL ABAIXO DO CNPJ • SOCIAL COM WHATSAPP SP) ====== -->
+<!-- ====== RODAPÉ VISIOSKYN ====== -->
 <footer id="vs-footer" class="vs-ft" aria-label="Rodapé VisioSkyn">
   <div class="vs-ft__wrap">
     <div class="vs-ft__grid">
-      <!-- COL 1: BRAND -->
+      <!-- COL 1: MARCA & REDES SOCIAIS -->
       <div class="vs-ft__brand" aria-label="VisioSkyn Rental">
         <a class="vs-ft__logo" href="#equipamentos" aria-label="Voltar ao início">
           <img
@@ -4524,119 +4526,14 @@ src="https://www.facebook.com/tr?id=1593418908566186&ev=PageView&noscript=1"
           />
         </a>
 
-        <p class="vs-ft__desc">
-          Locação premium de equipamentos para estética.
-        </p>
-
-        <!-- ✅ CONTATOS: APENAS NO MOBILE -->
-        <div class="vs-ft__mcontact" aria-label="Contatos (mobile)">
-          <div class="vs-ft__mcard">
-            <div class="vs-ft__mrow">
-              <span class="vs-ft__mlabel">WhatsApp SP</span>
-              <a class="vs-ft__mval" href="https://wa.me/5511964478583" target="_blank" rel="noopener">+55 (11) 96447-8583</a>
-            </div>
-
-            <div class="vs-ft__mrow">
-              <span class="vs-ft__mlabel">WhatsApp Recife</span>
-              <a class="vs-ft__mval" href="https://wa.me/5581999655568" target="_blank" rel="noopener">+55 (81) 99965-5568</a>
-            </div>
-
-            <div class="vs-ft__mrow">
-              <span class="vs-ft__mlabel">E-mail</span>
-              <a class="vs-ft__mval" href="mailto:comercial@visioskyn.com">comercial@visioskyn.com</a>
-            </div>
-
-            <div class="vs-ft__mrow">
-              <span class="vs-ft__mlabel">Endereço</span>
-              <span class="vs-ft__mval vs-ft__mval--text">R. Sena Madureira, 151, São Paulo/SP</span>
-            </div>
-
-            <div class="vs-ft__mrow">
-              <span class="vs-ft__mlabel">Atendimento</span>
-              <span class="vs-ft__mval vs-ft__mval--text">Seg–Sex — 09:00 às 18:00</span>
-            </div>
-          </div>
+        <div class="vs-ft__desc">
+          Locação premium de equipamentos para estética.<br>
+          © <span id="vsFtYear"></span> VisioSkyn Rental. Todos os direitos reservados.<br>
+          CNPJ: <strong>54.555.536/0001-00</strong>
         </div>
 
-        <!-- legal (web + mobile) -->
-        <div class="vs-ft__legal" aria-label="Informações legais">
-          <div class="vs-ft__legalLine">
-            © <span id="vsFtYear"></span> VisioSkyn Rental. Todos os direitos reservados.
-          </div>
-          <div class="vs-ft__legalLine">
-            CNPJ: <strong>54.555.536/0001-00</strong>
-          </div>
-        </div>
-
-        <!-- ✅ SOCIAL MOBILE (fica abaixo do CNPJ) -->
-        <div class="vs-ft__socialMobile" aria-label="Redes sociais (mobile)">
-          <div class="vs-ft__icons" role="list">
-            <!-- WhatsApp SP (agora imagem https://www.visioskyn.com/SRC/wpp.png) -->
-            <a
-              class="vs-ft__icon"
-              href="https://wa.me/5511964478583"
-              target="_blank"
-              rel="noopener"
-              aria-label="WhatsApp São Paulo"
-              role="listitem"
-              title="WhatsApp São Paulo"
-            >
-              <img src="https://www.visioskyn.com/SRC/wpp.png" alt="" width="20" height="20" loading="lazy" decoding="async" />
-            </a>
-
-            <!-- Instagram -->
-            <a
-              class="vs-ft__icon"
-              href="https://www.instagram.com/visioskyn.rental"
-              target="_blank"
-              rel="noopener"
-              aria-label="Instagram"
-              role="listitem"
-              title="Instagram"
-            >
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9A5.5 5.5 0 0 1 16.5 22h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2Zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9A3.5 3.5 0 0 0 20 16.5v-9A3.5 3.5 0 0 0 16.5 4h-9Zm10.25 1.5a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/>
-              </svg>
-            </a>
-
-            <!-- YouTube (troque o href pelo seu canal) -->
-            <a
-              class="vs-ft__icon"
-              href="#"
-              target="_blank"
-              rel="noopener"
-              aria-label="YouTube"
-              role="listitem"
-              title="YouTube"
-            >
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.8 4.6 12 4.6 12 4.6s-5.8 0-7.5.5A3 3 0 0 0 2.4 7.2 31.7 31.7 0 0 0 2 12a31.7 31.7 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.7.5 7.5.5 7.5.5s5.8 0 7.5-.5a3 3 0 0 0 2.1-2.1A31.7 31.7 0 0 0 22 12a31.7 31.7 0 0 0-.4-4.8ZM10 15.5v-7l6 3.5-6 3.5Z"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- COL 2: LINKS ÚTEIS (WEB) -->
-      <nav class="vs-ft__nav" aria-label="Links úteis">
-        <h3 class="vs-ft__h">Links úteis</h3>
-        <div class="vs-ft__links">
-          <a class="vs-ft__a" href="#equipamentos">Equipamentos</a>
-          <a class="vs-ft__a" href="#locacao">Locação</a>
-          <a class="vs-ft__a" href="#marketing">Marketing</a>
-          <a class="vs-ft__a" href="#simulador">Simulador</a>
-          <a class="vs-ft__a" href="#faq">FAQ</a>
-          <a class="vs-ft__a" href="#conteudos">Conteúdos</a>
-          <a class="vs-ft__a" href="#contato">Contato</a>
-        </div>
-      </nav>
-
-      <!-- COL 3: SOCIAL (WEB) -->
-      <div class="vs-ft__socialCol" aria-label="Redes sociais">
-        <h3 class="vs-ft__h">Social</h3>
-
-        <div class="vs-ft__icons" role="list">
-          <!-- WhatsApp SP (agora imagem /SRC/wpp.png) -->
+        <div class="vs-ft__icons" role="list" aria-label="Redes sociais">
+          <!-- WhatsApp SP -->
           <a
             class="vs-ft__icon"
             href="https://wa.me/5511964478583"
@@ -4646,9 +4543,10 @@ src="https://www.facebook.com/tr?id=1593418908566186&ev=PageView&noscript=1"
             role="listitem"
             title="WhatsApp São Paulo"
           >
-            <img src="https://www.visioskyn.com/SRC/wpp.png" alt="" width="20" height="20" loading="lazy" decoding="async" />
+            <img src="https://www.visioskyn.com/SRC/wpp.png" alt="WhatsApp" width="20" height="20" loading="lazy" decoding="async" />
           </a>
 
+          <!-- Instagram -->
           <a
             class="vs-ft__icon"
             href="https://www.instagram.com/visioskyn.rental"
@@ -4663,20 +4561,36 @@ src="https://www.facebook.com/tr?id=1593418908566186&ev=PageView&noscript=1"
             </svg>
           </a>
 
-          <a
-            class="vs-ft__icon"
-            href="#"
-            target="_blank"
-            rel="noopener"
-            aria-label="YouTube"
-            role="listitem"
-            title="YouTube"
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M21.6 7.2a3 3 0 0 0-2.1-2.1C17.8 4.6 12 4.6 12 4.6s-5.8 0-7.5.5A3 3 0 0 0 2.4 7.2 31.7 31.7 0 0 0 2 12a31.7 31.7 0 0 0 .4 4.8 3 3 0 0 0 2.1 2.1c1.7.5 7.5.5 7.5.5s5.8 0 7.5-.5a3 3 0 0 0 2.1-2.1A31.7 31.7 0 0 0 22 12a31.7 31.7 0 0 0-.4-4.8ZM10 15.5v-7l6 3.5-6 3.5Z"/>
-            </svg>
-          </a>
+
         </div>
+      </div>
+
+      <!-- COL 2: LINKS ÚTEIS (2 COLUNAS LADO A LADO) -->
+      <nav class="vs-ft__nav" aria-label="Links úteis">
+        <h3 class="vs-ft__h">Links Úteis</h3>
+        <div class="vs-ft__links-cols">
+          <div class="vs-ft__links-col">
+            <a class="vs-ft__a" href="#equipamentos">Equipamentos</a>
+            <a class="vs-ft__a" href="#locacao">Locação</a>
+            <a class="vs-ft__a" href="/marketing">Kit Marketing</a>
+            <a class="vs-ft__a" href="#simulador">Simulador</a>
+            <a class="vs-ft__a" href="#faq">FAQ</a>
+          </div>
+          <div class="vs-ft__links-col">
+            <a class="vs-ft__a" href="#conteudos">Conteúdos</a>
+            <a class="vs-ft__a" href="#contato">Contato</a>
+            <a class="vs-ft__a" href="/termos-de-uso.html">Termos de Uso</a>
+            <a class="vs-ft__a" href="/politica-de-privacidade.html">Política de Privacidade</a>
+            <a class="vs-ft__a" href="/politica-de-cookies">Política de Cookies</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <!-- SUB-RODAPÉ: DECLARAÇÃO DE CONSENTIMENTO EM LINHA ÚNICA NO WEB -->
+    <div class="vs-ft__bottom" aria-label="Informações legais">
+      <div class="vs-ft__consent">
+        Ao enviar seus dados, você declara que leu e concorda com nossos <a href="/termos-de-uso.html">Termos de Uso</a> e nossa <a href="/politica-de-privacidade.html">Política de Privacidade</a>.
       </div>
     </div>
   </div>
@@ -4693,7 +4607,7 @@ src="https://www.facebook.com/tr?id=1593418908566186&ev=PageView&noscript=1"
       color:rgba(226,226,226,.92);
       position:relative;
       overflow:hidden;
-      padding:88px 0 62px;
+      padding:76px 0 54px;
     }
 
     #vs-footer::before{
@@ -4707,20 +4621,21 @@ src="https://www.facebook.com/tr?id=1593418908566186&ev=PageView&noscript=1"
     }
 
     .vs-ft, .vs-ft *{box-sizing:border-box}
-    .vs-ft a, .vs-ft button{font-family:Helvetica,Arial,sans-serif}
+    .vs-ft a, .vs-ft button, .vs-ft p, .vs-ft span, .vs-ft div{font-family:Helvetica,Arial,sans-serif}
 
     .vs-ft__wrap{
       position:relative;
       z-index:1;
-      max-width:1100px;
+      max-width:1140px;
       margin:0 auto;
-      padding:0 18px;
+      padding:0 24px;
     }
 
+    /* GRID PRINCIPAL: 2 COLUNAS */
     .vs-ft__grid{
       display:grid;
-      grid-template-columns: 1.25fr .75fr .55fr;
-      gap:52px;
+      grid-template-columns: 1fr 1.15fr;
+      gap:75px;
       align-items:start;
     }
 
@@ -4728,190 +4643,165 @@ src="https://www.facebook.com/tr?id=1593418908566186&ev=PageView&noscript=1"
     .vs-ft__logo img{display:block; height:auto}
 
     .vs-ft__desc{
-      margin:16px 0 0;
-      font-size:15px;
-      line-height:1.75;
-      color:rgba(226,226,226,.82);
-      max-width:52ch;
-    }
-
-    .vs-ft__legal{
-      margin-top:18px;
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-      font-size:15px;
+      margin:18px 0 20px;
+      font-size:14px;
       line-height:1.65;
       color:rgba(226,226,226,.82);
-      font-weight:800;
+      max-width:48ch;
     }
-    .vs-ft__legal strong{color:rgba(226,226,226,.92)}
+    .vs-ft__desc strong{
+      color:rgba(226,226,226,.92);
+      font-weight:700;
+    }
 
     .vs-ft__h{
-      margin:0 0 14px;
-      font-size:12px;
-      letter-spacing:.14em;
+      margin:0 0 16px;
+      font-size:13px;
+      letter-spacing:.12em;
       text-transform:uppercase;
       font-weight:900;
-      color:rgba(230,198,129,.95);
+      color:var(--c-gold);
     }
 
-    .vs-ft__links{
+    /* LINKS DE NAVEGAÇÃO EM 2 SUB-COLUNAS */
+    .vs-ft__links-cols{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap:12px 36px;
+    }
+
+    .vs-ft__links-col{
       display:flex;
       flex-direction:column;
       gap:12px;
     }
 
     .vs-ft__a{
-      color:rgba(226,226,226,.86);
+      color:rgba(226,226,226,.84);
       text-decoration:none;
-      font-weight:900;
-      font-size:14.5px;
-      line-height:1.25;
+      font-weight:600;
+      font-size:14px;
+      line-height:1.35;
       width:fit-content;
       border-bottom:1px solid transparent;
       padding-bottom:2px;
+      transition:color .2s ease, border-color .2s ease;
     }
     .vs-ft__a:hover{
-      color:rgba(226,226,226,.96);
+      color:var(--c-gold);
       border-bottom-color:rgba(230,198,129,.75);
     }
 
+    /* REDES SOCIAIS */
     .vs-ft__icons{display:flex; gap:10px; align-items:center; flex-wrap:wrap}
     .vs-ft__icon{
-      width:46px;height:46px;
+      width:42px;height:42px;
       border-radius:999px;
-      border:1px solid rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.14);
       background:rgba(255,255,255,.06);
       display:inline-flex;
       align-items:center;
       justify-content:center;
       text-decoration:none;
-      transition:background-color .15s ease, transform .15s ease;
+      transition:background-color .15s ease, transform .15s ease, border-color .15s ease;
       overflow:hidden;
     }
-    .vs-ft__icon:hover{background:rgba(255,255,255,.10); transform:translateY(-1px)}
-    .vs-ft__icon:active{transform:translateY(0)}
+    .vs-ft__icon:hover{
+      background:rgba(230,198,129,.14);
+      border-color:rgba(230,198,129,.5);
+      transform:translateY(-2px);
+    }
     .vs-ft__icon svg{
-      width:20px;height:20px;
+      width:19px;height:19px;
       fill:rgba(226,226,226,.92);
       display:block;
     }
-
-    /* ✅ imagem do WhatsApp */
     .vs-ft__icon img{
-      width:20px;
-      height:20px;
+      width:19px;height:19px;
       display:block;
       object-fit:contain;
-      filter:none;
     }
 
-    /* Mobile contacts (apenas mobile) */
-    .vs-ft__mcontact{display:none; margin-top:18px;}
-    .vs-ft__mcard{
-      width:100%;
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:18px;
-      background:rgba(255,255,255,.06);
-      padding:14px 14px 12px;
-      display:flex;
-      flex-direction:column;
-      gap:12px;
+    /* SUB-RODAPÉ */
+    .vs-ft__bottom{
+      margin-top:50px;
+      padding-top:26px;
+      border-top:1px solid rgba(255,255,255,.08);
+      text-align:center;
     }
-    .vs-ft__mrow{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      padding:10px 0;
-      border-bottom:1px solid rgba(255,255,255,.10);
-    }
-    .vs-ft__mrow:last-child{border-bottom:none; padding-bottom:0}
 
-    .vs-ft__mlabel{
-      font-weight:900;
-      font-size:11.5px;
-      letter-spacing:.2px;
-      text-transform:uppercase;
+    .vs-ft__consent{
+      font-size:14px;
+      line-height:1.6;
       color:rgba(226,226,226,.70);
+      text-align:center;
+      margin:0 auto;
+      white-space:nowrap;
     }
-    .vs-ft__mval{
-      font-weight:900;
-      color:rgba(226,226,226,.92);
-      font-size:14.5px;
-      line-height:1.35;
-      text-decoration:none;
-      width:fit-content;
+    .vs-ft__consent a{
+      color:rgba(230,198,129,.95);
+      text-decoration:underline;
+      font-size:14px;
+      font-weight:600;
+      transition:color .2s ease;
     }
-    .vs-ft__mval:hover{text-decoration:underline}
-    .vs-ft__mval--text{cursor:default}
-    .vs-ft__mval--text:hover{text-decoration:none}
+    .vs-ft__consent a:hover{
+      color:#ffffff;
+    }
 
-    /* Social mobile: só no mobile */
-    .vs-ft__socialMobile{display:none}
-
-    @media (max-width:980px){
+    /* RESPONSIVIDADE */
+    @media (max-width:960px){
       .vs-ft__grid{
-        grid-template-columns: 1fr 1fr;
-        gap:40px;
+        gap:75px;
       }
-      .vs-ft__socialCol{grid-column:2}
+      .vs-ft__consent{
+        white-space:normal;
+        max-width:640px;
+      }
     }
 
-    /* ✅ MOBILE: tudo centralizado + mais respiro */
-    @media (max-width:700px){
-      #vs-footer{padding:98px 0 78px}
-
+    @media (max-width:680px){
+      #vs-footer{
+        padding:56px 0 42px;
+      }
       .vs-ft__grid{
         grid-template-columns:1fr;
-        gap:32px; /* mais respiro entre blocos */
+        gap:75px;
+        text-align:center;
       }
-
-      /* some com links e social "web" */
-      .vs-ft__nav{display:none !important;}
-      .vs-ft__socialCol{display:none !important;}
-
-      .vs-ft__brand{ text-align:center; }
-      .vs-ft__logo{justify-content:center; width:100%}
+      .vs-ft__logo{
+        justify-content:center;
+      }
       .vs-ft__desc{
         margin-left:auto;
         margin-right:auto;
-        margin-top:18px;
       }
-
-      .vs-ft__mcontact{
-        display:block;
-        margin-top:22px; /* mais respiro */
+      .vs-ft__icons{
+        justify-content:center;
       }
-
-      .vs-ft__mcard{
-        max-width:520px;
+      .vs-ft__links-cols{
+        grid-template-columns:1fr 1fr;
+        gap:12px 20px;
+      }
+      .vs-ft__a{
+        width:auto;
         margin:0 auto;
-        text-align:center; /* ✅ centraliza conteúdo no mobile */
-        padding:18px 16px 16px; /* mais respiro */
-        gap:14px;
       }
-
-      .vs-ft__mrow{
-        align-items:center; /* centraliza linhas */
-        padding:12px 0;     /* mais respiro */
+      .vs-ft__bottom{
+        margin-top:36px;
+        padding-top:22px;
       }
-
-      .vs-ft__mval{ width:auto; }
-
-      .vs-ft__legal{
-        align-items:center;
+      .vs-ft__consent{
+        white-space:normal;
         text-align:center;
-        margin-top:18px;
-        gap:12px; /* mais respiro */
       }
+    }
 
-      /* ✅ social fica abaixo do CNPJ */
-      .vs-ft__socialMobile{
-        display:block;
-        margin-top:18px; /* mais respiro */
+    @media (max-width:440px){
+      .vs-ft__links-cols{
+        grid-template-columns:1fr;
+        gap:10px;
       }
-      .vs-ft__icons{justify-content:center}
     }
   </style>
 
